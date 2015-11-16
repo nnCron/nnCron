@@ -8,10 +8,12 @@
 
 # nnCron [en]
 
-nnCron is an advanced and very powerful scheduler, scripting tool and automation manager. nnCron is very small in size (900k), but its capabilities are truly colossal. Besides possessing the traditional scheduler features (starting programs, displaying reminder messages and opening documents at specified time), nnCron also can:
+nnCron is an advanced and very powerful scheduler, scripting tool and automation manager. nnCron is very small in size (900k), but its capabilities are truly colossal.
 
-# Features
+## Features
 
+Besides possessing the traditional scheduler features (starting programs, displaying reminder messages and opening documents at specified time), nnCron also can:
+ 
 * start any program as a service
 * run tasks as if they were started by specified user
 * handle and restart so called missed tasks and reminders
@@ -43,7 +45,11 @@ nnCron has its own powerful (Forth-compatible) scripting language, allows to use
 
 # nnCron [ru]
  
-nnCron - это компактный (900k), но мощный планировщик и менеджер автоматизации с собственным скриптовым языком, основанным на синтаксисе языка программирования Форт. Помимо традиционной для планировщика способности запускать в указанное время программы, "напоминалки" и открывать документы, nnCron умеет:
+nnCron - это компактный (900k), но мощный планировщик и менеджер автоматизации с собственным скриптовым языком, основанным на синтаксисе языка программирования Форт. 
+
+## Осбенности
+
+Помимо традиционной для планировщика способности запускать в указанное время программы, "напоминалки" и открывать документы, nnCron умеет:
 
 * запускать произвольные программы как сервисы
 * запускать задачи "от имени" указанных юзеров
