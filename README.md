@@ -2,9 +2,11 @@
 
 [![Join the chat at https://gitter.im/nnCron/nnCron](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nnCron/nnCron?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-# [en] [ru]
+# Select language: [English](#nncron-en) [Russian](#nncron-ru)
 
 ---
+
+# nnCron [en]
 
 nnCron is an advanced and very powerful scheduler, scripting tool and automation manager. nnCron is very small in size (900k), but its capabilities are truly colossal. Besides possessing the traditional scheduler features (starting programs, displaying reminder messages and opening documents at specified time), nnCron also can:
 
