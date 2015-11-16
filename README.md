@@ -37,7 +37,7 @@ nnCron has its own powerful (Forth-compatible) scripting language, allows to use
 ## OS support
 
 * Windows desktop: 2000, XP, Vista, 7, 8, 8.1, 10 
-* Windows Server: 2003, Home, 2008, 2012, 2012 R2
+* Windows server: 2003, Home, 2008, 2012, 2012 R2
 
 ---
 
@@ -74,5 +74,5 @@ nnCron бесплатен для граждан стран бывшего ССС
 ## Поддерживаемые ОС
 
 * Windows desktop: 2000, XP, Vista, 7, 8, 8.1, 10 
-* Windows Server: 2003, Home, 2008, 2012, 2012 R2
+* Windows server: 2003, Home, 2008, 2012, 2012 R2
 
