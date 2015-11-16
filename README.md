@@ -34,7 +34,7 @@ nnCron understands cron table format (Unix) and is managed with easy-to-edit pla
 
 nnCron has its own powerful (Forth-compatible) scripting language, allows to use VBScript/JScript, as well as regular expressions, and can be further extended with plugins. It can be started as a service or as a regular standalone application. You can examine nnCron features in depth by reading it's online documentation.
 
-# OS support
+## OS support
 
 * Windows desktop: 2000, XP, Vista, 7, 8, 8.1, 10 
 * Windows Server: 2003, Home, 2008, 2012, 2012 R2
@@ -67,7 +67,7 @@ nnCron позволяет использовать в задачах VBScript/JS
 
 nnCron бесплатен для граждан стран бывшего СССР при условии частного и некоммерческого использования. Для коммерческого или корпоративного использования программы нужно получить платную лицензию. Инструкции по платной и бесплатной регистрации nnCron даны в соответствующем разделе.
 
-# Поддерживаемые ОС
+## Поддерживаемые ОС
 
 * Windows desktop: 2000, XP, Vista, 7, 8, 8.1, 10 
 * Windows Server: 2003, Home, 2008, 2012, 2012 R2
