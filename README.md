@@ -4,7 +4,10 @@
 
 * [nnCron Plugins](https://github.com/nnCron/plugins)
 * [nnCron Official website](http://nncron.ru)
-* [nnCron Forums](http://www.nncron.ru/forums/) / [en](http://www.nncron.ru/forums/viewforum.php?f=2) / [ru](http://www.nncron.ru/forums/viewforum.php?f=5)
+* [nnCron Forums](http://www.nncron.ru/forums/) / [english](http://www.nncron.ru/forums/viewforum.php?f=2) / [russian](http://www.nncron.ru/forums/viewforum.php?f=5)
+* [Download nnCron 1.93b13 Build 1172](http://www.nncron.ru/download/nncron193b13.exe)
+* nnCron online manual: [english](http://www.nncron.ru/help/help.htm) / [russian](http://www.nncron.ru/help/help_ru.htm)
+* nnCron offline manual: [english](http://www.nncron.ru/download/help.zip) / [russian](http://www.nncron.ru/download/help_ru.zip)
 
 ---
 
