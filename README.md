@@ -3,6 +3,8 @@
 [![Join the chat at https://gitter.im/nnCron/nnCron](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nnCron/nnCron?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 * [nnCron Plugins](https://github.com/nnCron/plugins)
+* [nnCron Official website](http://nncron.ru)
+* [nnCron Forums](http://www.nncron.ru/forums/) / [en](http://www.nncron.ru/forums/viewforum.php?f=2) / [ru](http://www.nncron.ru/forums/viewforum.php?f=5)
 
 ---
 
@@ -13,7 +15,7 @@ nnCron is an advanced and very powerful scheduler, scripting tool and automation
 ## Features
 
 Besides possessing the traditional scheduler features (starting programs, displaying reminder messages and opening documents at specified time), nnCron also can:
- 
+
 * start any program as a service
 * run tasks as if they were started by specified user
 * handle and restart so called missed tasks and reminders
@@ -38,14 +40,14 @@ nnCron has its own powerful (Forth-compatible) scripting language, allows to use
 
 ## OS support
 
-* Windows desktop: 2000, XP, Vista, 7, 8, 8.1, 10 
+* Windows desktop: 2000, XP, Vista, 7, 8, 8.1, 10
 * Windows server: 2003, Home, 2008, 2012, 2012 R2
 
 ---
 
 # nnCron [ru]
- 
-nnCron - это компактный (900k), но мощный планировщик и менеджер автоматизации с собственным скриптовым языком, основанным на синтаксисе языка программирования Форт. 
+
+nnCron - это компактный (900k), но мощный планировщик и менеджер автоматизации с собственным скриптовым языком, основанным на синтаксисе языка программирования Форт.
 
 ## Осбенности
 
@@ -75,6 +77,6 @@ nnCron бесплатен для граждан стран бывшего ССС
 
 ## Поддерживаемые ОС
 
-* Windows desktop: 2000, XP, Vista, 7, 8, 8.1, 10 
+* Windows desktop: 2000, XP, Vista, 7, 8, 8.1, 10
 * Windows server: 2003, Home, 2008, 2012, 2012 R2
 
