@@ -1,0 +1,351 @@
+\ This is English nnCron interface translation.
+\ Feel free to report translation errors or suggestions
+\ to the maintainer: Nicholas Nemtsev <support@nncron.ru>
+\ You can find more translations by pointing your browser to
+\ http://www.nncron.ru/translation.shtml
+
+\ [Main Menu]
+10 Options
+11 Help
+12 Start Task
+13 Edit
+14 New Task
+15 Exit
+16 New Reminder
+17 About nnCron
+18 View Log
+19 Buy nnCron Now!
+20 Tools
+21 WinSpy
+22 Console
+23 Reload Crontabs
+24 Disable nnCron
+25 Enable nnCron
+
+\ [Task] - prompt
+30 Would you like to run application?
+
+\ [Task]
+100 nnCron: New Task
+101 Time and Options
+102 Action
+103 Condition
+104 Advanced
+110 Task Name
+111 nnCron. Edit Task
+112 File
+
+\ [Task | Time and options]
+120 Once
+121 Minutely
+122 Hourly
+123 Daily
+124 Weekly
+125 Monthly
+126 Annually
+127 On event
+128 Cron time format
+
+130 At
+131 On
+132 every
+133 on the
+134 day of the month
+135 minutes after every
+136 At
+137 Week days...
+138 hours
+139 minutes
+
+140 Write to log
+141 Remove after execution
+142 Active
+143 Run missed task
+144 hh:mm/days
+
+150 Run as user
+151 Name
+152 Password
+153 Domain
+154 Logon type
+155 Interactive
+156 Batch
+157 Network
+158 On
+159 Run as logged user
+
+160 Monday
+161 Tuesday
+162 Wednesday
+163 Thursday
+164 Friday
+165 Saturday
+166 Sunday
+167 Week days
+
+170 minutes
+171 hours
+172 days
+173 months
+174 year
+
+180 Directory name
+181 File name
+182 Mask
+183 Minute Hour Day Month Weekday Year
+184 Window title
+185 Minute Hour Day Month Weekday
+186 Drive letter
+187 Process name
+188 Hot key
+189 User mask
+
+\ [Task | Action]
+190 Application or document path
+191 Parameters
+192 Startup folder
+193 Path of WAV file
+194 Play synchronously
+195 Text of message
+196 Timeout (s)
+197 Duration (ms)
+198 Frequency
+199 Script text
+
+
+\ [Task] - buttons
+200 OK
+201 Cancel
+202 Delete
+203 Help
+
+209 Test
+
+\ [Task | Action]
+210 Run application or open document
+211 Run script
+212 Show message
+213 Play sound (wav)
+214 Beep
+215 Dial
+216 Hangup
+217 Show window
+218 Hide window
+219 Close window
+220 Terminate application
+221 Click button
+222 Insert text into clipboard
+223 Shutdown
+224 Reboot
+225 Purge directory
+226 Terminate process
+
+\ [Task | Condition]
+260 <without condition>
+261 File or folder exists
+262 Window exists
+263 Online
+264 File empty
+265 Host exists (ping)
+266 Query
+267 Process exists
+268 POP3 mailbox has a mail
+
+280
+281 Path
+282 Title
+283 Connection
+284 Path
+285 Name or IP
+286 Query text
+287 Name
+288 POP3 server
+
+\ [Task | Action | Run application or open document]
+300 Open
+301 Normal
+302 Maximized
+303 Minimized
+304 Hidden
+
+310 Priority
+311 Normal
+312 High
+313 Realtime
+314 Idle
+
+320 Prompt for confirmation
+321 Wait for completion
+322 Title
+323 Button
+324 Text
+325 Power off
+326 Not
+327 Path\mask
+328 Age of files to remove (days)
+329 As service
+
+\ [Task] - captions and prompts
+330 Choose application or document
+331 Choose file
+332 Event parameter (path, mask etc.) cannot be empty
+333 Rule parameter (path, connection, window title etc.) cannot be empty
+334 User name is not specified
+335 Task name is not specified
+336 'Start in' folder not found
+337 Path not found
+338 Write error # %IO-ERR%%crlf%%IO-ERR-TXT%%crlf%
+339 Name
+
+\ [Task | Action | Dialin]
+340 Connection
+341 User name
+342 Password
+343 Domain
+344 Attempts
+345 Pause, s
+
+\ [Task] - caption
+400 Task definition
+
+\ [Reminder]
+410 nnCron: Reminder
+411 Snooze
+412 OK
+413 Remind me again in
+414 Snooze
+415 Close
+
+420 nnCron: New Reminder
+421 Time
+422 Date
+423 Display missed reminder
+
+\ [Options | General]
+450 nnCron: Options
+451 Task file
+452 Add
+453 Task files
+454 Delete
+455 Log file
+456 Log time
+457 nncron.ini
+458 Default window mode
+459 Default priority
+460 Language
+461 Edit
+
+\ [Options] - prompts etc.
+462 You have to restart nnCron in order to enable configuration changes
+463 Do you want to save configuration?
+464 User
+465 Password
+466 Registration
+467 Registration name
+468 Registration code
+469 Restart nnCron?
+
+470 nnCron: Task file
+471 Enter task filename
+
+472 nnCron: Plugin
+473 Enter plugin path
+
+474 Help file
+
+480 Load profile
+
+481 Show error messages
+482 On left button double click
+483 On right button click
+
+
+\ [Logging]
+500 Startup
+501 Directory is changed
+502 File is created/changed
+503 Connection is established
+504 Connection is broken
+505 Clipboard is changed
+506 Window created
+507 Window activated
+508 Window destroyed
+509 Window title changed
+510 CD is inserted
+511 CD is removed
+512 Process is started
+513 Process is stopped
+514 Log off
+515 Shutdown
+516 Hot key
+517 Log on user
+518 Log off user
+
+\ [Messages]
+600 Can't logon user. Error # %IO-ERR%%crlf%%IO-ERR-TXT%
+601 User name, password, domain and logon type are correct.
+602 Test logon
+603 Reminder is empty.
+604 Load file error # %IO-ERR%%crlf%%IO-ERR-TXT%
+605 nnCron is not started
+
+\ [Options]
+700 General
+701 Interface
+702 Authorization
+703 Plugins
+
+\ [Options | General]
+720 Default editor
+721 Year field
+722 Backup path
+
+\ [Options | Interface]
+723 System tray icon
+724 Menu items
+725 Options
+726 Exit
+727 Tools/Console
+728 Open console at startup
+
+\ [ Options | General]
+729 Crash guard
+
+\ [Options | Authorisation]
+730 Run all tasks "as user":
+731 Load user profile
+732 Name:
+733 Password:
+734 Domain:
+735 Run GUI "as user":
+
+\ [Options | Plugins]
+740 Plugins list
+
+\ [Options | Interface]
+750 For admins only
+
+\ [Buy now URL]
+777 http://www.shareit.com/product.html?cart=1&productid=154474
+
+
+800 Crontab:
+801 Next time
+802 Last time
+
+\ [Error messages]
+10000 Error messages
+10001 Can't logon User. %WIN-ERR-STR%
+10002 Can't get logged user token. %WIN-ERR-STR%
+10003 WARNING: %CUR-TAB-FILENAME COUNT% line:%CURSTR @ N>S% pos:%>IN1 @ N>S%. Invalid time specification. Possible range is [%BEG-RANGE N>S%-%END-RANGE N>S%].
+10004 Rule error. %WIN-ERR-STR%
+10005 Rule: stack error.
+10006 Task deleting ERROR. %WIN-ERR-STR%
+10007 %CSP-NAME 2@%. Stack has garbage (%CSP-DIFF ABS%)
+10008 %CSP-NAME 2@%. Stack is destroyed (%CSP-DIFF%)
+10009 Internal error. %WIN-ERR-STR%
+10010 TASK STACK ERROR
+10011 Crontab syntax ERROR!!!. Task file: %CUR-TAB-FILENAME COUNT%. Line: %CURSTR @%
+10012 MAIN:LOAD-CRONTAB
+10013 Invalid time specification: Reminder time cannot be earlier than current time.
+10014 Action: stack error.

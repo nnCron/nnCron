@@ -1,0 +1,23 @@
+WINAPI: GetPrivateProfileStringA KERNEL32.DLL
+WINAPI: WritePrivateProfileStringA KERNEL32.DLL
+
+USER INI_FileName
+USER INI_SectionName
+
+: INI-FILENAME ( a u -- ) S>ZALLOC INI_FileName ! ;
+: INI-SECTION ( a u -- ) S>ZALLOC INI_SectionName ! ;
+
+: INI-GET-VALUE ( a1 u1 -- a2 u2 )
+    { \ key val -- }
+    S>ZTEMP TO key
+    256 TEMP-ALLOC TO val
+    INI_FileName @ 255 val Z" default value" key INI_SectionName @ GetPrivateProfileStringA
+    val SWAP
+;
+
+: INI-SET-VALUE ( a1 u1 a2 u2  -- )
+    { \ key val -- }
+    S>ZTEMP TO val
+    S>ZTEMP TO key
+  INI_FileName @ val key INI_SectionName @ WritePrivateProfileStringA DROP
+;

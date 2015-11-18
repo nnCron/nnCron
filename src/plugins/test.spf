@@ -1,0 +1,9 @@
+S" time.spf" INCLUDED
+: main
+    CONSOLE
+    CUR-FTIME               2DUP D. CR
+    FILE-TIME: time.spf     2DUP D. CR
+    FTIME- 60 /MOD . . CR
+    .TIME CR
+    KEY DROP
+;

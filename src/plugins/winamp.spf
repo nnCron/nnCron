@@ -1,0 +1,150 @@
+\ File:         winamp.spf
+\ Date:         25.05.2003
+\ Author:       Nicholas Nemtsev, Valery Kondakoff
+\ Description:  Additioal words to control WinAmp 2.xx (play, pause, stop,
+\               vol-up, vol-down, next-track, previous-track etc).
+\               You can use these words in your tasks or assign keyboard 
+\               hotkeys to any of them.
+
+\ New words:    WINAMP-UP-VOLUME
+\               WINAMP-DOWN-VOLUME
+\               WINAMP-PLAY
+\               WINAMP-PAUSE
+\               WINAMP-STOP
+\               WINAMP-CLOSE
+\               WINAMP-FF
+\               WINAMP-FR
+\               WINAMP-NEXT-TRACK
+\               WINAMP-PREVIOUS-TRACK
+\               WINAMP-TOGGLE-SHUFFLE
+\               WINAMP-TOGGLE-REPEAT
+
+0 [IF]   \ this is a comment string
+
+Examples:
+#( test_winamp_play
+WatchHotKey: "^@{F5}" 
+Action:
+    WINAMP-PLAY
+)#
+
+#( test_winamp_next_track
+WatchHotKey: "^@{PGDN}"
+Action:
+   WINAMP-NEXT-TRACK
+)#
+
+#( test_winamp_down_volume
+MonitorResponseTime
+10 TO MonitorResponseTime
+WatchHotKey: "^@{DOWN}"
+TO MonitorResponseTime
+Action:
+   WINAMP-DOWN-VOLUME
+)#
+
+#( test_winamp_ff
+MonitorResponseTime
+100 TO MonitorResponseTime
+WatchHotKey: "^@{RIGHT}"
+TO MonitorResponseTime
+Action:
+    WINAMP-FF
+)#
+
+#( test_winamp_toggle_shuffle
+WatchHotKey: "^@s"
+Action:
+    WINAMP-TOGGLE-SHUFFLE
+)#
+
+[THEN]   \ this is a comment string
+
+
+: WINAMP-OP { msg cnt -- }
+    WIN-EXIST: "Winamp v1.x"
+    IF
+      cnt 0 DO
+       0 msg 273 WIN-HWND SendMessageA DROP
+      LOOP
+    THEN
+;
+
+: NWINAMP-OP: ( compiling: msg cnt -- )
+              ( executing: -- )
+    CREATE C, ,
+    DOES> COUNT SWAP @ SWAP WINAMP-OP 
+;
+
+: WINAMP-OP: 1 NWINAMP-OP: ;
+
+40058 5 NWINAMP-OP: WINAMP-UP-VOLUME
+40059 5 NWINAMP-OP: WINAMP-DOWN-VOLUME
+40045 WINAMP-OP: WINAMP-PLAY
+40046 WINAMP-OP: WINAMP-PAUSE
+40047 WINAMP-OP: WINAMP-STOP
+40001 WINAMP-OP: WINAMP-CLOSE
+40148 WINAMP-OP: WINAMP-FF
+40144 WINAMP-OP: WINAMP-FR
+40048 WINAMP-OP: WINAMP-NEXT-TRACK
+40044 WINAMP-OP: WINAMP-PREVIOUS-TRACK
+40022 WINAMP-OP: WINAMP-TOGGLE-REPEAT
+40023 WINAMP-OP: WINAMP-TOGGLE-SHUFFLE
+
+
+\ Windows Messages that you can use with WinAmp (WM_COMMAND Messages):
+
+\ Previous track button               40044
+\ Next track button                   40048
+\ Play button                         40045
+\ Pause/Unpause button                40046
+\ Stop button                         40047
+\ Fadeout and stop                    40147
+\ Stop after current track            40157
+\ Fast-forward 5 seconds              40148
+\ Fast-rewind 5 seconds               40144
+\ Start of playlist                   40154
+\ Go to end of playlist               40158
+\ Open file dialog                    40029
+\ Open URL dialog                     40155
+\ Open file info box                  40188
+\ Set time display mode to elapsed    40037
+\ Set time display mode to remaining  40038
+\ Toggle preferences screen           40012
+\ Open visualization options          40190
+\ Open visualization plug-in options  40191
+\ Execute current visualization plug-in 40192
+\ Toggle about box                    40041
+\ Toggle title Autoscrolling          40189
+\ Toggle always on top                40019
+\ Toggle Windowshade                  40064
+\ Toggle Playlist Windowshade         40266
+\ Toggle doublesize mode              40165
+\ Toggle EQ                           40036
+\ Toggle playlist editor              40040
+\ Toggle main window visible          40258
+\ Toggle minibrowser                  40298
+\ Toggle easymove                     40186
+\ Raise volume by 1%                  40058
+\ Lower volume by 1%                  40059
+\ Toggle repeat                       40022
+\ Toggle shuffle                      40023
+\ Open jump to time dialog            40193
+\ Open jump to file dialog            40194
+\ Open skin selector                  40219
+\ Configure current visualization plug-in 40221
+\ Reload the current skin             40291
+\ Close Winamp                        40001
+\ Moves back 10 tracks in playlist    40197
+\ Show the edit bookmarks             40320
+\ Adds current track as a bookmark    40321
+\ Play audio CD                       40323
+\ Load a preset from EQ               40253
+\ Save a preset to EQF                40254
+\ Opens load presets dialog           40172
+\ Opens auto-load presets dialog      40173
+\ Load default preset                 40174
+\ Opens save preset dialog            40175
+\ Opens auto-load save preset         40176
+\ Opens delete preset dialog          40178
+\ Opens delete an auto load preset dialog 40180

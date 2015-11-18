@@ -1,0 +1,86 @@
+\ File:        np.spf
+\ Date:        02.04.2003
+\ Author:      Valery Kondakoff
+
+\ Description: 'Now playing' plugin for use with WinAmp 2.* and 
+\              compatible mp3-players. It gets the info about a 
+\              song, that is currently played and writes it to 
+\              the user specified file.
+
+\ New words:   NOW-PLAYING: "filename"
+
+\ Examples:
+
+\ #( test_now_playing
+\ SingleInstance
+\ Time: *
+\ Also
+\ WatchProc: "winamp.exe"
+\ Rule: PROC-EXIST: "winamp.exe"
+\ Action:
+	\ NOW-PLAYING: "D:\TOOLS\WINAMP\np.txt"
+\ )#
+
+
+\ defining WIN > OEM char encoding conversion word
+C" WIN2OEM" FIND NIP 0=
+[IF]
+	: WIN2OEM ( a u -- a u ) 2DUP SWAP DUP CharToOemBuffA DROP ;
+[THEN]
+
+USER-CREATE WINAMP_TITLE 256 USER-ALLOT
+USER-CREATE WINAMP_NEW_TITLE 256 USER-ALLOT
+USER-CREATE np_text 256 USER-ALLOT
+USER-CREATE np_stopped_text 256 USER-ALLOT
+USER-CREATE np_paused_text 256 USER-ALLOT
+USER-CREATE np_file 256 USER-ALLOT
+
+\ writes the title of a song that is currently played in Winamp 
+\ to a user-specified text file.
+: NOW-PLAYING
+np_file PLACE
+S" np: " np_text PLACE
+S"  [stopped]" np_stopped_text PLACE
+S"  [paused]" np_paused_text PLACE
+
+    BEGIN
+        S" Winamp v1.x" WIN-EXIST?
+    WHILE
+        \ Getting track title from Winamp window caption.
+        \ You may need to change this regexp.
+        FOUND-WINDOW S" /\d+\. (.*) - Winamp/" RE-MATCH
+        IF
+            104 0 1024 WIN-HWND SendMessageA \ TO WINAMP_STATUS
+            DUP 3 =  \ Winamp status = 3 (paused)
+            IF
+                S" %$1%%np_paused_text COUNT%" EVAL-SUBST 
+                                               WINAMP_NEW_TITLE PLACE
+                DROP
+            ELSE
+                1 <> \ Winamp status not equal to 1 (stopped)
+                IF
+                    S" %$1%%np_stopped_text COUNT%" EVAL-SUBST 
+                                                    WINAMP_NEW_TITLE PLACE
+                ELSE
+                    $1 WINAMP_NEW_TITLE PLACE
+                THEN
+            THEN
+            WINAMP_NEW_TITLE COUNT WINAMP_TITLE COUNT COMPARE
+            IF
+                WINAMP_NEW_TITLE COUNT WINAMP_TITLE PLACE
+                S" %np_text COUNT%%WINAMP_NEW_TITLE COUNT%" EVAL-SUBST
+                \ uncomment next line if you need WIN2OEM conversion
+                \ WIN2OEM
+                np_file COUNT FWRITE
+            THEN
+        THEN
+        \ Change pause length to suit your needs
+        4000 PAUSE
+    REPEAT
+    \ Emptyiing 'np.txt' when Winamp is inactive.
+    \ You may use smth like this instead:
+    \ FILE-WRITE: "%NP_FILE%" "%NP_TEXT%Winamp not active"
+    S"  " np_file COUNT FWRITE
+;
+
+: NOW-PLAYING: eval-string, POSTPONE NOW-PLAYING ; IMMEDIATE

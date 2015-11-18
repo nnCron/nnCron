@@ -1,0 +1,88 @@
+\ File:         kbd_layout.spf 
+\ Date:         09.12.2003 
+\ Author:       Nicholas Nemtsev
+\ Description:  Retrieves the active keyboard layout for a 
+\               specified thread (only for GUI application).
+\               You can add your own words to work with your
+\               local keyboard layouts. Note, please: this
+\               plugin does not works with console windows.
+\ New words:    CUR-KBLT ( a u -- a u )
+\               RUS?
+\               US?
+
+0 [IF]   \ this is a comment string
+
+Example:
+
+#( test kblt
+NoActive
+Action:
+    START-APP: notepad.exe
+    PAUSE: 2000
+    WIN-ACTIVATE: "*notepad"
+    EN?
+    IF
+        MSG: "Russian keyboard layout"
+    ELSE
+        EN?
+        IF
+            MSG: "English keyboard layout"
+        ELSE
+            MSG: "Unknown keyboard layout"
+        THEN
+    THEN
+)#
+
+[THEN]   \ this is a comment string
+
+REQUIRE WIN-PASS ~nn/lib/win/windows/ops.f
+
+\ returns the active keyboard layout for a specified thread 
+: WIN-KBLT ( hwnd -- )
+  0 SWAP GetWindowThreadProcessId GetKeyboardLayout
+  0xFFFF AND
+;
+: CUR-KBLT GetForegroundWindow WIN-KBLT ;
+
+\ 0x0419 - Russian
+\ 0x0409 - English (United States)
+
+: RUS? CUR-KBLT 0x0419 = ;
+: US? CUR-KBLT 0x0409 = ;
+
+
+0x401 CONSTANT ARA \ 1025 Arabic (Saudi Arabia) 
+0x403 CONSTANT CAT \ 1027 Catalan (Spain) 
+0x404 CONSTANT CHT \ 1028  Chinese (Taiwan) 
+0x804 CONSTANT CHS \ 2052 Chinese (People's Republic of China) 
+0x405 CONSTANT CSY \ 1029 Czech (Czech Republic) 
+0x406 CONSTANT DAN \ 1030 Danish (Denmark) 
+0x407 CONSTANT DEU \ 1031  German (Germany) 
+0x408 CONSTANT ELL \ 1032  Greek (Greece) 
+0x409 CONSTANT ENU \ 1033  English (United States) 
+0xC0A CONSTANT ESN \ 3082  Spanish - Modern Sort (Spain) 
+0x425 CONSTANT ETI \ 1061 Estonian (Available with Windows Installer version 2.0 or later.) 
+0x40B CONSTANT FIN \ 1035  Finnish (Finland) 
+0x40C CONSTANT FRA \ 1036  French (France) 
+0x40D CONSTANT HEB \ 1037  Hebrew (Israel) 
+0x40E CONSTANT HUN \ 1038  Hungarian (Hungary) 
+0x410 CONSTANT ITA \ 1040  Italian (Italy) 
+0x411 CONSTANT JPN \ 1041  Japanese (Japan) 
+0x412 CONSTANT KOR \ 1042  Korean (Korea) 
+0x427 CONSTANT LTH \ 1063 Lithuanian (Available with Windows Installer version 2.0 or later.) 
+0x426 CONSTANT LVI \ 1062 Latvian (Available with Windows Installer version 2.0 or later.) 
+0x413 CONSTANT NLD \ 1043  Dutch (Netherlands) 
+0x414 CONSTANT NOR \ 1044  Norwegian (Bokm¥l) (Norway) 
+0x415 CONSTANT PLK \ 1045  Polish (Poland) 
+0x416 CONSTANT PTB \ 1046  Portuguese (Brazil) 
+0x816 CONSTANT PTG \ 2070  Portuguese (Portugal) 
+0x418 CONSTANT ROM \ 1048  Romanian (Romania) 
+0x419 CONSTANT RUS \ 1049  Russian (Russia) 
+0x41A CONSTANT HRV \ 1050  Croatian (Croatia) 
+0x41B CONSTANT SKY \ 1051  Slovak (Slovakia) 
+0x41D CONSTANT SVE \ 1053  Swedish (Sweden) 
+0x41E CONSTANT THA \ 1054  Thai (Thailand) 
+0x41F CONSTANT TRK \ 1055  Turkish (Turkey) 
+0x424 CONSTANT SLV \ 1060  Slovenian (Slovenia) 
+0x42A CONSTANT VIT \ 1066  Vietnamese (Viet Nam) 
+0x42D CONSTANT EUQ \ 1069  Basque (Spain 

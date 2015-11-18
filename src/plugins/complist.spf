@@ -1,0 +1,59 @@
+VARIABLE CompList
+VARIABLE CompExist
+
+: azExist ( a u list - ?)
+    BEGIN @ ?DUP WHILE
+        >R R@ NodeValue ASCIIZ> 2OVER COMPARE 0=
+        IF RDROP 2DROP TRUE EXIT THEN
+        R>
+    REPEAT
+    2DROP
+    FALSE
+;
+
+: ADD-COMP ( a u -- )
+    2DUP CompList azExist IF 2DROP EXIT THEN
+    DUP CELL+ DUP ALLOCATE THROW >R R@ SWAP ERASE
+    R@ SWAP CMOVE
+    R> CompList AddNode
+;
+
+: READ-COMP-LIST ( -- )
+        S" comps.txt" R/O OPEN-FILE-SHARED 0=
+        IF
+            >R CompList 0!
+            BEGIN PAD 80 R@ READ-LINE THROW WHILE
+                ?DUP
+                IF
+                    PAD 2 S" \\" COMPARE 0=
+                    IF
+                       PAD 2+ 16 -TRAILING ADD-COMP
+                    THEN
+                THEN
+            REPEAT
+            R> CLOSE-FILE DROP
+        ELSE
+          DROP
+        THEN
+;
+
+: GET-COMP-LIST
+    START-APPW: cmd /c net view >comps.txt
+    START-APPW: cmd /c net session >>comps.txt
+    READ-COMP-LIST
+   
+\    START-APPW: cmd /c del comps.txt
+;
+
+: COMP-EXIST ( a u -- ?)  2 PING ;
+: TEST-COMP ( node -- )
+    NodeValue ASCIIZ> COMP-EXIST 
+    IF CompExist ON THEN ;
+
+: ANY-COMP-EXIST ( -- ?)
+    GET-COMP-LIST
+    CompExist OFF
+    ['] TEST-COMP CompList DoList
+    CompExist @ 
+;
+

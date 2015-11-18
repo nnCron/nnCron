@@ -1,0 +1,3 @@
+nnCron %VER-MAJOR%.%VER-MINOR%.%BUILD-NUM% (Win9x/ME/NT/2000/XP)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Scheduler, reminder, automation manager

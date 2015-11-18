@@ -1,0 +1,319 @@
+\ This is French nnCron interface translation.
+\ Feel free to report translation errors or suggestions
+\ to the maintainer: Veekee <veekee@fr.st>
+\ You can find more translations by pointing your browser to
+\ http://www.nncron.ru/translation.shtml
+
+\ Traduction par MilCD - Veekee
+\ http://www.toutfr.com pour plus d'informations
+
+10 Options
+11 Aide
+12 Lancer une tâche
+13 Modifier
+14 Nouvelle tâche
+15 Quitter
+16 Nouveau rappel
+17 A Propos de nnCron
+18 Afficher le journal
+19 Acheter nnCron !
+20 Outils
+21 WinSpy
+22 Console
+23 Recharger Crontabs
+24 Désactiver nnCron
+25 Activer nnCron
+
+30 Voulez-vous lancer l'application?
+
+100 nnCron: Nouvelle tâche
+101 Heure et Options
+102 Action
+103 Condition
+104 Avancé
+110 Nom
+111 nnCron. Modifier la tâche
+112 Fichier
+
+120 Une fois
+121 Toutes les minutes
+122 Toutes les heures
+123 Tous les jours
+124 Toutes les semaines
+125 Tous les mois
+126 Tous les ans
+127 Sur évenement
+128 Format d'heure Cron
+
+130 à
+131 le
+132 chaque
+133 du
+134 jour du mois
+135 minutes après chaque
+136 à
+137 jour...
+138 heures
+139 minutes
+
+140 Journaliser
+141 Supprimer après execution
+142 Actif
+143 Lancer les tâches manquées
+
+150 Utilisateur
+151 Nom
+152 Mot de passe
+153 Domaine
+154 Type login
+155 Interactif
+156 Batch
+157 Réseau
+158 Pour
+159 Lancer en tant qu'utilisateur loggé
+
+160 Lundi
+161 Mardi
+162 Mercredi
+163 Jeudi
+164 Vendredi
+165 Samedi
+166 Dimanche
+167 Jours de la semaine
+
+170 minutes
+171 heures
+172 jours
+173 mois
+174 années
+
+180 Nom du dossier
+181 Fichier
+182 Masque
+183 Minute Heure Jour Mois Nom_Jour Année
+184 Titre de la fenêtre
+185 Minute Heure Jour Mois Nom_Jour
+186 Lecteur
+187 Processus
+188 Raccourci
+189 Masque utilisateur
+
+190 Dossier de l'application ou du document
+191 Paramètres
+192 Dossier de démarrage
+193 Dossier du fichier WAV
+194 Synchroniser la lecture
+195 Texte du message
+196 Temps max
+197 Durée (ms)
+198 Fréquence
+199 Script
+
+
+200 OK
+201 Annuler
+202 Suppriemr
+203 Aider
+
+209 Tester
+
+210 Lancer l'application ou ouvrir le document
+211 Lancer le script
+212 Afficher le message
+213 Jouer le son (wav)
+214 Beeper
+215 Décrocher
+216 Raccrocher
+217 Afficher la fenêtre
+218 Cacher la fenêtre
+219 Fermer la fenêtre
+220 Terminer l'application
+221 Cliquer sur le bouton
+222 Insérer du texte dans le Presse-Papier
+223 Arrêter
+224 Redémarrer
+225 Purger le dossier
+226 Terminer le processus
+
+260 <sans condition>
+261 Fichier ou dossier existant
+262 Fenêtre existante
+263 En-ligne
+264 Fichier vide
+265 Hôte existant (ping)
+266 Requète
+267 Processus lancé
+268 Mail sur la BAL POP3
+
+280
+281 Dossier
+282 Titre
+283 Connexion
+284 Dossier
+285 Nom ou IP
+286 Texte de la requète
+287 Nom
+288 Serveur POP3
+
+300 Ouvrir
+301 Normal
+302 Maximizé
+303 Minimizé
+304 Caché
+
+310 Priorité
+311 Normale
+312 Haute
+313 Temps réel
+314 Basse
+
+320 Demander une confirmation
+321 Attendre la complétude
+322 Titre
+323 Bouton
+324 Texte
+325 Arrêter
+326 Non
+327 Dossier\masque
+328 Age des fichiers à supprimer (jours)
+329 En tant que service
+
+330 Choisir l'application ou le document
+331 Choisir le fichier
+332 Le paramètre de l'évennement (dossier, masque, etc.) ne peut pas être vide
+333 Le paramètre de la règle (dossier, connexion, titre de la fenêtre, etc.) ne peut pas être vide
+334 Le nom d'utilisateur n'est pas spécifié
+335 Le nom de la tâche n'est pas spécifié
+336 Le dossier de 'démarrage' n'a aps été trouvé
+337 Dossier non trouvé
+338 Erreur l'écriture # %IO-ERR%%crlf%%IO-ERR-TXT%%crlf%
+339 Nom
+
+
+340 Connexion
+341 Utilisateur
+342 Mot de passe
+343 Domaine
+344 Tentatives
+345 Pause, s
+
+
+400 Définition de la tâche
+
+410 nnCron: Rappel
+411 Sonner
+412 OK
+413 Me rappeler dans
+414 Sonner
+415 Fermer
+
+420 nnCron: Nouveau rappel
+421 Heure
+422 Date
+423 Afficher les rappels manqués
+
+450 nnCron: Options
+451 Fichier de tâche
+452 Ajouter
+453 Fichiers de tâche
+454 Supprimer
+455 Journal
+456 Heure
+457 nncron.ini
+458 Mode fenêtré par défaut
+459 Priorité par défaut
+460 Langue
+461 Modifier
+462 Vous devez redémarrer nnCron afin de prendre en compte les modifications dans la configuration
+463 Voulez-vous enregistrer la configuration ?
+464 Utilisateur
+465 Mot de passe
+466 Enregistrement
+467 Nom d'enregistrement
+468 Registration code
+469 Redémarrer nnCron ?
+
+470 nnCron: Fichier de tâche
+471 Entrez le nom de la tâche
+
+472 nnCron: Plugin
+473 Entrez le dossier des plugins
+
+474 Fichier d'aide
+
+480 Charger un profil
+
+481 Afficher les messages d'erreur
+
+500 Démarrage
+501 Modification d'un répertoire
+502 Création/modification d'un fichier
+503 Etablissement de la connexion
+504 Arrêt de la connexion
+505 Modification du presse-papier
+506 Création d'une fenêtre
+507 Activation d'une fenêtre
+508 Destruction d'une fenêtre
+509 Modification du titre d'une fenêtre
+510 Insertion d'un CD
+511 Ejection d'un CD
+512 Lancement d'un processus
+513 Arrêt d'un processus
+514 Déconnexion
+515 Arrêt
+516 Raccourci
+517 Connexion d'un utilisateur
+518 Déconnexion d'un utilisateur
+
+600 Impossible de connecter l'utilisateur. Erreur # %IO-ERR%%crlf%%IO-ERR-TXT%
+601 Utilisateur, mot de passe, domaine ou type de login corrects.
+602 Test de connexion
+603 Le rappel est vide.
+604 Erreur lors du chargement du fichier # %IO-ERR%%crlf%%IO-ERR-TXT%
+605 nnCron n'est pas lancé
+
+\ nnCron preference
+700 Général
+701 Interface
+702 Autorisation
+703 Plugins
+
+720 Editeur par défaut
+721 Champs année
+722 Dossier de backup
+723 Icône près de l'horloge
+724 Menu
+725 Options
+726 Quitter
+727 Outils/Console
+728 Ouvrir la console ai démarrage
+729 Gestionnaire des crashs
+
+730 Lancer toutes les tâches "en tant qu'utilisateur":
+731 Charger un profil utilisateur
+732 Nom :
+733 Mot de passe :
+734 Domaine :
+735 Lancer l'interface "en tant qu'utilisateur":
+
+740 Liste des plugins
+
+750 Administrateurs seulement
+
+777 http://www.shareit.com/product.html?cart=1&productid=154474
+
+10000 Messages d'erreur
+10001 Impossible de connecter l'utilisateur. %WIN-ERR-STR%
+10002 Impossible de trouver l'utilisateur connecté. %WIN-ERR-STR%
+10003 ATTENTION : %CUR-TAB-FILENAME COUNT% ligne :%CURSTR @ N>S% pos:%>IN1 @ N>S%. Heure incorrecte. Doit être compris entre [%BEG-RANGE N>S%-%END-RANGE N>S%].
+10004 Erreur de règle. %WIN-ERR-STR%
+10005 Règle : erreur de pile.
+10006 ERREUR lors de la suppression de la tâche. %WIN-ERR-STR%
+10007 %CSP-NAME 2@%. La pile a des résidus (%CSP-DIFF ABS%)
+10008 %CSP-NAME 2@%. La pile est détruite (%CSP-DIFF%)
+10009 Erreur interne. %WIN-ERR-STR%
+10010 ERREUR DANS LA PILE DES TÂCHES
+10011 ERREUR de syntaxe Crontab !!!. Fichier de tâche: %CUR-TAB-FILENAME COUNT%. Ligne: %CURSTR @%
+10012 GENERAL : LOAD-CRONTAB
+10013 Heure incorrecte : l'heure de rappel ne doit pas être située avant l'heure courante.
+10014 Action : erreur de pile.

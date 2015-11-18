@@ -1,0 +1,2 @@
+WINAPI: SHEmptyRecycleBinA shell32.dll
+: main 7 0 0 SHEmptyRecycleBinA DROP ;

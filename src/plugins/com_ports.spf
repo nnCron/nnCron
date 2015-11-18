@@ -1,0 +1,46 @@
+\ File:         com_ports.spf
+\ Date:         26.06.2004
+\ Author:       Valery Kondakoff
+\ Description:  Tests the specified COM-port and returns TRUE (-1) if
+\               the port is free (not used by some devices or 
+\               applications) and returns FALSE (0) if the port 
+\               is busy (used by some devices or applications)
+
+\ New words:    S" com_port_name" IsComPortFree?
+
+0 [IF]   \ this is a comment string
+
+Examples:
+
+#( test_com_port 
+NoActive
+Action:
+    S" COM2" IsComPortFree?
+    IF
+        MSG: "free"
+    ELSE
+        MSG: "busy"
+    THEN
+)#
+
+#( test_com_port1
+NoActive
+Rule: S" COM1" IsComPortFree?
+Action:
+    MSG: "free"
+)#
+
+[THEN]   \ this is a comment string
+
+
+: IsComPortFree? ( a u -- ? )
+    DROP >R
+    0 FILE_ATTRIBUTE_NORMAL OPEN_EXISTING 0 0 GENERIC_READ
+    R> CreateFileA
+    DUP INVALID_HANDLE_VALUE = 0=
+    IF
+        CloseHandle DROP TRUE  
+    ELSE
+        DROP FALSE
+    THEN
+;

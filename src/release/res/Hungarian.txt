@@ -1,0 +1,346 @@
+\ This is Hungarian nnCron interface translation.
+\ Feel free to report translation errors or suggestions
+\ to the maintainer: Tamas Bodnar <jordy@freemail.hu>
+\ You can find more translations by pointing your browser to
+\ http://www.nncron.ru/translation.shtml
+
+\ [Main Menu]
+10 Opciók
+11 Súgó
+12 Feladat indítása
+13 Szerkesztés
+14 Új Feladat
+15 Kilépés
+16 Új emlékeztetõ
+17 Névjegy
+18 Napló megtekintése
+19 Az nnCron vásárlása most!
+20 Eszközök
+21 WinSpy
+22 Konzol
+23 Újratölti a Crontabokat
+24 Letiltja az nnCron-t
+25 Engedélyezi az nnCron-t
+
+\ [Task] - prompt
+30 Elindítja az alkalmazást?
+
+\ [Task]
+100 nnCron: Új Feladatok
+101 Idõ és Beállítások
+102 Mûvelet
+103 Feltétel
+104 Speciális
+110 Feladatnév
+111 nnCron. Feladat szerkesztése
+112 File
+
+\ [Task | Time and options]
+120 Egyszeri
+121 Percenként
+122 Óránként
+123 Naponta
+124 Hetente
+125 Havonta
+126 Évente
+127 Eseménykor
+128 Cron idõ formátum
+
+130 Idõpont
+131 Dátum
+132 minden
+133 a hónap
+134 napján
+135 perckor minden
+136  
+137 A hét napjain...
+138 órában
+139 percben
+
+140 Naplóba írás
+141 Törlés a futás után
+142 Aktív
+143 Elmulasztott feladatok futtatása
+144 óó:pp/nap
+
+150 Futtatás mint
+151 Név
+152 Jelszó
+153 Tartomány
+154 Belépés típusa
+155 Interaktív
+156 Kötegelt
+157 Hálózati
+158 Esem.
+159 Futtatás mint belépett felhasználó
+
+160 Hétfõ
+161 Kedd
+162 Szerda
+163 Csütörtök
+164 Péntek
+165 Szombat
+166 Vasárnap
+167 Hétköznap
+
+170 percek
+171 órák
+172 napok
+173 hónapok
+174 évek
+
+180 Mappanév
+181 Filenév
+182 Maszk
+183 Perc Óra Nap Hónap A_hét_napja Év
+184 Ablak címe
+185 Perc Óra Nap Hónap A_hét_napja
+186 Meghajtó betûjele
+187 Processz neve
+188 Hot key
+189 User maszk
+
+\ [Task | Action]
+190 Alkalmazás vagy dokumentum elérési útja
+191 Paraméterek
+192 Induló könyvtár
+193 WAV file elérési útja
+194 Lejátszás szinkronban
+195 Üzenet szövege
+196 Idõtúllépés (mp)
+197 Idõtartam (ms)
+198 Frekvencia
+199 Szkript szövege
+
+
+\ [Task] - buttons
+200 OK
+201 Mégsem
+202 Törlés
+203 Súgó
+
+209 Teszt
+
+\ [Task | Action]
+210 Alkalmazás futtatása vagy dokumentum megnyitása
+211 Szkript futtatása
+212 Üzenet megjelenítése
+213 Hanglejáttszás (wav)
+214 Beep
+215 Tárcsázás
+216 Bontás
+217 Ablak megjelenításe
+218 Ablak elrejtése
+219 Ablak bezárása
+220 Alkalmazás bezárása
+221 Kattintás egy gombon
+222 Szöveg vágólapra helyezése
+223 Leállítás
+224 Újraindítás
+225 Könyvtár kiürítése
+226 Processz kilövése
+
+\ [Task | Condition]
+260 <feltétel nélkül>
+261 File vagy mappa létezik
+262 Ablak létezik
+263 Online
+264 File üres
+265 Hoszt létezik (ping)
+266 Lekérdezés
+267 Processz létezik
+268 POP3 levelesládában levél van
+
+280
+281 Útvonal
+282 Felirat
+283 Kapcsolat
+284 Útvonal
+285 Név vagy IP
+286 Lekérdezés szövege
+287 Név
+288 POP3 szerver
+
+\ [Task | Action | Run application or open document]
+300 Megnyitás
+301 Normál
+302 Teljes méret
+303 Kis méret
+304 Rejtett
+
+310 Prioritás
+311 Normál
+312 Magas
+313 Valós idejû
+314 Tétlen
+
+320 Megerõsítés kérése
+321 Várakozás a befejezésre
+322 Felirat
+323 Gomb
+324 Szöveg
+325 Kikapcsolás
+326 Nem
+327 Útvonal\maszk
+328 Milyen idõs file-okat töröl (napok)
+329 Mint szolgáltatás
+
+\ [Task] - captions and prompts
+330 Alkalmazás vagy dokumentum kiválasztása
+331 File kiválasztása
+332 Esemény paramétere (Útvonal, maszk stb.) nem lehet üres
+333 Feltétel paramétere (Útvonal, kapcsolat, ablakfelirat stb.) nem lehet üres
+334 A felhasználó neve nincs megadva
+335 A feladat neve nincs megadva
+336 A megadott indulókönyvtárt nem találom
+337 Útvonal nem található
+338 Írási hiba # %IO-ERR%%crlf%%IO-ERR-TXT%%crlf%
+339 Név
+
+\ [Task | Action | Dialin]
+340 Kapcsolat
+341 Felhasználónév
+342 Jelszó
+343 Tartomány
+344 Próbák
+345 Szünet, mp
+
+\ [Task] - caption
+400 Feladat definíció
+
+\ [Reminder]
+410 nnCron: Emlékeztetõ
+411 Szundi
+412 OK
+413 Emlékeztessen késõbb
+414 Szundi
+415 Bezár
+
+420 nnCron: Új emlékeztetõ
+421 Idõ
+422 Dátum
+423 Kihagyott emlékeztetõk megjelenítése
+
+\ [Options | General]
+450 nnCron: Beállítások
+451 Feladat file
+452 Hozzáadás
+453 Feladat file-ok
+454 Törlés
+455 Napló file
+456 Napló idõ
+457 nncron.ini
+458 Alapértelmezett ablakmód
+459 Alapértelmezett prioritás
+460 Nyelv
+461 Szerkesztés
+
+\ [Options] - prompts etc.
+462 Újraindítod az nncron-t, a konfigurációválasztások jóváhagyása miatt
+463 Elmented a konfigurációt?
+464 Felhasználó
+465 Jelszó
+466 Regisztráció
+467 Regisztrációs név
+468 Regisztrációs kód
+469 Újraindítod az nncron-t?
+
+470 nnCron: Feladat file
+471 A feladat file neve
+
+472 nnCron: Plugin
+473 A plugin-ek elérési útja
+
+474 Súgó file
+
+480 Profil betöltése
+
+481 Hibaüzenetek megjelenítése
+482 Dupla kattintásra a bal egérgombbal
+483 Kattintásra a jobb egérgombbal
+
+
+\ [Logging]
+500 Rendszerindítás
+501 Belépés a könyvtárba
+502 File létrehozás/módosítás
+503 Kapcsolat felépülése
+504 Kapcsolat megszakadása
+505 Vágólap módosítása
+506 Ablak létrehozása
+507 Ablak aktiválása
+508 Ablak bezárása
+509 Ablakfelirat módosítása
+510 CD behelyezése
+511 CD kidobása
+512 Processz elindítása
+513 Processz leállítása
+514 Kijelentkezés
+515 Leállítás
+516 Gyorsbillentyû
+517 Felhasználó belépése
+518 Felhasználó kilépése
+
+\ [Messages]
+600 A felhasználó nem tudott belépni. Error # %IO-ERR%%crlf%%IO-ERR-TXT%
+601 Felhasználónév, jelszó, tartomány és belépési típus rendben.
+602 Belépés tesztelése
+603 Emlékeztetõ üres.
+604 File betöltési hiba # %IO-ERR%%crlf%%IO-ERR-TXT%
+605 Az nnCron nincs elindítva
+
+\ [Options]
+700 Általános
+701 Felület
+702 Jogosultság
+703 Pluginok
+
+\ [Options | General]
+720 Alapért. szerkesztõ
+721 Év mezõ
+722 Mentési útvonal
+
+\ [Options | Interface]
+723 System tray icon
+724 Menu elemek
+725 Beállítások
+726 Kilépés
+727 Eszközök/Konzol
+728 Indulásnál a konzol megnyitása
+
+\ [ Options | General]
+729 Elszállásvédelem
+
+\ [Options | Authorisation]
+730 Minden taszkot futtat mint:
+731 Felhasználóprofil betöltése
+732 Név:
+733 Jelszó:
+734 Tartomány:
+735 A GUI futtatása mint:
+
+\ [Options | Plugins]
+740 Pluginek listája
+
+\ [Options | Interface]
+750 Csak adminisztrátoroknak
+
+\ [Buy now URL]
+777 http://www.shareit.com/product.html?cart=1&productid=154474
+
+\ [Error messages]
+10000 Hibaüzenetek
+10001 Felhasználó nem tud belépni. %WIN-ERR-STR%
+10002 Felhasználó azonosítója nem elérhetõ. %WIN-ERR-STR%
+10003 FIGYELEM: %CUR-TAB-FILENAME COUNT% sor:%CURSTR @ N>S% hely:%>IN1 @ N>S%. Hibás idõspecifikáció. A lehetséges tartomány [%BEG-RANGE N>S%-%END-RANGE N>S%].
+10004 Szabály hiba. %WIN-ERR-STR%
+10005 Szabály: veremhiba.
+10006 Feladat törlési hiba. %WIN-ERR-STR%
+10007 %CSP-NAME 2@%. A verembe hibás adat került (%CSP-DIFF ABS%)
+10008 %CSP-NAME 2@%. A verem megsemmisült (%CSP-DIFF%)
+10009 Belsõ hiba. %WIN-ERR-STR%
+10010 FELADAT VEREM HIBA
+10011 Crontab Szintaktikai HIBA!!!. Feladat file: %CUR-TAB-FILENAME COUNT%. Sor: %CURSTR @%
+10012 MAIN:CRONTAB-BETÖLTÉS
+10013 Hibás idõspecifikáció: Az emlékeztetõ idõpontja nem lehet korábbi a pillanatnyi idõnél.
+10014 Mûvelet: veremhiba.

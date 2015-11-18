@@ -1,0 +1,347 @@
+\ This is the Dutch nnCron interface translation.
+\ You can find more translations by pointing your browser to
+\ http://www.nncron.ru/translation.shtml
+
+\ Dit is de Nederlandse vertaling van de nnCron-interface.
+\ Fouten, opmerkingen en suggesties zijn van harte welkom 
+\ bij de vertaler: Robert Keurentjes <rk@rkaid.com>
+
+\ Laatste update: 20-10-2003 (voor nnCron v 1.89b9)
+
+\ [Main Menu]
+10 Opties
+11 Help
+12 Start Taak
+13 Bewerken
+14 Nieuwe Taak
+15 Afsluiten
+16 Nieuwe Reminder
+17 Over nnCron
+18 Bekijk Log
+19 Registreer nnCron!
+20 Extra
+21 WinSpy
+22 Console
+23 Crontabs herladen
+24 Uitschakelen nnCron
+25 Inschakelen nnCron
+
+\ [Task] - prompt
+30 Wilt u het programma starten?
+
+\ [Task]
+100 nnCron: Taak toevoegen
+101 Tijd en opties
+102 Actie
+103 Voorwaarde
+104 Uitgebreid
+110 Taak-naam
+111 nnCron: Taak bewerken
+112 Bestand
+
+\ [Task | Time and options]
+120 Eenmalig
+121 Elke minuut
+122 Elk uur
+123 Elke dag
+124 Elke week
+125 Elke maand
+126 Elk jaar
+127 Bij gebeurtenis
+128 Cron-formaat
+
+130 Om
+131 op
+132 elke
+133 op dag
+134 van de maand
+135 minuten na elke
+136 Op
+137 Dagen...
+138 uren
+139 minuten
+
+140 Opnemen in log
+141 Verwijderen na uitvoering
+142 Actief
+143 Gemiste taak uitvoeren
+144 uu:mm/dagen
+
+150 Uitvoeren als:
+151 Naam
+152 Wachtwoord
+153 Domein
+154 Type login
+155 Interactief
+156 Batch
+157 Netwerk
+158 Bij
+159 Uitvoeren als ingelogde gebruiker
+
+160 maandag
+161 dinsdag
+162 woensdag
+163 donderdag
+164 vrijdag
+165 zaterdag
+166 zondag
+167 Dagen
+
+170 minuten
+171 uren
+172 dagen
+173 maanden
+174 jaar
+
+180 Map-naam
+181 Bestandsnaam
+182 Masker
+183 Minuut Uur Dag Maand Weekdag Jaar
+184 Venster-titel
+185 Minuut Uur Dag Maand Weekdag
+186 Schijf-letter
+187 Proces-naam
+188 Hotkey
+189 Gebruikers-masker
+
+\ [Task | Action]
+190 Pad naar programma of document
+191 Parameters
+192 Start-map
+193 Pad naar WAV-bestand
+194 Synchroon afspelen
+195 Tekst van het bericht
+196 Sluit na (sec)
+197 Duur (ms)
+198 Frequentie
+199 Script:
+
+\ [Task] - buttons
+200 OK
+201 Annuleren
+202 Verwijderen
+203 Help
+
+209 Test
+
+\ [Task | Action]
+210 Programma of document starten
+211 Script uitvoeren
+212 Bericht tonen
+213 Audio-bestand afspelen
+214 Piep
+215 Inbellen
+216 Ophangen
+217 Venster tonen
+218 Venster verbergen
+219 Venster afsluiten
+220 Programma beëindigen
+221 Een knop aanklikken
+222 Tekst op het klembord plaatsten
+223 Windows afsluiten
+224 Windows herstarten
+225 Map opschonen
+226 Proces beëindigen
+
+\ [Task | Condition]
+260 <geen voorwaarden>
+261 Bestand of map bestaat
+262 Venster bestaat
+263 Online
+264 Bestand leeg
+265 Host bestaat (ping)
+266 Vraag
+267 Proces bestaat
+268 POP3 mailbox heeft nieuwe mail
+
+280
+281 Pad
+282 Titel
+283 Verbinding
+284 Pad
+285 Host-naam of IP-adres
+286 Vraag/mededeling
+287 Naam proces
+288 POP3-server
+
+\ [Task | Action | Run application or open document]
+300 Open
+301 Normaal
+302 Gemaximaliseerd
+303 Geminimaliseerd
+304 Verborgen
+
+310 Prioriteit
+311 Normal
+312 High
+313 Realtime
+314 Idle
+
+320 Vraag om bevestiging
+321 Wacht op einde
+322 Titel
+323 Knop
+324 Tekst
+325 Computer uitzetten
+326 Niet
+327 Pad\masker
+328 Leeftijd van te verwijderen bestanden (in dagen)
+329 Als service
+
+\ [Task] - captions and prompts
+330 Kies programma of document
+331 Kies bestand
+332 Parameter (pad, masker etc.) niet ingevuld
+333 Parameter (pad, verbinding, titel etc.) niet ingevuld
+334 Gebruikersnaam niet ingevuld
+335 Taak-naam niet ingevuld
+336 'Start-map' niet gevonden
+337 Pad niet gevonden
+338 Schrijf-fout # %IO-ERR%%crlf%%IO-ERR-TXT%%crlf%
+339 Naam
+
+\ [Task | Action | Dialin]
+340 Verbinding
+341 Gebruikersnaam
+342 Wachtwoord
+343 Domein
+344 Pogingen
+345 Wacht (s)
+
+\ [Task] - caption
+400 Taak-definitie
+
+\ [Reminder]
+410 nnCron: Reminder
+411 Herhaal
+412 OK
+413 Herhaal dit over
+414 Herhaal
+415 Afsluiten
+
+420 nnCron: Reminder toevoegen
+421 Tijd
+422 Datum
+423 Gemiste reminder weergeven
+
+\ [Options | General]
+450 nnCron: Opties
+451 Taak-bestand
+452 Toevoegen
+453 Taak-bestanden
+454 Verwijderen
+455 Log-bestand
+456 Log-weergave
+457 nncron.ini
+458 Standaard venster-weergave
+459 Standaard prioriteit
+460 Taal
+461 Bewerken
+
+\ [Options] - prompts etc.
+462 nnCron moet worden herstart om de wijzigingen te activeren
+463 Deze configuratie opslaan?
+464 Naam
+465 Wachtwoord
+466 Registratie
+467 Licentie-naam
+468 Licentie-nummer
+469 nnCron herstarten?
+
+470 nnCron: Taak-bestand
+471 Taak-bestandsnaam invoeren
+
+472 nnCron: Plugin
+473 Plugin-pad invoeren
+
+474 Help-bestand
+
+480 Profiel laden
+
+481 Foutmeldingen weergeven
+
+\ [Logging]
+500 Start
+501 Directory veranderd
+502 Bestand aangemaakt/veranderd
+503 Verbinding gemaakt
+504 Verbinding verbroken
+505 Klembord veranderd
+506 Venster aangemaakt
+507 Venster geactiveerd
+508 Venster vernietigd
+509 Venster-titel veranderd
+510 CD ingevoerd
+511 CD uitgenomen
+512 Proces gestart
+513 Proces gestopt
+514 Uitloggen
+515 Windows afsluiten
+516 Hotkey
+517 Inloggen gebruiker
+518 Uitloggen gebruiker
+
+\ [Messages]
+600 Kan gebruiker niet inloggen. Fout # %IO-ERR%%crlf%%IO-ERR-TXT%
+601 Naam, wachtwoord, domein en login-type zijn correct.
+602 Test login
+603 Bericht is leeg
+604 Fout # %IO-ERR% bij openen bestand%crlf%%IO-ERR-TXT%
+605 nnCron niet gestart
+
+\ [Options]
+700 Algemeen
+701 Interface
+702 Autorisatie
+703 Plugins
+
+\ [Options | General]
+720 Standaard editor
+721 Jaar-veld
+722 Backup-pad
+
+\ [Options | Interface]
+723 Icoon in System-tray
+724 Menu-items
+725 Opties
+726 Exit
+727 Extra/Console
+728 Console openen tijdens opstarten
+
+\ [ Options | General]
+729 Crash-bescherming
+
+\ [Options | Authorisation]
+730 Alle taken uitvoeren als gebruiker:
+731 Gebruikers-profiel laden
+732 Naam:
+733 Wachtwoord:
+734 Domein:
+735 GUI uitvoeren als gebruiker:
+
+\ [Options | Plugins]
+740 Plugins:
+
+\ [Options | Interface]
+750 Alleen voor "Admin's"
+
+\ [Buy now URL]
+777 http://www.shareit.com/product.html?cart=1&productid=154474
+
+\ [Error messages]
+10000 Foutmeldingen
+10001 Kan gebruiker niet inloggen. %WIN-ERR-STR%
+10002 Gebruikers-token niet beschikbaar. %WIN-ERR-STR%
+10003 WAARSCHUWING: %CUR-TAB-FILENAME COUNT% regel:%CURSTR @ N>S% pos:%>IN1 @ N>S%. Ongeldige tijd. Toegestane notatie is [%BEG-RANGE N>S%-%END-RANGE N>S%].
+10004 Fout: Rule error. %WIN-ERR-STR%
+10005 Fout: Rule stack error
+10006 Fout bij verwijderen van taak. %WIN-ERR-STR%
+10007 %CSP-NAME 2@%. Fout: Stack has garbage (%CSP-DIFF ABS%)
+10008 %CSP-NAME 2@%. Fout: Stack is destroyed (%CSP-DIFF%)
+10009 Interne fout. %WIN-ERR-STR%
+10010 Fout: TASK STACK ERROR
+10011 Fout: onjuiste syntax in crontab: %CUR-TAB-FILENAME COUNT% regel: %CURSTR @%
+10012 MAIN:LOAD-CRONTAB
+10013 Onjuiste tijd: Reminder-tijd moet in de toekomst zijn.
+10014 Fout: Action stack error.
+

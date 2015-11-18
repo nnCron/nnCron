@@ -1,0 +1,56 @@
+WINAPI: CreateMailslotA KERNEL32.DLL
+\ HANDLE CreateMailslot(
+\  LPCTSTR lpName,         // pointer to string for mailslot name
+\  DWORD nMaxMessageSize,  // maximum message size
+\  DWORD lReadTimeout,     // milliseconds before read time-out
+\  LPSECURITY_ATTRIBUTES lpSecurityAttributes); 
+\                          // pointer to security structure
+
+WINAPI: GetMailslotInfo KERNEL32.DLL
+\ BOOL GetMailslotInfo(
+\   HANDLE hMailslot,       // mailslot handle
+\   LPDWORD lpMaxMessageSize,  // address of maximum message size
+\   LPDWORD lpNextSize,     // address of size of next message
+\   LPDWORD lpMessageCount,  // address of number of messages
+\   LPDWORD lpReadTimeout   // address of read time-out
+\ );
+ 
+
+CLASS: MailSlot
+    var handle
+    var buf
+    var size
+
+1024 CONSTANT BUF_SZ
+CONSTR: init
+    BUF_SZ 1+ ALLOCATE THROW buf !
+    buf @ 0!
+;
+
+DESTR: free buf @ ?DUP IF FREE THROW THEN ;
+
+M: Create ( a u -- )
+    DROP >R
+    FILE_GENERIC_WRITE FILE_GENERIC_READ OR EveryoneSA
+    -1 0 R>
+    CreateMailslotA DUP -1 <> ERR THROW
+    handle !
+    ;
+M: Close
+    handle @ ?DUP IF CLOSE-FILE THROW THEN
+;
+
+M: Read { \ sz_n_m msg_cnt -- ? }
+    0 TO sz_n_m 0 TO msg_cnt
+    0 AT msg_cnt AT sz_n_m 0 handle @ GetMailslotInfo ERR THROW
+    sz_n_m -1 = IF ." no msg" CR FALSE EXIT THEN
+    ." ok" CR
+    buf @ BUF_SZ sz_n_m MIN handle @ READ-FILE THROW
+    size !
+    0 buf @ size @ + C!
+    TRUE
+;
+
+M: Get ( -- a u ) buf @ size @ ;
+
+;CLASS

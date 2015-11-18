@@ -1,0 +1,103 @@
+\ File:         tools.spf
+\ Author:       Nicholas Nemtsev
+\ Date:         14.07.2002
+\ Description:  Console tools
+\ Usage: WORDS-LIKE piece-of-word
+\        TASKS
+\ Modified: 14.07.03
+\   new words: TABS TASK-DELETE TDEL TADD
+
+C" CRON-TOOLS" FIND NIP [IF] CRON-TOOLS [THEN]
+
+MARKER CRON-TOOLS
+
+: WORDS-LIKE ( -- )
+  BL WORD COUNT 2>R
+  CONTEXT @ @
+  BEGIN
+    ?DUP
+  WHILE
+    DUP COUNT 2R@ SEARCH NIP NIP
+    IF
+       DUP ID. SPACE
+    THEN
+    CDR
+  REPEAT
+  2R> 2DROP
+  CR
+;
+
+\ cron tools
+
+: TASKS
+\ Displays list of task
+    CRON-LIST
+    BEGIN @ ?DUP WHILE
+        DUP  CRON-NAME @ ID. SPACE DUP CRON-FILENAME @ ID. CR
+    REPEAT
+;
+
+: TABS
+\ Displays list of crontabs
+    [NONAME NodeValue TAB-FILENAME @ COUNT EVAL-SUBST TYPE CR NONAME]
+    TAB-LIST DoList ;
+
+: TASK-DELETE ( task --)
+\ Deletes specified task. Task should exist.
+\ Usage: task-name TASK-DELETE
+    CUR-NODE >R
+    @ TO CUR-NODE
+    ['] CUR-NODE-DELETE CATCH DROP
+    R> TO CUR-NODE
+;
+
+: TASK-DEL get-string ['] EVALUATE CATCH ?DUP
+    IF ." Task not found ( " . ." )" 2DROP ELSE TASK-DELETE THEN
+;
+
+: 1stCRONTAB TAB-LIST @ TAB-FILENAME @ COUNT EVAL-SUBST ;
+
+: TASK-ADD ( | "task name" ["crontab name"] -- )
+\ Defines new task. Reads input lines up to . (dot) at beginning  of line.
+    { \ aztab aztask h buf -- }
+    get-string S>ZALLOC TO aztask
+    get-string ?DUP 0= IF DROP 1stCRONTAB THEN S>ZALLOC TO aztab
+    aztab ASCIIZ> R/W OPEN-FILE-SHARED 0=
+    IF
+        TO h
+        10240 ALLOCATE THROW TO buf
+        buf 0!
+        BEGIN REFILL IF SOURCE S" ." COMPARE 0<> ELSE FALSE THEN WHILE
+          SOURCE buf +ZPLACE LT LTL @ buf +ZPLACE
+        REPEAT
+        \  writing
+        h >EOF
+        S" #( " h WRITE-FILE DROP
+        aztask ASCIIZ> h WRITE-LINE DROP
+        buf ASCIIZ>  h WRITE-FILE DROP
+        S" )#" h WRITE-LINE DROP
+        h CLOSE-FILE DROP
+        buf FREE DROP
+        1 WORD DROP
+        reload-crontab
+    ELSE DROP THEN
+    aztab FREE DROP
+    aztask FREE DROP
+;
+
+: TASK-GET ( | "task name" ["crontab name"] -- )
+    { \ aztab aztask h -- }
+    get-string S>ZALLOC TO aztask
+    aztask ASCIIZ> ['] EVALUATE CATCH 0=
+    IF
+        @ CRON-FILENAME @ COUNT
+        get-string 2DROP
+    ELSE 2DROP get-string ?DUP 0= IF DROP 1stCRONTAB THEN THEN
+    S>ZALLOC TO aztab
+    aztab ASCIIZ> R/O OPEN-FILE-SHARED 0=
+    IF
+
+    THEN
+    aztab FREE DROP
+    aztask FREE DROP
+;

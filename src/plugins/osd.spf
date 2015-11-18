@@ -1,0 +1,63 @@
+\ File:      osd.spf
+\ Author:   dMitry Alexandrow
+\ Version:   $Id: osd.spf,v 1.1.1.1 2004/10/18 17:04:07 nncron38 Exp $
+\ Description:  OnScreenDisplay - simplest variant
+\ Usage:
+\   OSD-FONT: "Arial" 50 0x0000FF00
+\      ("Arial" - font name; 50 - size; 0x0000FF00 - color)
+\   OSD-POS:  400 200
+\      (400 - horizontal; 200 - vertical)
+\   OSD: 2000 "Hi! Now %hh%:%mm%!"
+\      (2000 - time in msec to show message)
+\   S" Hi! Now %hh%:%mm%!" EVAL-SUBST OSD 2000 PAUSE OSD-CLEAR
+\      (Same as above, but for advanced users)
+\ ###################################################
+
+WINAPI: GetWindowDC      user32.dll
+WINAPI: ReleaseDC      user32.dll
+WINAPI: RedrawWindow      user32.dll
+WINAPI: TextOutA      gdi32.dll
+WINAPI: SetBkMode      gdi32.dll
+WINAPI: SetTextColor      gdi32.dll
+WINAPI: SelectObject      gdi32.dll
+WINAPI: CreateFontA      gdi32.dll
+WINAPI: GetDesktopWindow user32.dll
+
+100  VALUE   osd-x
+50   VALUE   osd-y
+50   VALUE   osd-size
+0x0000FF00 VALUE   osd-color
+
+CREATE osd-font 64 ALLOT
+S" Arial" osd-font ZPLACE
+
+: OSD ( a u -- )
+   GetDesktopWindow GetWindowDC >R
+   1 R@ SetBkMode DROP
+   osd-color R@ SetTextColor DROP
+   osd-font 0 0 0 0 1 0 0 0 0 0 0 0 osd-size CreateFontA
+   R@ SelectObject DROP
+   SWAP osd-y osd-x R@ TextOutA DROP
+   R> GetDesktopWindow ReleaseDC DROP
+;
+
+: OSD-CLEAR ( -- )
+   133 0 0 GetDesktopWindow RedrawWindow DROP
+;
+
+: OSD-PAUSED ( n a u -- ) OSD  PAUSE  OSD-CLEAR ;
+
+: OSD-POS ( x y -- )
+   TO osd-y TO osd-x
+;
+
+: OSD-FONT ( a u nsize nclr -- )
+   TO osd-color
+   TO osd-size
+   63 MIN osd-font ZPLACE
+;
+
+: OSD: number, eval-string, POSTPONE OSD-PAUSED ; IMMEDIATE
+: OSD-POS: number, number, POSTPONE  OSD-POS ; IMMEDIATE
+: OSD-FONT: eval-string, number, number, POSTPONE OSD-FONT ; IMMEDIATE
+

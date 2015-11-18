@@ -1,0 +1,315 @@
+\ This is Spanish nnCron interface translation.
+\ Feel free to report translation errors or suggestions
+\ to the maintainer: Angel Rodriguez <bru2@volcanbaru.com>
+\ You can find more translations by pointing your browser to
+\ http://www.nncron.ru/translation.shtml
+
+10 Opciones
+11 Ayuda
+12 Empezar tarea
+13 Editar
+14 Tarea Nueva
+15 Salir
+16 Notificación Nueva
+17 Sobre nnCron
+18 Ver Log
+19 Comprar nnCron Ya!
+20 Herramientas
+21 WinSpy
+22 Consola
+23 Recargar Crontabs
+24 Deshabilitar nnCron
+25 Habilitar nnCron
+
+30 Quiere correr una aplicación?
+
+100 nnCron: Tarea Nueva
+101 Tiempo y Opciones
+102 Acción
+103 Condición
+104 Avanzado
+110 Nombre de Tarea
+111 nnCron. Editar Tarea
+112 Archivo
+
+120 Una Vez
+121 Cada Minuto
+122 Cada Hora
+123 Cada Día
+124 Cada Semana
+125 Cada Mes
+126 Cada Ano
+127 Cuando pase el evento
+128 Formato de tiempo Cron
+
+130 En
+131 Sobre
+132 cada
+133 en el
+134 día del mes
+135 minutos después
+136 En
+137 Días de la semana...
+138 horas
+139 minutos
+
+140 Escribir al Log
+141 Quitar después de ejecutar
+142 Activo
+143 Run missed task
+
+150 correr como usuario
+151 Nombre
+152 Contraseña
+153 Dominio
+154 Tipo de Logon
+155 Interactivo
+156 Batch
+157 Red
+158 Sobre
+159 Corre como usuario activo
+
+160 Lunes
+161 Martes
+162 Miércoles
+163 Jueves
+164 Viernes
+165 Sábado
+166 Domingo
+167 Días de la semana
+
+170 minutes
+171 hours
+172 days
+173 months
+174 year
+
+180 Nombre del directorio
+181 Nombre del archivo
+182 Mascara
+183 Minuto Hora Día Mes "Día de la semana" Ano
+184 Título de la ventan
+185 Minuto Hora Día Mes "Día de la semana"
+186 Letra del dispositivo
+187 Nombre del proceso
+188 Hot key
+189 Mascara del usuario
+
+190 Aplicación o nombre de camio "path"
+191 Parámetros
+192 Carpeta de arranque
+193 Camino "path" al archivo WAV
+194 Reproducir sincrónicamente
+195 Texto del mensaje
+196 Tiempo de espera(s)
+197 Duración (ms)
+198 Frecuencia
+199 Texto del script
+
+
+200 OK
+201 Cancelar
+202 Borrar
+203 Ayuda
+
+209 Prueba
+
+210 Correr aplicación o documento abierto
+211 Correr script
+212 Ensenar mensaje
+213 Reproducir sonido (wav)
+214 Beep
+215 Discar (dial)
+216 Colgar
+217 Ensenar ventana
+218 Esconder ventana
+219 Cerrar ventana
+220 Terminar aplicación
+221 Plusar botón
+222 Agregar texto al clipboard
+223 Shutdown
+224 Reboot
+225 Purgar directorio
+226 Terminar proceso
+
+260 <sin condición>
+261 Archivo o carpeta existe
+262 Ventana existe
+263 Online
+264 Archivo vacío
+265 Host existe (ping)
+266 Interrogación
+267 Proceso existe
+268 Casillero POP3 tiene correo
+
+280
+281 Camino
+282 Título
+283 Conexión
+284 camino
+285 Nombre o IP
+286 Texto Interrogatorio
+287 Nombré
+288 Servidor POP3
+
+300 Abierto
+301 Normal
+302 Minimizado
+303 Minimizado
+304 Escondido
+
+310 Prioridad
+311 Normal
+312 Alta
+313 Tiempo real
+314 En espera
+
+320 Pedir confirmación
+321 Espera terminación
+322 Título
+323 botón
+324 Texto
+325 Power off
+326 Not
+327 Camino/mascara
+328 Edad de archivo para borrar (días)
+329 Como servicio
+
+330 Escoja una aplicación o Documento
+331 Escoja archivo
+332 Parámetros de Eventos (path, mask etc.) Obligatorio
+333 Parámetro de Regla (camino, conexión, título de ventana etc.) Obligatorio
+334 Nombre de usuario no especificado
+335 Nombre de tarea no especificado
+336 Carpeta 'Start in' no encontrada
+337 Camino no encontrado
+338 Write error # %IO-ERR%%crlf%%IO-ERR-TXT%%crlf%
+339 Nombre
+
+
+340 Conexión
+341 Nombre de usuario
+342 Contraseña
+343 Dominio
+344 Atentados
+345 Pausa, s
+
+400 Definición de Tarea
+
+410 nnCron: Aviso
+411 Snooze
+412 OK
+413 Avisame otra vez
+414 Snooze
+415 Cerrar
+
+420 nnCron: Aviso Nuevo
+421 Tiempo
+422 Fecha
+423 Display missed reminder
+
+450 nnCron: Opción
+451 Archivo de Tarea
+452 Agregar
+453 Archivo de tareas
+454 Borrar
+455 Archivo Log
+456 Tiempo Log
+457 nncron.ini
+458 Modalidad windows "default"
+459 Prioridad "default"
+460 Idioma
+461 Salir
+462 Tiene que reiniciar nnCron para que sus configuración tomen efecto
+463 Quier guardar sus configuraciones
+464 Usuario
+465 Contraseña
+466 Registraron
+467 Nombre de Registraron
+468 Clave de Registraron
+469 Reinicie nnCron?
+
+470 nnCron: Archivo de Tarea
+471 Entre el nombre del archivo de tarea
+
+472 nnCron: Login
+473 Entre camino al "login"
+
+474 Archivo de ayuda
+
+480 Cargue Perfil
+
+481 Enseñe mensajes de error
+
+500 Inició
+501 Directorio a cambiado
+502 Archivo creado o cambiado
+503 Conexión establecida
+504 Conexión cerrada
+505 Clipboard ha cambiado
+506 Ventan creada
+507 Ventana activada
+508 Ventana destruida
+509 Título de ventana cambiado
+510 CD invertido
+511 CD removido
+512 Proceso empezado
+513 Proceso detenido
+514 Log off
+515 Shutdown
+516 Hot key
+517 Log on user
+518 Log off user
+
+600 No se pude logon user. Error # %IO-ERR%%crlf%%IO-ERR-TXT%
+601 usuario, contraseña, dominio y logon escrito correcto.
+602 Probar logon
+603 Aviso vacío.
+604 Load file error # %IO-ERR%%crlf%%IO-ERR-TXT%
+605 nnCron iniciado
+
+\ nnCron preferencia
+700 General
+701 Interfase
+702 Autorización
+703 Plugins
+
+720 Editor default
+721 Campo del Ano
+722 Backup path
+723 Icono del System tray
+724 Detalles del menú
+725 Opciones
+726 Salir
+727 Herramientas/Consola
+728 Abrir consola al inicio
+729 Crash guard
+
+730 Iniciar toda tarea "as user":
+731 Cargar perfil
+732 Nombre:
+733 contraseña:
+734 Dominio:
+735 Correr GUI "as user":
+
+740 Lista de Plugins
+
+750 Para admins solamente
+
+777 http://www.shareit.com/product.html?cart=1&productid=154474
+
+10000 Mensajes de error
+10001 No se pude "logon" el usuario. %WIN-ERR-STR%
+10002 Can't get logged user token. %WIN-ERR-STR%
+10003 WARNING: %CUR-TAB-FILENAME COUNT% line:%CURSTR @ N>S% pos:%>IN1 @ N>S%. Invalid time specification. Possible range is [%BEG-RANGE N>S%-%END-RANGE N>S%].
+10004 Rule error. %WIN-ERR-STR%
+10005 Rule: stack error.
+10006 Task deleting ERROR. %WIN-ERR-STR%
+10007 %CSP-NAME 2@%. Stack has garbage (%CSP-DIFF ABS%)
+10008 %CSP-NAME 2@%. Stack is destroyed (%CSP-DIFF%)
+10009 Internal error. %WIN-ERR-STR%
+10010 TASK STACK ERROR
+10011 Crontab syntax ERROR!!!. Task file: %CUR-TAB-FILENAME COUNT%. Line: %CURSTR @%
+10012 MAIN:LOAD-CRONTAB
+10013 Tiempo especificado invalido: No pude ser antes del tiempo acutal.
+10014 Action: stack error.

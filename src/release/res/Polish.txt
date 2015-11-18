@@ -1,0 +1,316 @@
+\ Polska wersja jêzykowa interfejsu nncron.
+\ Wersja programu: 1.89b7 Build 934 17.06.2003
+\ Wersja t³umaczenia 2003-08-11-01
+\ Wszelkie b³êdy lub sugestie kieruj do t³umacza:
+\ Sebastian Pogorzelski <receptor@simlock.ath.cx>
+\ T³umaczenia na inne jêzyki znajdziesz na stronce
+\ http://www.nncron.ru/translation.shtml
+
+10 Opcje
+11 Pomoc
+12 Uruchom zadanie
+13 Edycja
+14 Nowe zadanie
+15 Wyjœcie
+16 Nowe przypomnienie
+17 O programie
+18 Poka¿ log
+19 Kup nnCrona teraz!
+20 Narzêdzia
+21 WinSpy
+22 Konsola
+23 Prze³aduj pliki
+24 Zablokuj nnCrona
+25 Odblokuj nnCrona
+
+30 Czy chcesz uruchomiæ program?
+
+100 nnCron: Nowe Zadanie
+101 Czas i Opcje
+102 Akcje
+103 Warunki
+104 Zaawansowane
+110 Nazwa zadania
+111 nnCron. Edycja zadania
+112 Plik
+
+120 Jednorazowo
+121 Co minutê
+122 Co godzinê
+123 Codziennie
+124 Tygodniowo
+125 Miesiêcznie
+126 Okazyjnie
+127 Zdarzenie
+128 Format czasu cron (UNIX)
+
+130 O
+131 W
+132 Co
+133 co
+134 dnia miesi¹ca
+135 minutach ka¿dych
+136 Po
+137 Dni tygodnia...
+138 godzin
+139 minut
+
+140 Zapisz do logu
+141 Usuñ po uruchomieniu
+142 Aktywny
+143 Uruchom spóŸnione zadanie
+
+150 Jako u¿ytkownik
+151 U¿ytkownik
+152 Has³o
+153 Domena
+154 Typ logowania
+155 Interaktywny
+156 Wsadowe
+157 Sieæ
+158 Wybierz
+159 Uruchom jako u¿ytkownik zalogowany
+
+160 Poniedzia³ek
+161 Wtorek
+162 Œroda
+163 Czwartek
+164 Pi¹tek
+165 Sobota
+166 Niedziela
+167 Dni tygodnia
+
+170 minuty
+171 godziny
+172 dni
+173 miesi¹ce
+174 rok
+
+180 Nazwa folderu
+181 Nazwa pliku
+182 Maska
+183 Minuta Godznia Dzieñ Miesi¹c Dzieñ_Tygodnia Rok
+184 Tytu³ okienka
+185 Minuta Godznia Dzieñ Miesi¹c Dzieñ_Tygodnia
+186 Litera dysku
+187 Nazwa procesu
+188 Skrót klawiatury
+189 Maska u¿ytkownika
+
+190 Œcie¿ka do programu lub dokumentu
+191 Parametry
+192 Folder startowy
+193 Œcie¿ka do pliku WAV
+194 Odtwarzaj synchronicznie
+195 Tekst wiadomoœci
+196 Czas wygaœniêcia (s)
+197 Czas trwania (ms)
+198 Czêstotliwoœæ
+199 Tekst skryptu
+
+200 OK
+201 Anuluj
+202 Usuñ
+203 Pomoc
+
+209 Test
+
+210 Uruchom program lub otwórz dokument
+211 Uruchom skrypt
+212 Wyœwietl wiadomoœæ
+213 Odtwórz plik wav
+214 G³oœnik systemowy
+215 Dzwoñ
+216 Od³ó¿ s³uchawkê
+217 Poka¿ okienko
+218 Ukryj okienko
+219 Zamknij okienko
+220 Zakoñcz aplikacjê
+221 Kliknij przycisk
+222 Wstaw tekst do schowka
+223 Wy³¹cz komputer
+224 Uruchom ponownie
+225 Wyczyœæ folder
+226 Zakoñcz proces
+
+260 <bez warunku>
+261 Plik lub folder istnieje
+262 Okienko istnieje
+263 Online
+264 Plik jest pusty
+265 Host istnieje (ping)
+266 Zapytanie
+267 Proces istnieje
+268 W skrzynce POP3 jest wiadomoœæ
+
+280
+281 Œcie¿ka
+282 Tytu³
+283 Po³¹czenie
+284 Œcie¿ka
+285 Nazwa lub adres IP
+286 Tekst zapytania
+287 Nazwa
+288 Serwer POP3
+
+300 Otwórz
+301 Normalnie
+302 Zmaksymalizowane
+303 Zminimalizowane
+304 Ukryte
+
+310 Priorytet
+311 Normalny
+312 Wysoki
+313 Czasu rzeczywistego
+314 Bezczynny
+
+320 Pytaj o potwierdzenie
+321 Czekaj na zakoñczenie
+322 Tytu³
+323 Przycisk
+324 Tekst
+325 Wy³¹cz
+326 Nie
+327 Œcie¿ka\maska
+328 Data plików do usuniêcia (dni)
+329 Jako us³uga systemowa
+
+330 Wybierz program lub dokument
+331 Wybierz plik
+332 Parametry zdarzeñ (œcie¿ka, maska, itd.) nie mo¿e byæ puste
+333 Parametry regu³y (œcie¿ka, po³¹czenie, tytu³ okienka, itd.) nie mo¿e byæ puste
+334 Nazwa u¿ytkownika nieokreœlona
+335 Nazwa zadania nieokreœlona
+336 Folder startowy nie istnieje
+337 Œcie¿ka nie istnieje
+338 B³¹d zapisu # %IO-ERR%%crlf%%IO-ERR-TXT%%crlf%
+339 Nazwa
+
+
+340 Po³¹czenie
+341 U¿ytkownik
+342 Has³o
+343 Domena
+344 Próby
+345 Pauza, s
+
+400 Definicja zadania
+
+410 nnCron: Przypomnienie
+411 Poczekaj (snooze)
+412 OK
+413 Przypomnij mi za
+414 Poczekaj (snooze)
+415 Zamknij
+
+420 nnCron: Nowe przypomnienie
+421 Czas
+422 Data
+423 Wyœwietlaj przegapione przypomnienie
+
+450 nnCron: Opcje
+451 Plik zadania
+452 Dodaj
+453 Pliki zadañ
+454 Usuñ
+455 Plik logowania
+456 Format czasu
+457 nncron.ini
+458 Domyœlny tryb okien
+459 Domyœlny priorytet
+460 Jêzyk
+461 Edycja
+462 Musisz zrestartowaæ nnCrona ¿eby uaktywniæ zmiany
+463 Zapisaæ konfiguracjê?
+464 U¿ytkownik
+465 Has³o
+466 Rejestracja
+467 Nazwa rejestracji
+468 Kod rejestracji
+469 Restartowaæ nnCrona?
+
+470 nnCron: Plik zadania
+471 Podaj nazwê pliku zadania
+
+472 nnCron: Plugin
+473 WprowadŸ œcie¿kê do plugina
+
+474 Plik pomocy
+
+480 Wczytaj profil
+
+481 Wyœwietlaj wiadomoœci o b³êdach
+
+500 Uruchomienie systemu
+501 Zmiana zawartoœci folderu
+502 Zmiana/utworzenie pliku
+503 Po³¹czenie ustanowione
+504 Po³¹czenie przerwane
+505 Zmiana zawartoœci schowka
+506 Utworzenie okienka
+507 Uaktywnienie okienka
+508 Zamkniêcie okienka
+509 Zmiana tytu³u okienka
+510 W³o¿enie CD
+511 Wyjêcie CD
+512 Uruchomienie procesu
+513 Zatrzymanie procesu
+514 Wylogowanie
+515 Zamkniêcie systemu
+516 Skrót klawiatury
+517 Zalogowanie u¿ytkownika
+518 Wylogowanie u¿ytkownika
+
+600 Nie mo¿na zalogowaæ u¿ytkownika. B³¹d # %IO-ERR%%crlf%%IO-ERR-TXT%
+601 U¿ytkownik, has³o, domena i typ logowania poprawne.
+602 Testuj logowanie
+603 Przypominacz jest pusty.
+604 B³¹d odczytu pliku # %IO-ERR%%crlf%%IO-ERR-TXT%
+605 nnCron nie jest uruchomiony
+
+\ nnCron: preferencje
+700 Ogólne
+701 Interfejs
+702 Uwierzytelnianie
+703 Pluginy
+
+720 Domyœlny edytor
+721 Pole roku
+722 Kopia zapasowa
+723 Ikonka tray'a
+724 Elementy menu
+725 Opcje
+726 Wyjœcie
+727 Narzêdzia/Konsola
+728 Otwórz konsolê przy starcie
+729 Crash guard
+
+730 Uruchamiaj wszystkie zadania "jako u¿ytkownik":
+731 Wczytuj profil u¿ytkownika
+732 U¿ytkownik:
+733 Has³o:
+734 Domena:
+735 Uruchamiaj interfejs graficzny "jako u¿ytkownik":
+
+740 Lista pluginów
+
+750 Tylko dla administratorów
+
+777 http://www.shareit.com/product.html?cart=1&productid=154474
+
+10000 Wiadomoœci o b³êdach
+10001 Nie mo¿na zalogowaæ u¿ytkownika. %WIN-ERR-STR%
+10002 Nie mo¿na znaleŸæ tokena zalogowanego u¿ytkownika. %WIN-ERR-STR%
+10003 OSTRZE¯ENIE: %CUR-TAB-FILENAME COUNT% line:%CURSTR @ N>S% pos:%>IN1 @ N>S%. B³¹d sk³adni czasu. Dopuszczalne wartoœci to [%BEG-RANGE N>S%-%END-RANGE N>S%].
+10004 B³¹d regu³y. %WIN-ERR-STR%
+10005 Regu³a: b³¹d stosu.
+10006 B£¥D przy usuwaniu zadania. %WIN-ERR-STR%
+10007 %CSP-NAME 2@%. Stos zaœmiecony (%CSP-DIFF ABS%)
+10008 %CSP-NAME 2@%. Stos zniszczony (%CSP-DIFF%)
+10009 B³¹d wewnêtrzny. %WIN-ERR-STR%
+10010 B£¥D STOSU ZADANIA
+10011 B£¥D sk³adni tabeli zadañ!!!. Plik zadañ: %CUR-TAB-FILENAME COUNT%. Linia: %CURSTR @%
+10012 MAIN:LOAD-CRONTAB
+10013 B³¹d sk³adni czasu: Czas przypomnienia nie mo¿e byæ wczeœniejszy ni¿ czas aktualny.
+10014 Akcja: b³¹d stosu.

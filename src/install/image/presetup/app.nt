@@ -1,0 +1,14 @@
+[Shortcuts]
+AddIcoNT=%AppFolder%
+
+[AddIcoNT]
+Remove %ProgramName%=%Windows%\UnGins.exe,"%InstallPath%\install.log",%InstallPath%,,,,3
+
+;[Uninstall.RunApp]
+;remove all=%SystemRoot%\system32\cmd.exe,/c rd /s /q %InstallPath%,,0,"Deleting all remaining files",1
+
+[Uninstall.PreRunApp.ENU]
+uninstall service=%SystemRoot%\system32\cmd.exe,/c uninstall_svc.bat,%InstallPath%,0,"Uninstall service...",1
+
+[Uninstall.PreRunApp.RUS]
+unistall service=%SystemRoot%\system32\cmd.exe,/c uninstall_svc.bat,%InstallPath%,0,"Удаление службы...",1

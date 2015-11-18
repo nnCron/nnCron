@@ -1,0 +1,317 @@
+\ This is Italian nnCron interface translation.
+\ Feel free to report translation errors or suggestions
+\ to the maintainer: Skonvols2k <skonvols2k@iol.it>
+\ You can find more translations by pointing your browser to
+\ http://www.nncron.ru/translation.shtml
+
+10 Opzioni
+11 Aiuto
+12 Avvia Task
+13 Modifica
+14 Nuovo Task
+15 Esci
+16 Nuovo Reminder
+17 Informazioni su nnCron
+18 Visualizza Log
+19 Acquista nnCron Adesso!
+20 Utilità
+21 WinSpy
+22 Console
+23 Aggiorna Crontabs
+24 Disabilita nnCron
+25 Attiva nnCron
+
+30 Vuoi eseguire l'applicazione?
+
+100 nnCron: Nuovo Task
+101 Tempo e Opzioni
+102 Azione
+103 Condizione
+104 Avanzate
+110 Nome Del Task
+111 nnCron. Modifica Task
+112 File
+
+120 Una Volta
+121 Ogni minuto
+122 Ogni ora
+123 Giornalmente
+124 Settimanalmente
+125 Mensilmente
+126 Annualmente
+127 Su evento
+128 In stile Cron
+
+130 Alle
+131 del
+132 ogni
+133 del
+134 giorno del mese
+135 minuti dopo
+136 ogni
+137 Giorni della settimana...
+138 ore
+139 minuti
+
+140 Scrivi log
+141 Rimuovi dopo l'esecuzione
+142 Attiva
+143 Esegui task mancati
+
+150 Esegui come
+151 Nome
+152 Password
+153 Dominio
+154 Tipo di accesso
+155 Interattivo
+156 Automatico
+157 Rete
+158 On
+159 Esegui come utente attivo
+
+160 Lunedì
+161 Martedì
+162 Mercoledì
+163 Giovedì
+164 Venerdì
+165 Sabato
+166 Domenica
+167 Giorni Della Settimana
+
+170 minuti
+171 ore
+172 giorni
+173 mesi
+174 anni
+
+180 Nome della cartella
+181 Nome del file
+182 Formato
+183 Minuti Ore Giorno Mese GiornoSettimana Anno
+184 Titolo finestra
+185 Minuti Ore Giorno Mese GiornoSettimana
+186 Unità
+187 Nome del processo
+188 Scorciatoia
+189 Formato
+
+190 Percorso applicazione o documento
+191 Parametri
+192 Cartella di partenza
+193 Percorso del file WAV
+194 Riproduci sincronizzato
+195 Testo del messaggio
+196 Scade dopo (s)
+197 Durata (ms)
+198 Frequenza
+199 Testo dello script
+
+
+200 OK
+201 Annulla
+202 Cancella
+203 Aiuto
+
+209 Prova
+
+210 Esegui applicazione o apri documento
+211 Esegui script
+212 Mostra messaggio
+213 Riproduci suono (wav)
+214 Beep
+215 Connetti
+216 Disconnetti
+217 Mostra finestra
+218 Nascondi finestra
+219 Chiudi finestra
+220 Termina applicazione
+221 Premi bottone
+222 Inserisci testo negli appunti
+223 Spegni
+224 Riavvia
+225 Pulisci cartella
+226 Termina processo
+
+260 <senza condizioni>
+261 Esistenza file o cartella
+262 Esistenza finestra
+263 Connesso
+264 File vuoto
+265 Esistenza host (ping)
+266 Domanda
+267 Esistenza processo
+268 Casella POP3 ha una mail
+
+280
+281 Percorso
+282 Titolo
+283 Connessione
+284 Percorso
+285 Nome o IP
+286 Testo domanda
+287 Nome
+288 POP3 server
+
+300 Finestra
+301 Normale
+302 Ingrandita
+303 Ridotta a icona
+304 Nascosta
+
+310 Priorità
+311 Normale
+312 Alta
+313 Tempo Reale
+314 Ignora
+
+
+320 Chiedi conferma
+321 Attendi completamento
+322 Titolo
+323 Bottone
+324 Testo
+325 Spegni completamente
+326 Non
+327 Percorso\formato
+328 Età dei files da rimuovere (giorni)
+329 Come servizio
+
+330 Scegli applicazione o documento
+331 Scegli file
+332 I Parametri del task (percorso, formato ecc.) non posso essere vuoti
+333 I Parametri della condizione (percorso, connessione, titolo finestra ecc.) non posso essere vuoti
+334 Nome utente non specificato
+335 Nome del task non specificato
+336 Cartella di partenza non trovata
+337 Percorso non trovato
+338 Errore di scrittura # %IO-ERR%%crlf%%IO-ERR-TXT%%crlf%
+339 Nome
+
+
+340 Connessione
+341 Nome utente
+342 Password
+343 Dominio
+344 Riprova
+345 Pausa, s
+
+400 Definizione task
+
+410 nnCron: Reminder
+411 Posponi
+412 OK
+413 Ricorda nuovamente tra
+414 Posponi
+415 Chiudi
+
+420 nnCron: Nuovo Reminder
+421 Ora
+422 Data
+423 Visualizza reminder mancati
+
+450 nnCron: Opzioni
+451 Files dei task
+452 Aggiungi
+453 Files dei task
+454 Elimina
+
+455 File di log
+456 Formato log
+457 nncron.ini
+458 Modalità finestra predefinita
+459 Priorità predefinita
+460 Lingua
+461 Modifica
+462 Devi riavviare nnCron per attivare le modifiche alla configurazione
+463 Vuoi salvare la configurazione?
+464 Utente
+465 Password
+466 Registrazione
+467 Nome registrazione
+468 Codice registrazione
+469 Riavviare nnCron?
+
+470 nnCron: File dei task
+471 Inserisci nome file dei task
+
+472 nnCron: Plugin
+473 Inserisci percorso plugin
+
+474 File d'aiuto
+
+480 Carica profilo
+
+481 Visualizza messaggi d'errore
+
+500 All'avvio
+501 Cartella modificata
+502 File creato/modificato
+503 Connessione stabilita
+504 Connessione terminata
+505 Appunti modificati
+506 Finestra creata
+507 Finestra attivata
+508 Finestra chiusa
+509 Titolo finestra modificato
+510 CD inserito
+511 CD rimosso
+512 Processo avviato
+513 Processo fermato
+514 Uscita
+515 Spegnimento
+516 Scorciatoia
+517 Accesso utente
+518 Uscita utente
+
+600 Accesso utente impossibile. Errorr # %IO-ERR%%crlf%%IO-ERR-TXT%
+601 Nome utente, password, dominio e tipo di accesso sono corretti.
+602 Prova accesso
+603 Reminder vuoto.
+604 Errore di apertura file # %IO-ERR%%crlf%%IO-ERR-TXT%
+605 nnCron avviato
+
+\ nnCron preference
+700 Generale
+701 Interfaccia
+702 Autorizzazioni
+703 Plugins
+
+720 Editor predefinito
+721 Campo anno
+722 Percorso backup
+723 Icona barra di sistema
+724 Elementi del menu
+725 Opzioni
+726 Esci
+727 Utilità
+728 Apri console all'avvio
+729 Controllo crash
+
+730 Esegui tutti i task come utente:
+731 Carica profilo utente
+732 Nome:
+733 Password:
+734 Dominio:
+735 Esegui GUI come utente:
+
+740 Lista Plugin
+
+750 Solo per amministratori
+
+777 http://www.shareit.com/product.html?cart=1&productid=154474
+
+10000 Messaggi d'errore
+10001 Accesso utente impossibile. %WIN-ERR-STR%
+10002 Impossibile leggere informazioni utente corrente. %WIN-ERR-STR%
+10003 ATTENZIONE: %CUR-TAB-FILENAME COUNT% linea:%CURSTR @ N>S% pos:%>IN1 @ N>S%. Ora specificata invalida. Un possibile intervallo è [%BEG-RANGE N>S%-%END-RANGE N>S%].
+10004 Errore di condizione. %WIN-ERR-STR%
+10005 Condizione: errore di stack.
+10006 Errore nella cancellazione del task. %WIN-ERR-STR%
+10007 %CSP-NAME 2@%. Lo Stack contiente errori (%CSP-DIFF ABS%)
+10008 %CSP-NAME 2@%. Lo stack è distrutto (%CSP-DIFF%)
+10009 Errore interno. %WIN-ERR-STR%
+10010 ERRORE DI STACK DEL TASK
+10011 Errore di sintassi in Crontab!!!. File dei task: %CUR-TAB-FILENAME COUNT%. Linea: %CURSTR @%
+10012 MAIN:LOAD-CRONTAB
+10013 Ora specificata invalida: L'ora del reminder non può essere precedente all'oa corrente.
+10014 Azione: errore di stack.

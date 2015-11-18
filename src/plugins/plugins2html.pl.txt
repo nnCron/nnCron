@@ -1,0 +1,98 @@
+# Author:
+# Valery Kondakoff (strauss@orc.ru, 2:5020/163)
+#
+# Description:
+# This script parses nnCron plugins folder and collects useful plugins info
+# saving it as html-file.
+#
+# Usage:
+# Set the name and path of html file that will be created as $html_file
+# and make shure that $plugins_dir variable points to nnCron plugins folder.
+# Run the script:
+# plugins2html.pl
+#
+
+$plugins_dir = "d:/tools/nncron/plugins/";
+$html_file = "d:/tools/nncron/txt/plugins.html";
+
+@filelist = <$plugins_dir*.spf>;
+open(HTML_OUT, ">$html_file") || die "Can't open $html_file:  $!";
+
+print HTML_OUT <<START;
+<HTML>
+<HEAD>
+<title>nnCron plugins:</TITLE>
+</HEAD>
+<BODY BGCOLOR=FFFFFF>
+
+<h1>nnCron plugins:</h1>
+<hr noshade Size=1>
+
+<TABLE border=0>
+
+START
+
+while (@filelist) {
+	$plugin = shift @filelist;
+	open(PLUG_IN, "<$plugin") || die "Can't open $plugin: $!";
+	#~ print HTML_OUT "<P>\n";
+	($file, $author, $description, $usage) = ("") x 4;
+	while (<PLUG_IN>) {
+		if (/^\\\s*file:\s*(.*)/i) {
+			$file .= "$1\n";
+			$flag = "file";
+			next;
+		}
+		if (/^\\\s*author.?:\s*(.*)/i) {
+			$author .= "$1<BR>\n";
+			$flag = "author";
+			next;
+		}
+		if (/^\\\s*description:\s*(.*)/i) {
+			$description .= "$1<BR>\n";
+			$flag = "description";
+			next;
+		}
+		if (/^\\\s*usage:\s*(.*)/i) {
+			$usage .= "$1<BR>\n";
+			$flag = "usage";
+			next;
+		}
+		if ($flag && /^$/) {
+			next;
+		}
+		if ($flag && /^\\\s*(.*)/) {
+			$$flag .= "$1<BR>\n";
+			next;
+		}
+		if (/^[^\\]/) {
+			$flag = "";
+		}
+	}
+	print HTML_OUT "<TR><TD valign=top><B>File: </B></TD>\n";
+	if ($file) {
+		print HTML_OUT "<TD>$file <I>($plugin)</></TD></TR>\n";
+	} else {
+		print HTML_OUT "<TD>$plugin</TD></TR>\n";
+	}
+	if ($author) {
+		print HTML_OUT "<TR><TD valign=top><B>Author: </B></TD>\n";
+		print HTML_OUT "<TD>$author</TD></TR>\n";
+	}
+	if ($description) {
+		print HTML_OUT "<TR><TD valign=top><B>Description: </B></TD>\n";
+		print HTML_OUT "<TD>$description</TD></TR>\n";
+	}
+	if ($usage) {
+		print HTML_OUT "<TR><TD valign=top><B>Usage: </B></TD>\n";
+		print HTML_OUT "<TD>$usage</TD></TR>\n";
+	}
+	print HTML_OUT "<TR><TD valign=top><hr noshade Size=1></TD>\n";
+	print HTML_OUT "<TD><BR></TD></TR>\n";
+}
+
+print HTML_OUT "</TABLE>\n</BODY>\n</HTML>\n";
+close(PLUG_IN) || die "Can't close $plugin: $!";
+close(HTML_OUT) || die "Can't close $html_file: $!";
+
+

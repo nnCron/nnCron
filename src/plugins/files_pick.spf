@@ -1,0 +1,204 @@
+\ File:         files_pick.spf
+\ Date:         01.10.2004 
+\ Author:       Nicholas Nemtsev, Valery Kondakoff
+\ Description:  Picks a random file from the specified directory.               
+\               Searches for oldest or most recent file in specified
+\               directory by creation-, modification- or access time
+\               and returns a string with a full path to an oldest or 
+\               most recent file that was found.
+\               You can use filename masks when specifying files to be
+\               processed. You can search for files recursively (in 
+\               current directory and all it's subdirectories by
+\               specifying RECURSIVE modifier.
+\               Empty string is returned when no file was found.
+
+\ New words:    [RECURSIVE] RECENT-FILE-TIME: "filename_mask"
+\               [RECURSIVE] RECENT-FILE-WTIME: "filename_mask"
+\               [RECURSIVE] RECENT-FILE-ATIME: "filename_mask"
+\               [RECURSIVE] OLDEST-FILE-TIME: "filename_mask"
+\               [RECURSIVE] OLDEST-FILE-WTIME: "filename_mask"
+\               [RECURSIVE] OLDEST-FILE-ATIME: "filename_mask"
+\               [RECURSIVE] PICK-RANDOM-FILE: "filename_mask"
+
+0 [IF]   \ this is a comment string
+
+Examples:
+
+#( test_pick_random
+NoActive
+\ searching for a random txt-file in c:\temp
+\ and printing it's full path to console
+Action:
+    PICK-RANDOM-FILE: "c:\temp\*.txt"
+    TYPE CR
+)#
+
+#( test_pick_random1 
+WatchHotKey: "^@i"
+\ recursive searching for a random jpg-file
+\ in c:\temp and all the subfolders 
+\ and displaying it with IRFAN_VIEW,
+\ when user press 'Ctrl-Alt-i'
+Action:
+    RECURSIVE
+    PICK-RANDOM-FILE: "c:\temp\*.jpg"
+    START-APP: F:\TOOLS\IVIEW\i_view32.exe %1 esPICKS%
+)#
+
+#( test_recent
+NoActive
+\ recursive searching for *.txt file
+\ with most recent last access time 
+\ and printing it's full path to console
+Action:
+    RECURSIVE
+    RECENT-FILE-ATIME: "c:\temp\*.txt"
+    TYPE CR
+)#
+
+#( test_oldest
+NoActive
+\ searching for *.spf file
+\ with oldest creation time
+\ and printing it's full path to console
+Action:
+    OLDEST-FILE-TIME: "d:\tools\nncron\plugins\*.spf"
+    TYPE CR
+)#
+
+#( test_recent_copy
+NoActive
+\ copying most recent file
+\ from c:\xxx\ to c:\temp
+Action:
+RECENT-FILE-TIME: "c:\xxx\*.*"
+S" c:\temp\" FCOPY
+)#
+
+[THEN]   \ this is a comment string
+
+USER-CREATE recent_file_time 2 CELLS USER-ALLOT
+USER recent_file_name
+USER-VECT recent_time
+USER-VECT recent_word
+
+USER PRF-SAVE-RECURSIVE 
+0 USER-VALUE PRFILE_COUNT
+0 USER-VALUE PRFILE_COUNT_RANDOM
+
+: GET-FILE-COUNT ( a u -- ) 
+    \ counting the number of the files
+    0 TO PRFILE_COUNT 
+    FOR-FILES 
+        PRFILE_COUNT 1+ TO PRFILE_COUNT    
+    ;FOR-FILES 
+; 
+
+: GET-RANDOM-FILE ( a u -- a u ) 
+    \ this word selects the random file 
+    \ from the specified folder
+    PRFILE_COUNT 0=
+    IF
+        \ no file found
+        2DROP
+        S" "
+    ELSE
+        PRFILE_COUNT RANDOM TO PRFILE_COUNT_RANDOM 
+        0 TO PRFILE_COUNT 
+        PRF-SAVE-RECURSIVE @ IF RECURSIVE THEN 
+        FOR-FILES 
+            PRFILE_COUNT PRFILE_COUNT_RANDOM = 
+            IF 
+                FOUND-FULLPATH 
+                FF-EXIT 
+            ELSE 
+            THEN 
+            PRFILE_COUNT 1+ TO PRFILE_COUNT 
+        ;FOR-FILES 
+    THEN
+; 
+
+: PICK-RANDOM-FILE ( a u -- a u )
+    \ picks the random file
+    FF-RECURSIVE? @ PRF-SAVE-RECURSIVE ! 
+    2DUP GET-FILE-COUNT 
+    GET-RANDOM-FILE 
+;
+
+: RECENT-SEARCH
+    \ searching for most recent file
+    recent_file_time 2@ recent_time D<
+;
+
+: OLDEST-SEARCH
+    \ searching for oldest file
+    recent_time recent_file_time 2@ D<
+;
+
+: EXTREME-FILE ( a u -- a1 u1)
+    FILESONLY
+    FOR-FILES
+        recent_word
+        IF
+            recent_time recent_file_time 2!
+            recent_file_name @ ?DUP IF FREE DROP THEN
+            FOUND-FULLPATH S>ZALLOC recent_file_name !
+        THEN
+    ;FOR-FILES
+    recent_file_name @ ?DUP
+    IF
+        ASCIIZ>
+    ELSE
+        S" "
+    THEN
+;
+
+: RECENT-FILE ( a u -- a u )
+    0 0 recent_file_time 2!
+    ['] RECENT-SEARCH TO recent_word 
+    EXTREME-FILE 
+;
+
+: OLDEST-FILE ( a u -- a u )
+    FT-CUR recent_file_time 2!
+    ['] OLDEST-SEARCH TO recent_word
+    EXTREME-FILE
+;
+
+: RECENT-FILE-TIME ( a u -- a u )
+    ['] FF-CREATION-TIME TO recent_time
+    RECENT-FILE
+;
+
+: RECENT-FILE-ATIME ( a u -- a u )
+    ['] FF-ACCESS-TIME TO recent_time
+    RECENT-FILE
+;
+
+: RECENT-FILE-WTIME ( a u -- a u )
+    ['] FF-WRITE-TIME TO recent_time
+    RECENT-FILE
+;
+
+: OLDEST-FILE-TIME ( a u -- a u )
+    ['] FF-CREATION-TIME TO recent_time
+    OLDEST-FILE
+;
+
+: OLDEST-FILE-ATIME ( a u -- a u )
+    ['] FF-ACCESS-TIME TO recent_time
+    OLDEST-FILE
+;
+
+: OLDEST-FILE-WTIME ( a u -- a u )
+    ['] FF-WRITE-TIME TO recent_time
+    OLDEST-FILE
+;
+
+: RECENT-FILE-TIME: eval-string, POSTPONE RECENT-FILE-TIME ; IMMEDIATE
+: RECENT-FILE-ATIME: eval-string, POSTPONE RECENT-FILE-ATIME ; IMMEDIATE
+: RECENT-FILE-WTIME: eval-string, POSTPONE RECENT-FILE-WTIME ; IMMEDIATE
+: OLDEST-FILE-TIME: eval-string, POSTPONE OLDEST-FILE-TIME ; IMMEDIATE
+: OLDEST-FILE-ATIME: eval-string, POSTPONE OLDEST-FILE-ATIME ; IMMEDIATE
+: OLDEST-FILE-WTIME: eval-string, POSTPONE OLDEST-FILE-WTIME ; IMMEDIATE
+: PICK-RANDOM-FILE: eval-string, POSTPONE PICK-RANDOM-FILE ; IMMEDIATE

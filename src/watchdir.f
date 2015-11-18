@@ -1,0 +1,375 @@
+S" fileinfo.f" INCLUDED
+
+0 [IF]
+: hstr, ( addr u -- addr1 )
+    HERE >R S", 0 C,
+\    DUP C, HERE SWAP DUP ALLOT CMOVE 0 C,
+    R>
+;
+
+: xstr,  ( a u -- a1)
+    DUP 2 + ALLOCATE THROW >R
+    DUP R@ C!
+    R@ 1+ ZPLACE
+    R>
+;
+[THEN]
+
+USER FFN-PATH
+USER FFN-LOG
+: FIND-FIRST-NOTIFY ( ... -- handle/0 )
+[ DEBUG? ] [IF] ." FIND-FIRST-NOTIFY=" DUP ASCIIZ> TYPE CR  [THEN]
+    DUP FFN-PATH !
+    FindFirstChangeNotificationA DUP
+\ [ DEBUG? ] [IF] ." FIND-FIRST-NOTIFY FindFirstChangeNotification=" DUP . CR  [THEN]        
+    INVALID_HANDLE_VALUE =
+    IF
+       DROP
+       FFN-LOG @ 0=
+\ [ DEBUG? ] [IF] ." FIND-FIRST-NOTIFY FFN-LOG @ 0= is " DUP . CR  [THEN]               
+       IF
+         GetLastError TO WATCH-ERR
+         S" 'FindFirstChangeNotification' ERROR # %WATCH-ERR N>S% %FFN-PATH @ ASCIIZ>%: "
+         LOG-WATCH
+       THEN
+       FFN-LOG 1+!
+       0
+    THEN
+;
+
+: WATCH-DIR-STOP
+    CUR-WATCH WATCH-HANDLE @ ?DUP
+    CUR-WATCH WATCH-HANDLE 0!
+    IF FindCloseChangeNotification DROP THEN
+;
+
+: WATCH-DIR-PROC { \ is_waited -- }
+   BEGIN
+        S" WATCH-DIR-PROC" SP-TEST
+       \ ждём доступности
+       [ DEBUG? ] [IF] ." WATCH-DIR-PROC1" CR  [THEN]
+       FFN-LOG OFF
+       FALSE TO is_waited
+       BEGIN
+          WATCH-OBJECT@ EXIST? DUP
+          IF
+              DROP
+              WATCH-OBJECT@ DROP GetFileAttributesA FILE_ATTRIBUTE_DIRECTORY AND 0<> DUP
+              IF
+                  DROP
+                  CUR-WATCH WATCH-FFN-FLAGS @ EXECUTE
+                  WATCH-OBJECT@ DROP
+                  FIND-FIRST-NOTIFY DUP
+                  IF CUR-WATCH WATCH-HANDLE !
+                     TRUE
+                  THEN
+              THEN
+          THEN
+          0=
+       WHILE
+          TRUE TO is_waited
+          CUR-WATCH WATCH-DIR-TIMEOUT @ PAUSE
+       REPEAT
+\       [ DEBUG? ] [IF] ." WATCH-DIR-PROC2" CR  [THEN]
+
+       \ начинаем мониторинг каталога
+       is_waited
+       IF
+         ?RUN-WATCH
+       THEN
+
+       BEGIN
+           \ ждём изменения каталога
+\           CUR-WATCH WATCH-DIR-TIMEOUT @
+           INFINITE
+           CUR-WATCH WATCH-HANDLE @ CUR-WATCH WATCH-HBUF !
+           hSTOPev                  CUR-WATCH WATCH-HBUF CELL+ !
+           0 CUR-WATCH WATCH-HBUF 2 WaitForMultipleObjects DUP
+\          [ DEBUG? ] [IF] ." WATCH-DIR-RESULT=" DUP . ." (" WATCH-OBJECT@ TYPE ." )" CR  [THEN]
+           WAIT_OBJECT_0 = CUR-WATCH WATCH-HANDLE @ 0<> AND
+            IF  DROP
+               WATCH-OBJECT@ EXIST?
+               IF ?RUN-WATCH FALSE
+               ELSE WATCH-DIR-STOP TRUE THEN
+           ELSE
+               WATCH-DIR-STOP
+               DUP ?watch-error
+               DUP WAIT_OBJECT_0 1+ = IF DROP EXIT THEN
+               DROP
+               TRUE
+           THEN
+\        [ DEBUG? ] [IF] ." WATCH-DIR-PROC5"  DUP . CR  [THEN]
+       UNTIL
+   AGAIN
+;
+
+: Subtree?
+    CUR-WATCH WATCH-FLAGS @ WF-SUBTREE AND IF 1 ELSE 0 THEN \ DUP .
+;
+: WDIR-FLAGS ( -- flags subdir )
+\    ." WATCH DIR START " CUR-WATCH WATCH-PAR @ HEX . DECIMAL CR
+\    CUR-WATCH 100 DUMP
+    CUR-WATCH WATCH-PAR @ ?DUP 0=
+    IF
+        [   FILE_NOTIFY_CHANGE_FILE_NAME
+            FILE_NOTIFY_CHANGE_DIR_NAME OR
+            FILE_NOTIFY_CHANGE_ATTRIBUTES OR
+            FILE_NOTIFY_CHANGE_SIZE OR
+            FILE_NOTIFY_CHANGE_LAST_WRITE OR
+        ] LITERAL
+        WinNT? IF  FILE_NOTIFY_CHANGE_SECURITY OR THEN
+    THEN                                               \ ." WATCH-START: " DUP .
+    Subtree?
+;
+
+: WATCH-DIR-START ( S" path" -- handle)
+\    [ DEBUG? ] [IF] ." WDS: " 2DUP TYPE CR [THEN]
+    WATCH-OBJECT-S!
+\   (WATCH-DIR-START)
+    -1 ( pseudo handler)
+;
+: OR-WATCH-PAR WATCH-NODE WATCH-PAR @ OR WATCH-NODE WATCH-PAR ! ;
+: WATCH-PAR: CREATE IMMEDIATE , DOES> @ OR-WATCH-PAR ;
+
+FILE_NOTIFY_CHANGE_FILE_NAME  WATCH-PAR: WATCH-CHANGE-FILE-NAME
+FILE_NOTIFY_CHANGE_DIR_NAME   WATCH-PAR: WATCH-CHANGE-DIR-NAME
+FILE_NOTIFY_CHANGE_ATTRIBUTES WATCH-PAR: WATCH-CHANGE-ATTRIBUTES
+FILE_NOTIFY_CHANGE_SIZE       WATCH-PAR: WATCH-CHANGE-SIZE
+FILE_NOTIFY_CHANGE_LAST_WRITE WATCH-PAR: WATCH-CHANGE-LAST-WRITE
+FILE_NOTIFY_CHANGE_SECURITY   WATCH-PAR: WATCH-CHANGE-SECURITY
+
+\ * : WATCH-CHANGE-FILE-NAME   FILE_NOTIFY_CHANGE_FILE_NAME OR-WATCH-PAR ; IMMEDIATE
+\ * : WATCH-CHANGE-DIR-NAME    FILE_NOTIFY_CHANGE_DIR_NAME OR-WATCH-PAR ; IMMEDIATE
+\ * : WATCH-CHANGE-ATTRIBUTES  FILE_NOTIFY_CHANGE_ATTRIBUTES OR-WATCH-PAR ; IMMEDIATE
+\ * : WATCH-CHANGE-SIZE        FILE_NOTIFY_CHANGE_SIZE OR-WATCH-PAR ; IMMEDIATE
+\ * : WATCH-CHANGE-LAST-WRITE  FILE_NOTIFY_CHANGE_LAST_WRITE OR-WATCH-PAR ; IMMEDIATE
+\ * : WATCH-CHANGE-SECURITY    FILE_NOTIFY_CHANGE_SECURITY OR-WATCH-PAR ; IMMEDIATE
+
+: WATCH-DIR-ERROR2
+   GetLastError TO WATCH-ERR
+   S" WATCH-DIR-CONTINUE: 'FindNextChangeNotification' ERROR # %WATCH-ERR N>S% : "
+   LOG-WATCH
+;
+
+0 [IF]
+: WATCH-DIR-CONTINUE
+    WATCH-DIR-STOP
+\    CUR-WATCH WATCH-HANDLE @ ?DUP
+\    IF FindCloseChangeNotification DROP THEN
+\        FindNextChangeNotification 0=
+    (WATCH-DIR-START) ?DUP
+    IF
+      CUR-WATCH WATCH-HANDLE !
+    ELSE
+        WATCH-DIR-ERROR2
+    THEN
+;
+[THEN]
+
+: WATCH-DIR-CONTINUE
+    CUR-WATCH WATCH-HANDLE @ ?DUP
+    IF FindNextChangeNotification 0=
+       IF WATCH-DIR-ERROR2 WATCH-DIR-STOP 0 ExitThread THEN THEN
+;
+
+
+: WatchSubtree
+    WF-SUBTREE WATCH-NODE WATCH-FLAGS @ OR
+    WATCH-NODE WATCH-FLAGS ! ;
+
+: WatchDir:  ( "path-of-dir" -- )
+    POSTPONE WATCH:
+    WNEED-LOGON
+    ['] WATCH-DIR-CONTINUE  WATCH-NODE WATCH-CONTINUE !
+    ['] WATCH-DIR-STOP      WATCH-NODE WATCH-STOP !
+    ['] WDIR-FLAGS          WATCH-NODE WATCH-FFN-FLAGS !
+    ['] WATCH-DIR-PROC      WATCH-NODE WATCH-PROC !
+    eval-string, POSTPONE WATCH-DIR-START
+    POSTPONE END-WATCH
+; IMMEDIATE
+
+\ : WATCH-FILENAME CUR-WATCH WATCH-OBJECT @ COUNT ;
+: WATCH-FILENAME CUR-WATCH WATCH-PAR1 @ ASCIIZ> ;
+
+: WFILE-FLAGS
+    [
+        FILE_NOTIFY_CHANGE_ATTRIBUTES
+        FILE_NOTIFY_CHANGE_SIZE OR
+        FILE_NOTIFY_CHANGE_LAST_WRITE OR
+        FILE_NOTIFY_CHANGE_FILE_NAME OR
+    ] LITERAL
+    WinNT? IF FILE_NOTIFY_CHANGE_SECURITY OR THEN
+
+    FALSE
+;
+
+0 [IF]
+: WATCH-FILE-CONTINUE
+    WATCH-DIR-STOP
+    (WATCH-FILE-START) ?DUP
+    IF
+      CUR-WATCH WATCH-HANDLE !
+    ELSE
+      WATCH-DIR-ERROR2
+    THEN
+;
+[THEN]
+
+: WATCH-FILE-CONTINUE WATCH-DIR-CONTINUE ;
+
+HERE 27 C,
+: eonf LITERAL [ 0 ] 1 ; DROP
+
+: FIT-ONCE-FILE? ( a u -- ?)
+    <TIB
+        [CHAR] ! SKIP NextWord S" WatchFile" COMPARE 0=
+        IF
+            BL SKIP eonf DROP C@ PARSE
+            WATCH-FILENAME COMPARE 0= DUP
+            IF
+                eonf DROP C@ SKIP
+                BASE @ HEX
+                NextWord S>DOUBLE CUR-WATCH WATCH-CTIME 2!
+                NextWord S>DOUBLE CUR-WATCH WATCH-WTIME 2!
+\                get-double CUR-WATCH WATCH-FSIZE 2!
+                BASE !
+            THEN
+        ELSE
+            FALSE
+        THEN
+    TIB>
+;
+
+: WCHCTIME CUR-WATCH WATCH-PAR @ ftCreationTime 2@ ;
+: WCHWTIME CUR-WATCH WATCH-PAR @ ftLastWriteTime 2@ ;
+: WCHSIZE  CUR-WATCH WATCH-PAR @ nFileSizeHigh 2@ ;
+\ : WCHFSIZE CUR-WATCH WATCH-PAR @ nFileSizeHigh  2@ ;
+: D>H BASE @ >R HEX <# 16 0 DO # LOOP #> R> BASE ! ;
+
+: WATCH-WRITE-ONCE
+    S" ! WatchFile %WATCH-FILENAME%%eonf% %WCHCTIME D>H% %WCHWTIME D>H%"
+    ['] FIT-ONCE-FILE? UPDATE-ONCE
+\ new
+
+    fiTable seize
+    [NONAME
+    WATCH-FILENAME FI-NAME fiTable rfind 0=
+    IF fiTable rnew ELSE 0 THEN
+    0=
+    IF
+        WATCH-FILENAME FI-NAME fiTable fput
+        WCHCTIME D>H FI-CREATION-TIME fiTable fput
+        WCHWTIME D>H FI-WRITE-TIME fiTable fput
+        WCHSIZE  DOUBLE>S FI-SIZE  fiTable fput
+        STRUE FI-FLAG-EXIST fiTable fput
+    THEN
+    NONAME] CATCH DROP
+    fiTable release
+;
+
+: WATCH-NEWEST?
+\  OPEN-ONCE
+  ['] FIT-ONCE-FILE? FIND-ONCE
+\  CLOSE-ONCE
+  IF
+    CUR-WATCH WATCH-CTIME 2@ WCHCTIME D<>
+    CUR-WATCH WATCH-WTIME 2@ WCHWTIME D<> OR
+\    CUR-WATCH WATCH-FSIZE 2@ WCHFSIZE D<> OR
+  ELSE TRUE THEN
+;
+
+: WATCH-FILE-START ( S" path-of-file" -- HANDLE )
+\    [ DEBUG? ] [IF] ." WFS: " 2DUP TYPE CR [THEN]
+    2DUP S>ZALLOC CUR-WATCH WATCH-PAR1 !
+         ONLYDIR WATCH-OBJECT-S!
+
+    HERE CUR-WATCH WATCH-PAR ! /WIN32_FIND_DATA ALLOT
+    WATCH-FILENAME DROP FIND-FIRST-FILE
+    IF DROP
+       __FFB  CUR-WATCH WATCH-PAR @ /WIN32_FIND_DATA CMOVE
+       FIND-CLOSE
+       WATCH-NEWEST?
+       IF
+          DelayIsPassed?
+          IF
+            CUR-WATCH WATCH-CRON-NODE @ CRON-TEST-NODE
+            WATCH-WRITE-ONCE
+          THEN
+       THEN
+    ELSE
+       FIND-CLOSE
+       CUR-WATCH WATCH-PAR @ /WIN32_FIND_DATA ERASE
+    THEN
+\    (WATCH-FILE-START)
+    -1 \ pseudo handle
+;
+
+: WATCH-FILE-RULE ( -- ?)
+\    ." Rule:" CR CUR-WATCH WATCH-PAR @ /WIN32_FIND_DATA DUMP CR
+\              CUR-WATCH WATCH-OBJECT @ 50 DUMP CR
+    WATCH-FILENAME DROP FIND-FIRST-FILE 0=
+    IF FIND-CLOSE 0 EXIT THEN DROP
+\    CUR-WATCH WATCH-PAR @ /WIN32_FIND_DATA
+\    __FFB /WIN32_FIND_DATA COMPARE DUP
+    WCHCTIME __FFB ftCreationTime 2@ D<>
+    WCHWTIME __FFB ftLastWriteTime 2@ D<> OR DUP
+    IF
+\        ." File chenged." CR
+        __FFB CUR-WATCH WATCH-PAR @ /WIN32_FIND_DATA CMOVE
+        WATCH-WRITE-ONCE
+    THEN
+    FIND-CLOSE
+\    DelayIsPassed? AND
+;
+
+: WatchFile: ( "path-of-file" -- )
+    POSTPONE WATCH:
+    WNEED-LOGON
+    ['] WATCH-FILE-CONTINUE  WATCH-NODE WATCH-CONTINUE !
+    ['] WATCH-DIR-STOP      WATCH-NODE WATCH-STOP !
+    ['] WATCH-FILE-RULE     WATCH-NODE WATCH-RULE !
+    ['] WFILE-FLAGS         WATCH-NODE WATCH-FFN-FLAGS !
+    ['] WATCH-DIR-PROC      WATCH-NODE WATCH-PROC !
+    eval-string, POSTPONE WATCH-FILE-START
+    POSTPONE END-WATCH
+; IMMEDIATE
+
+
+: WATCH-FILE-DELETE-START ( S" path-of-file" -- HANDLE )
+\    [ DEBUG? ] [IF] ." WFS: " 2DUP TYPE CR [THEN]
+    2DUP S>ZALLOC CUR-WATCH WATCH-PAR1 !
+         ONLYDIR WATCH-OBJECT-S!
+    WATCH-FILENAME EXIST? CUR-WATCH WATCH-PAR2 !
+    -1 \ pseudo handle
+;
+
+: WATCH-FILE-DELETE-RULE ( -- ?)
+\    ." Rule:" CR CUR-WATCH WATCH-PAR @ /WIN32_FIND_DATA DUMP CR
+\              CUR-WATCH WATCH-OBJECT @ 50 DUMP CR
+    WATCH-FILENAME EXIST? DUP 0= CUR-WATCH WATCH-PAR2 @ 0<> AND
+    SWAP CUR-WATCH WATCH-PAR2 !
+;
+
+: WFILE-DELETE-FLAGS
+    [
+\ *         FILE_NOTIFY_CHANGE_ATTRIBUTES
+\ *         FILE_NOTIFY_CHANGE_SIZE OR
+\ *         FILE_NOTIFY_CHANGE_LAST_WRITE OR
+        FILE_NOTIFY_CHANGE_FILE_NAME
+\ *         OR
+    ] LITERAL
+    FALSE
+;
+
+: WatchFileDelete: ( "path-of-file" -- )
+    POSTPONE WATCH:
+    WNEED-LOGON
+    ['] WATCH-FILE-CONTINUE WATCH-NODE WATCH-CONTINUE !
+    ['] WATCH-DIR-STOP      WATCH-NODE WATCH-STOP !
+    ['] WATCH-FILE-DELETE-RULE     WATCH-NODE WATCH-RULE !
+    ['] WFILE-DELETE-FLAGS  WATCH-NODE WATCH-FFN-FLAGS !
+    ['] WATCH-DIR-PROC      WATCH-NODE WATCH-PROC !
+    eval-string, POSTPONE WATCH-FILE-DELETE-START
+    POSTPONE END-WATCH
+; IMMEDIATE
+

@@ -1,0 +1,61 @@
+\ File:         procwin.spf
+\ Author:       Nicholas Nemtsev
+\ Description:  Soft terminating of processes with windows closing.
+\ Date: 20.06.03
+\ nnCron tries to close all windows of a process at 1st step.
+\ and after it nnCron terminate the process (KILL), if it need.
+\ Before using this plugin you must insert "INCLUDE procwin.spf"
+\ into nncron.ini
+\ Usage: PROC-CLOSE: procname.exe
+
+DECIMAL
+WINAPI: GetWindowThreadProcessId user32.dll
+
+\ DWORD GetWindowThreadProcessId(
+\  HWND hWnd,             // handle to window
+\  LPDWORD lpdwProcessId)  // process identifier
+
+:NONAME { buf hwnd \ pid1 -- ? }
+    AT pid1 hwnd GetWindowThreadProcessId DROP
+    buf @ pid1 =
+    IF
+        hwnd buf CELL+ GLOBAL AppendNode LOCAL
+    THEN
+    TRUE
+; WNDPROC: AddProcWindow
+
+: GET-PROC-WINDOWS ( list pid -- )
+    2 RALLOT >R
+    R@ ! R@ CELL+ 0!
+    R@ ['] AddProcWindow EnumWindows DROP
+    [NONAME
+
+    NONAME] R@
+    RDROP
+    2 RFREE
+;
+
+:NONAME { pid hwnd \ pid1 -- }
+    AT pid1 hwnd GetWindowThreadProcessId DROP
+    pid pid1 =
+    IF
+\        ." ProcWND=" pid . pid1 . hwnd . CR
+        0 0 16 ( <- WM_CLOSE) hwnd PostMessageA DROP
+    THEN
+    TRUE
+; WNDPROC: CloseProcWindow
+
+\ Closes all windows of process and terminates this process after it.
+: PROC-CLOSE { a u -- }
+    a u PROC-EXIST? ?DUP
+    IF
+        ['] CloseProcWindow EnumWindows DROP
+        1000 PAUSE
+        a u KILL \ на всякий случай, если процесс окошек не имеет
+    THEN
+;
+
+: PROC-CLOSE: eval-string, POSTPONE PROC-CLOSE ; IMMEDIATE
+
+\ Usage: PROC-CLOSE: xxxx.exe
+\ e.g. PROC-CLOSE: winword.exe

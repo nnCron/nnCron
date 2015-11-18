@@ -1,0 +1,69 @@
+\ File:         system.spf
+\ Author:       Nicholas Nemtsev
+\ Date:         09.11.2002
+\ Modified:     01.10.2003 (GetVolID is added)
+\ Modified:     15.10.2003 (GET-VOL-ID is added)
+\ Modified:     07.06.2006 (GET-VOL-NAME is added)
+\ Description:  Useful words for system purpose
+
+WINAPI: GlobalMemoryStatus KERNEL32.DLL
+
+: MemStat ( # -- ) 
+    CREATE C,
+    DOES> C@ CELLS
+    32 ALLOCATE THROW >R 32 R@ !
+    R@ GlobalMemoryStatus DROP R@ + @ 
+    R> FREE DROP ;
+
+1 MemStat MemLoad           \ in percentage
+2 MemStat TotalPhys
+3 MemStat AvailPhys
+4 MemStat TotalPageFile 
+5 MemStat AvailPageFile 
+6 MemStat TotalVirt
+7 MemStat AvailVirt
+
+WINAPI: GetVolumeInformationA kernel32.dll
+
+\ BOOL GetVolumeInformation(
+\   LPCTSTR lpRootPathName,           // root directory
+\   LPTSTR lpVolumeNameBuffer,        // volume name buffer
+\   DWORD nVolumeNameSize,            // length of name buffer
+\   LPDWORD lpVolumeSerialNumber,     // volume serial number
+\   LPDWORD lpMaximumComponentLength, // maximum file name length
+\   LPDWORD lpFileSystemFlags,        // file system options
+\   LPTSTR lpFileSystemNameBuffer,    // file system name buffer
+\   DWORD nFileSystemNameSize         // length of file system name buffer
+\ );
+
+: GetVolID { letter \ name serial maxlen flags -- serial_number }
+    letter 0xFF AND 0x005C3A00 OR TO name
+    0 0
+    AT flags
+    AT maxlen
+    AT serial
+    0 0
+    AT name 
+    GetVolumeInformationA
+    IF serial ELSE 0 THEN
+;
+
+: GET-VOL-ID ( letter -- a u)
+    BASE @ >R HEX 
+    GetVolID 0 <# #S #> 
+    EVAL-SUBST
+    R> BASE !
+;
+
+: GET-VOL-NAME { letter \ name volume-name-size volume-name serial maxlen flags -- a u}
+    33 DUP TO volume-name-size ALLOCATE THROW TO volume-name
+    letter 0xFF AND 0x005C3A00 OR TO name
+    0 0
+    AT flags
+    AT maxlen
+    AT serial
+    volume-name-size volume-name
+    AT name 
+    GetVolumeInformationA
+    IF volume-name ASCIIZ> ELSE S" " THEN
+;

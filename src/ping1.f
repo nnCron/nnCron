@@ -1,0 +1,17 @@
+MARKER P
+TRUE VALUE DEBUG?
+
+S" ~nn/lib/wincon.f" INCLUDED
+S" win32.f" INCLUDED
+
+S" ping.f" INCLUDED
+
+' BYE TO <MAIN>
+
+: PING: 
+    BL WORD COUNT DUP 1+ ALLOT 0 C, 
+    ROT PING . CR ;
+2 PING: 192.168.0.201
+S" PING1.EXE" SAVE
+
+ 

@@ -1,0 +1,154 @@
+<HTML>
+<HEAD>
+<title>nnCron plugins:</TITLE>
+</HEAD>
+<BODY BGCOLOR=FFFFFF>
+
+<h1>nnCron plugins:</h1>
+<hr noshade Size=1>
+
+<TABLE border=0>
+
+<TR><TD valign=top><B>File: </B></TD>
+<TD>e:/home/src/cron/plugins/complist.spf</TD></TR>
+<TR><TD valign=top><hr noshade Size=1></TD>
+<TD><BR></TD></TR>
+<TR><TD valign=top><B>File: </B></TD>
+<TD>e:/home/src/cron/plugins/mailslot.spf</TD></TR>
+<TR><TD valign=top><hr noshade Size=1></TD>
+<TD><BR></TD></TR>
+<TR><TD valign=top><B>File: </B></TD>
+<TD>e:/home/src/cron/plugins/process.spf</TD></TR>
+<TR><TD valign=top><hr noshade Size=1></TD>
+<TD><BR></TD></TR>
+<TR><TD valign=top><B>File: </B></TD>
+<TD>e:/home/src/cron/plugins/procwin.spf</TD></TR>
+<TR><TD valign=top><B>Usage: </B></TD>
+<TD>PROC-CLOSE: procname.exe<BR>
+PROC-CLOSE: xxxx.exe<BR>
+e.g. PROC-CLOSE: winword.exe<BR>
+</TD></TR>
+<TR><TD valign=top><hr noshade Size=1></TD>
+<TD><BR></TD></TR>
+<TR><TD valign=top><B>File: </B></TD>
+<TD>e:/home/src/cron/plugins/test.spf</TD></TR>
+<TR><TD valign=top><hr noshade Size=1></TD>
+<TD><BR></TD></TR>
+<TR><TD valign=top><B>File: </B></TD>
+<TD>time.spf
+ <I>(e:/home/src/cron/plugins/time.spf)</></TD></TR>
+<TR><TD valign=top><B>Author: </B></TD>
+<TD>Nicholas Nemtsev<BR>
+</TD></TR>
+<TR><TD valign=top><B>Description: </B></TD>
+<TD>Time operations.<BR>
+Words: FILE-TIME:, FILE-ATIME:, FILE-WTIME:, CUR-FTIME, FTIME-<BR>
+</TD></TR>
+<TR><TD valign=top><B>Usage: </B></TD>
+<TD>FILE-TIME: filename        ( -- d ) <BR>
+d - is a 64-bit value representing the <BR>
+number of 100-nanosecond intervals since January 1, 1601<BR>
+Example: <BR>
+CUR-FTIME FILE-TIME: xxx.txt FTIME- 300 > \ curtime-filetime>300sec<BR>
+IF FILE-DELETE: xxx.txt THEN<BR>
+</TD></TR>
+<TR><TD valign=top><hr noshade Size=1></TD>
+<TD><BR></TD></TR>
+<TR><TD valign=top><B>File: </B></TD>
+<TD>timesync.spf
+ <I>(e:/home/src/cron/plugins/timesync.spf)</></TD></TR>
+<TR><TD valign=top><B>Author: </B></TD>
+<TD>Nicholas Nemtsev<BR>
+</TD></TR>
+<TR><TD valign=top><B>Description: </B></TD>
+<TD>Time synchronization by Time Protocol<BR>
+</TD></TR>
+<TR><TD valign=top><B>Usage: </B></TD>
+<TD>TP-SYNC: server-name<BR>
+user-value variables (use these after TP-SYNC):<BR>
+TP-SYNC-RESULT - 0 if ok, otherwise winsock error code<BR>
+TP-SYNC-DELAY  - delay of server respond in ms<BR>
+--- Example: ---<BR>
+#( time_adjust<BR>
+OnceADay<BR>
+Rule: ONLINE?<BR>
+Action:<BR>
+TP-SYNC: time.nist.gov<BR>
+TP-SYNC-RESULT 0<><BR>
+IF CLEAR-ONCE <BR>
+MSG: "Can't synchronize time"<BR>
+ELSE<BR>
+TMSG: "Time is synchronized." 10<BR>
+THEN<BR>
+)#<BR>
+--- Time server list ---<BR>
+time.nist.gov<BR>
+clock.psu.edu<BR>
+finch.cc.ukans.edu<BR>
+ntp.css.gov<BR>
+ntp.lth.se<BR>
+ntp.maths.tcd.ie<BR>
+ntp0.cornell.edu<BR>
+ntp-1.ece.cmu.edu<BR>
+ntp-2.ece.cmu.edu<BR>
+ntp2a.mcc.ac.uk<BR>
+Rolex.PeachNet.EDU<BR>
+salmon.maths.tcd.ie<BR>
+sundial.columbia.edu<BR>
+time.nrc.ca<BR>
+timelord.uregina.ca<BR>
+timex.cs.columbia.edu<BR>
+Timex.PeachNet.EDU<BR>
+</TD></TR>
+<TR><TD valign=top><hr noshade Size=1></TD>
+<TD><BR></TD></TR>
+<TR><TD valign=top><B>File: </B></TD>
+<TD>e:/home/src/cron/plugins/win.spf</TD></TR>
+<TR><TD valign=top><hr noshade Size=1></TD>
+<TD><BR></TD></TR>
+<TR><TD valign=top><B>File: </B></TD>
+<TD>win2tray.spf
+ <I>(e:/home/src/cron/plugins/win2tray.spf)</></TD></TR>
+<TR><TD valign=top><B>Author: </B></TD>
+<TD>Nicholas Nemtsev<BR>
+</TD></TR>
+<TR><TD valign=top><B>Description: </B></TD>
+<TD>Place windows to system tray<BR>
+</TD></TR>
+<TR><TD valign=top><B>Usage: </B></TD>
+<TD>WIN-TO-TRAY: "pattern" <BR>
+</TD></TR>
+<TR><TD valign=top><hr noshade Size=1></TD>
+<TD><BR></TD></TR>
+<TR><TD valign=top><B>File: </B></TD>
+<TD>windows.spf
+ <I>(e:/home/src/cron/plugins/windows.spf)</></TD></TR>
+<TR><TD valign=top><B>Author: </B></TD>
+<TD>Nicholas Nemtsev<BR>
+</TD></TR>
+<TR><TD valign=top><B>Description: </B></TD>
+<TD>Useful words for windows mainpulation<BR>
+VISIBLE? MINIMIZED?<BR>
+</TD></TR>
+<TR><TD valign=top><B>Usage: </B></TD>
+<TD><BR>
+WIN-EXIST: "xxx"<BR>
+IF WIN-HWND VISIBLE? 0=<BR>
+IF WIN-SHOW: "xxx" THEN THEN<BR>
+<BR>
+: LOG-WIN-TITLE ( a u -- )<BR>
+S" win-title.log" LOG ;<BR>
+...<BR>
+Action:<BR>
+['] LOG-WIN-TITLE WIN-ENUM<BR>
+...<BR>
+</TD></TR>
+<TR><TD valign=top><hr noshade Size=1></TD>
+<TD><BR></TD></TR>
+<TR><TD valign=top><B>File: </B></TD>
+<TD>e:/home/src/cron/plugins/words.spf</TD></TR>
+<TR><TD valign=top><hr noshade Size=1></TD>
+<TD><BR></TD></TR>
+</TABLE>
+</BODY>
+</HTML>

@@ -1,0 +1,151 @@
+\ File:         remote.spf
+\ Author:       Nicholas Nemtsev
+\ Date:         18.09.03
+\ Description:  Listens specified tcp port for incoming user-defined
+\               commands and triggers an action, when such a command
+\               was received
+\ Words: WatchRemote:
+\ Usage: WatchRemote: <pattern>
+\        <pattern> is wildcard or regexp
+\ Settings: use 'REMOTE-PORT' to set remote tcp port number 
+\               (default value - port # 2004) 
+\           use 'REMOTE-MAX-CONN' to set maximum simultaneous remote
+\               connections (default value - 5 simultaneous connections)
+\           use RemAllowed: and RemDisallowed: from nncron.ini to 
+\               allow/disallow a connection from specified IP
+\ Example:
+\ * #( remote-command
+\ * WatchRemote: "command"
+\ * Action:
+\ *   MSG: "word 'command' is received"
+\ * )#
+
+
+DECIMAL
+2004 CONSTANT REMOTE-PORT
+5 VALUE REMOTE-MAX-CONN
+VARIABLE REMOTE-NUM-CONN
+VARIABLE REMOTE-LIST
+: WATCH-REMOTE-START ( a u -- h )
+    GLOBAL WATCH-OBJECT-S! LOCAL
+    GLOBAL CUR-WATCH REMOTE-LIST AppendNode LOCAL
+    0
+;
+
+: WatchRemote:
+    POSTPONE WATCH:
+    eval-string, POSTPONE WATCH-REMOTE-START
+    POSTPONE END-WATCH
+; IMMEDIATE
+
+USER-VALUE sREMOTE \ socket
+Socket POINTER sREMOTEs
+
+2VARIABLE REMOTE-WORD
+CREATE REMOTE-WORD-BUF 256 ALLOT
+: REMOTE-READ ( -- )
+    BEGIN
+        [NONAME sREMOTE ->CLASS SocketLine ReadLine NONAME] CATCH ?DUP
+        IF
+            DUP 10060 ( WSAETIMEDOUT) =
+            IF DROP FALSE ELSE THROW THEN
+        ELSE TRUE THEN
+    UNTIL
+DBG( ." REMOTE: " 2DUP TYPE )
+    2DUP REMOTE-WORD 2!
+    REMOTE-WORD-BUF PLACE
+;
+
+: REMOTE-FIT? { w -- ? }
+    REMOTE-WORD 2@
+    w WATCH-OBJECT @ ASCIIZ>
+    WC|RE-COMPARE
+;
+: REMOTE-LAUNCH ( w -- )
+    WATCH-CRON-NODE @ SP@ LAUNCH DROP
+;
+
+: REMOTE-TEST
+    [NONAME
+        NodeValue DUP REMOTE-FIT?
+        IF
+            REMOTE-LAUNCH
+        ELSE DROP THEN
+    NONAME] REMOTE-LIST DoList
+;
+
+WITH SocketLine
+
+: REMOTE-IP [NONAME sREMOTE => PeerIP NtoA NONAME] CATCH IF S" " THEN ;
+: REMOTE-NAME [NONAME sREMOTE => PeerName  NONAME] CATCH IF S" " THEN ;
+
+:NONAME ( s -- )
+    SocketLine NEW TO sREMOTE
+    >R R@ => Sock sREMOTE => vSock !
+    S" Remote connection from '%REMOTE-NAME%' (%REMOTE-IP%)"  CRON-LOG
+    REMOTE-NUM-CONN @ REMOTE-MAX-CONN <
+    IF
+        REMOTE-NUM-CONN 1+!
+        [NONAME
+            sREMOTE => PeerIP NtoA
+            RemAllowed RemDisallowed FIT-MASK? 0=
+            IF
+                S" Connection from '%REMOTE-NAME%' (%REMOTE-IP%) is declined."  CRON-LOG
+            ELSE
+                S" %COMPUTERNAME%: nnCron %SVERSION%." EVAL-SUBST sREMOTE => WriteLine
+                REMOTE-READ
+                REMOTE-TEST
+                sREMOTE => Close
+            THEN
+        NONAME] CATCH IF DROP THEN
+        -1 REMOTE-NUM-CONN +!
+    ELSE
+        DUP => Close
+        GLOBAL DELETE LOCAL
+        S" Maximum number of remote connection (%REMOTE-NUM-CONN @%) is reached" CRON-LOG
+    THEN
+    GLOBAL R> DELETE LOCAL
+    sREMOTE DELETE
+
+; TASK: REMOTE-SESSION-TASK
+
+ENDWITH
+
+:NONAME
+    DBG( ." REMOTE start" CR )
+    [NONAME
+        Socket NEW TO sREMOTEs
+        sREMOTEs Create
+        REMOTE-PORT sREMOTEs vPort !
+        sREMOTEs Bind
+        sREMOTEs Listen
+
+        BEGIN
+            GLOBAL [NONAME sREMOTEs Accept NONAME] CATCH LOCAL
+            0= IF REMOTE-SESSION-TASK START CLOSE-FILE DROP THEN
+            sREMOTEs Sock 0=
+        UNTIL
+    NONAME] CATCH
+    DBG( ." REMOTE stop=" DUP . CR )
+    DROP
+; TASK: REMOTE-TASK
+
+WARNING @ WARNING 0!
+: AfterCrontabLoading
+    REMOTE-LIST @ 0<>
+    IF
+        REMOTE-TASK START
+    THEN
+    AfterCrontabLoading
+;
+
+: BeforeCrontabLoading
+    REMOTE-LIST @ 0<>
+    IF
+        sREMOTEs Close
+        GLOBAL REMOTE-LIST FreeList LOCAL
+        REMOTE-LIST 0!
+    THEN
+    BeforeCrontabLoading
+;
+WARNING !

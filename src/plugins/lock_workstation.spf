@@ -1,0 +1,62 @@
+\ File:         lock_workstation.spf
+\ Date:         06.07.2004
+\ Author:       Valery Kondakoff
+\ Description:  Special words for locking the workstation and
+\               testing if the workstation is currently locked.
+\               For Windows 2000 and XP only.
+
+\ New words:    LockWorkstation
+\               IsWorkstationLocked?
+
+0 [IF]   \ this is a comment string
+
+Examples:
+
+#( test_lock_workstation 
+\ lock the workstation if the user was idle for 10 minutes
+Rule: IDLE: 600
+Action:
+    LockWorkstation
+)#
+
+#( test_locked_workstation 
+\ run the program if the workstation is _not_ locked
+Rule: IsWorkstationLocked? 0=
+Action:
+    START-APP: notepad.exe   
+)#
+
+#( test_locked_workstation1 
+\ beep once a minute when workstatuion is locked
+Rule: IsWorkstationLocked?
+Action:
+    BEEP: 50 500   
+)#
+
+[THEN]   \ this is a comment string
+
+WINAPI: LockWorkStation USER32.DLL
+: LockWorkstation ( -- )
+    LockWorkStation DROP
+;
+
+
+\ 0 VALUE TESTDESK
+: IsWorkstationLocked? ( -- ? )
+\ 0 TO TESTDESK
+256 FALSE 0 S" Default" DROP OpenDesktopA
+\ TO TESTDESK
+DUP
+IF
+\     MSG: "eeror opening desktop"
+\ ELSE
+    DUP
+    SwitchDesktop
+    SWAP CloseDesktop DROP
+    IF
+        FALSE
+    ELSE
+        TRUE
+    THEN
+THEN
+;

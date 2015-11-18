@@ -1,0 +1,43 @@
+VARIABLE on-icon
+VARIABLE off-icon
+USER host-icon
+USER host-name
+
+WINAPI: LoadIconA USER32.DLL
+
+VARIABLE HOST-STATE-DELAY 60 HOST-STATE-DELAY !
+
+: set-host-ti
+    host-name @ ASCIIZ> 2DUP 3 PING
+    IF on-icon @ ELSE off-icon @ THEN
+    host-icon @ MODIFY-TI
+;
+
+:NONAME { time id msg hwnd -- }
+    TlsIndex@ 
+    RestoreTlsIndex
+    set-host-ti
+    TlsIndex!
+; WNDPROC: host-state-proc
+
+:NONAME ( hostname -- )
+    host-name !
+    on-icon @ 0=
+    IF
+      S" ico\on.ico" LoadIcon on-icon !
+      S" ico\off.ico" LoadIcon off-icon !
+\       0x7F05 ( IDI_WINLOGO) 0 LoadIconA on-icon !
+\       0x7F01 ( IDI_ERROR) 0 LoadIconA off-icon !
+    THEN
+    host-name @ ASCIIZ> off-icon @ ADD-TI host-icon !
+    ['] host-state-proc HOST-STATE-DELAY @ 1000 * 0 0 SetTimer DROP
+    set-host-ti
+    MessageLoop
+    host-icon @ DEL-TI
+; TASK: host-state-task
+
+: HOST-STATE ( a u -- )
+    GLOBAL S>ZALLOC LOCAL host-state-task START CLOSE-FILE DROP
+;
+
+: HOST-STATE: eval-string, POSTPONE HOST-STATE ; IMMEDIATE

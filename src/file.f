@@ -1,0 +1,110 @@
+\ REQUIRE EVAL-SUBST ~nn/lib/subst.f
+
+USER-CREATE CUR-FILE-NAME 2 CELLS USER-ALLOT
+VECT FILE-ERR
+: (FILE-ERR) ( a u -- )
+    ." FILE ERROR (" CUR-FILE-NAME 2@ TYPE ." ): " TYPE CR
+;
+
+' (FILE-ERR) TO FILE-ERR
+
+
+: FWRITE ( a u a-filename u-filename -- )
+    2DUP CUR-FILE-NAME 2!
+    W/O CREATE-FILE-SHARED IF DROP 2DROP S" WRITE" FILE-ERR EXIT THEN
+    >R
+    R@ WRITE-FILE DROP
+    R> CLOSE-FILE DROP
+;
+
+: F2EOF ( h -- )
+    >R R@ FILE-SIZE 0=
+    IF R@ REPOSITION-FILE DROP 
+    ELSE 2DROP THEN
+    R> DROP
+;
+
+: FAPPEND ( a u a-filename u-filename -- )
+    2DUP CUR-FILE-NAME 2!    
+    R/W OPEN-FILE-SHARED
+    IF DROP
+        CUR-FILE-NAME 2@ R/W CREATE-FILE-SHARED
+        IF DROP 2DROP S" APPEND" FILE-ERR EXIT THEN
+    THEN
+    >R
+    R@ F2EOF
+    R@ WRITE-FILE DROP
+    R> CLOSE-FILE DROP
+;
+
+: FREAD ( a u a-filename u-filename -- a u1 )
+    2DUP CUR-FILE-NAME 2!
+    R/O OPEN-FILE-SHARED 
+    IF DROP DROP 0 S" READ" FILE-ERR EXIT THEN
+    >R
+    OVER SWAP R@ READ-FILE  IF DROP 0 THEN
+    R> CLOSE-FILE DROP
+;
+
+WINAPI: CopyFileA KERNEL32.DLL
+
+: FCOPY ( from-a1 u1 to-a2 u2 -- )
+    2OVER CUR-FILE-NAME 2!    
+    DROP NIP 0 SWAP ROT CopyFileA ERR
+    IF S" COPY" FILE-ERR THEN ;
+ 
+: FMOVE ( from-a1 u1 to-a2 u2 -- )
+    2OVER CUR-FILE-NAME 2!    
+    DROP NIP SWAP MoveFileA ERR
+    IF S" MOVE" FILE-ERR THEN ;
+
+: FRENAME ( from-a1 u1 to-a2 u2 -- )   FMOVE ;
+
+: FDELETE ( a u -- )
+    2DUP CUR-FILE-NAME 2!
+    DELETE-FILE
+    IF S" DELETE" FILE-ERR THEN ;
+
+USER PURGE-DATE
+USER PURGE-DAYS
+
+: (PURGE-OLD) ( a u days xt -- )
+    PURGE-DATE ! PURGE-DAYS !
+    FOR-FILES
+       IS-DIR? 0=
+       IF
+           CUR-DATE PURGE-DATE @ EXECUTE - PURGE-DAYS @ >
+           IF
+                FOUND-FULLPATH FDELETE
+           THEN
+       THEN
+    ;FOR-FILES    
+;
+    
+: PURGE-OLD  ( a u days --)  ['] CREATION-DATE (PURGE-OLD) ;
+: PURGE-OLDW ( a u days --)  ['] WRITE-DATE (PURGE-OLD) ;
+: PURGE-OLDA ( a u days --)  ['] ACCESS-DATE (PURGE-OLD) ;
+
+: FILE-OP ( addr u xt -- ... )
+    FF-SAVE-STACK FF-SAVE
+    >R
+    DROP FIND-FIRST-FILE DUP IF NIP THEN
+    R> EXECUTE
+    FF-REST
+    FF-REST-STACK
+;
+
+: SIZE-OP
+    IF __FFB nFileSizeLow @ __FFB nFileSizeHigh @ 
+    ELSE 0 0 THEN ;
+
+: CDATE-OP IF CREATION-DATE ELSE 0 THEN ;
+: ADATE-OP IF ACCESS-DATE ELSE 0 THEN ;
+: WDATE-OP IF WRITE-DATE ELSE 0 THEN ;
+
+
+: FSIZE  ['] SIZE-OP FILE-OP ;
+: FCDATE ['] CDATE-OP FILE-OP ;
+: FADATE ['] ADATE-OP FILE-OP ;
+: FWDATE ['] WDATE-OP FILE-OP ;
+ 

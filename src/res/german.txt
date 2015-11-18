@@ -1,0 +1,315 @@
+\ nnCron Lokalisierungsdatei Stand 18.05.2003 (für Versionen ab 1.89 Beta4)
+\ Dies ist die deutsche Übersetzung der nnCron Oberfläche.
+\ Wenn Sie Übersetzungsfehler finden oder Anregungen haben, kontaktieren
+\ Sie bitte den Betreuer: Stefan Schuck <Stefan@ComputerDienst24.de>
+\ You can find more translations by pointing your browser to
+\ http://www.nncron.ru/translation.shtml
+
+10 Einstellungen
+11 Hilfe
+12 Aufgabe JETZT starten
+13 Aufgabe bearbeiten
+14 Aufgabe hinzufügen
+15 nnCron Beenden
+16 Termin hinzufügen
+17 Über nnCron
+18 Logdatei anzeigen
+19 nnCron jetzt bestellen!
+20 Tools
+21 WinSpy starten
+22 'Forth'Konsole
+23 Crontabs neu einlesen
+24 nnCron anhalten
+25 nnCron starten
+
+30 Soll das Programm jetzt gestartet werden?
+
+100 nnCron Neue Aufgabe
+101 Zeit und Optionen
+102 Aktion
+103 Bedingung
+104 Manuell
+110 Name der Aufgabe
+111 nnCron Aufgabe bearbeiten
+112 Datei
+
+120 Einmalig
+121 Minütlich
+122 Stündlich
+123 Täglich
+124 Wöchentlich
+125 Monatlich
+126 Jährlich
+127 bei Ereignis
+128 Cron Zeitformat
+
+130 Um
+131 am
+132 Alle
+133 je am
+134 des Monats
+135 Minute              alle
+136 Zur
+137 wähle Wochentag
+138 Stunden
+139 Minuten
+
+140 Ereignisse loggen
+141 nach Erledigung löschen
+142 Aufgabe ist Aktiv
+143 Starte auch verpasste Aufgaben
+
+150 Starte als: >
+151 Name
+152 Passwort
+153 Domäne
+154 Logon Typ
+155 Interaktiv
+156 Batch
+157 Netzwerk
+158 Ereignis
+159 Starte als angemeldeter Benutzer!
+
+160 Montag
+161 Dienstag
+162 Mittwoch
+163 Donnerstag
+164 Freitag
+165 Samstag
+166 Sonntag
+167 Wochentag
+
+170 Minuten
+171 Stunden
+172 Tage
+173 Monate
+174 Jahre
+
+180 Verzeichnis
+181 Dateiname
+182 Filter
+183 Minute Stunde Tag Monat WochenTag Jahr
+184 FensterTitel
+185 Minute Stunde Tag Monat WochenTag
+186 Laufwerk
+187 Prozessname
+188 Hotkey
+189 BenutzerFilter
+
+190 [Pfad\]Programm oder Dokument
+191 Parameter (Optional)
+192 Startverzeichnis (Ausführen in...)
+193 WAV Datei auswählen
+194 WAV Ende abwarten
+195 Text, der angezeigt werden soll
+196 Schließen n. (sek)
+197 Dauer (ms)
+198 Frequenz
+199 Skript Editor:
+
+
+200 OK
+201 Abbrechen
+202 Löschen
+203 Hilfe
+
+209 Test
+
+210 Programm oder Dokument starten
+211 Skript starten
+212 Hinweistext einblenden
+213 Ton abspielen (wav)
+214 Beep über PC-Lautsprecher abspielen
+215 DFÜ Verbindung anwählen
+216 DFÜ Verbindung beenden
+217 Fenster anzeigen
+218 Fenster verstecken
+219 Fenster schließen
+220 Programm beenden
+221 Schalter drücken
+222 Text in die Zwischenablage einfügen
+223 Windows runterfahren
+224 Computer Neustarten
+225 Dateien löschen (Pfad\Verzeichnis\Dateimaske,zB *.tmp)
+226 Prozess beenden (Prozessnamen im Speicher)
+
+260 <Keine Bedingungen, außer "Zeit und Optionen">
+261 Datei oder Verzeichnis ist vorhanden
+262 Programmfenster existiert
+263 Bestimmte DFü-Verbindung ist Online
+264 Datei ist leer (Größe = 0 Byte)
+265 Host ist Online (per Ping überprüft)
+266 Benutzer beantwortet Frage mit Ja
+267 Prozess existiert /Programm läuft
+268 POP3 Postfach hat neue eMails
+
+280
+281 [Pfad\] [Datei]
+282 Fenstertitel
+283 welche Verbindung?
+284 Pfad\Datei
+285 Name oder IP Adresse
+286 Frage \ Hinweis
+287 [Pfad\] Programm
+288 POP3 Server
+
+300 Fenster
+301 Normal
+302 Maximiert
+303 Minimiert
+304 Versteckt
+
+310 Priorität
+311 Normal
+312 Hoch
+313 "Echtzeit"
+314 Minimal
+
+320 Start bestätigen lassen
+321 Warte auf ProzessEnde
+322 Fenstertitel
+323 Schalter
+324 Text
+325 Rechner ausschalten (Power Off)
+326 Nicht
+327 Pfad\Dateiauswahl
+328 Nur wenn älter als (Tage):
+329 als Dienst starten
+
+330 Wähle Programm, Datei oder Dokument:
+331 Wähle Datei:
+332 Der EreignisParameter (Pfad, Maske etc.) darf nicht leer sein.%crlf%Bitte füllen Sie das vorgegebene Feld korrekt aus.%crlf%Für Hilfe F1 drücken.%crlf%Hilfe und Tips finden Sie auch im Forum:  http://groups.yahoo.com/group/nnCron/%crlf%%crlf%Bitte kontrollieren Sie noch einmal Ihre Einstellungen.
+333 Der RegelParameter (Pfad, Verbindung,FensterTitel etc.) darf nicht leer sein.%crlf%Bitte füllen Sie das vorgegebene Feld korrekt aus.%crlf%Für Hilfe F1 drücken.%crlf%Hilfe und Tips finden Sie auch im Forum:  http://groups.yahoo.com/group/nnCron/%crlf%%crlf%Bitte kontrollieren Sie noch einmal Ihre Einstellungen.
+334 Es wurde noch kein Benutzername gewählt.%crlf%Für Hilfe F1 drücken.%crlf%Hilfe und Tips finden Sie auch im Forum:  http://groups.yahoo.com/group/nnCron/%crlf%%crlf%Bitte kontrollieren Sie noch einmal Ihre Einstellungen.
+335 Bitte tragen Sie bei 'Name der Aufgabe' einen Namen für diese Aufgabe ein.%crlf%Vergeben Sie einen sinnvollen Namen, damit Sie die Aufgabe wieder finden.%crlf%Leerzeichen werden automatisch in Unterstriche umgewandelt
+336 Das Startverzeichnis wurde nicht gefunden, bitte überprüfen.
+337 Ups, habe den Pfad nicht gefunden.%crlf%Bitte überprüfen Sie nocheinmal Ihre Angaben.
+338 SchreibFehler # %IO-ERR%%crlf%%IO-ERR-TXT%%crlf%Datei ist schreibgeschützt.
+339 Prozess
+
+
+340 Verbindung auswählen:
+341 Benutzer:
+342 Passwort
+343 Domäne
+344 Versuche
+345 Pause, sek
+
+400 Aufgabeneinstellung prüfen / manuell bearbeiten:
+
+410 nnCron: E r i n n e r u n g !   (Löschen oder verschieben?)
+411 Später
+412 OK
+413 Termin verschieben um:
+414 Verschieben
+415 Löschen
+
+420 nnCron: Termin hinzufügen
+421 Zeit
+422 Datum
+423 Auch anzeigen wenn verpasst
+
+450 nnCron: Einstellungen
+451 Aufgabendatei
+452 Hinzufügen
+453 Aufgabendatei
+454 Entfernen
+455 CronLog Datei
+456 LogFormat
+457 INI editieren
+458 Standard Öffnungsart
+459 Standard Priorität
+460 Sprache
+461 Tauschen
+462 Starten Sie nnCron neu, damit die Änderungen wirksam werden!
+463 Sie haben etwas geändert! Änderungen speichern?
+464 Benutzer
+465 Passwort
+466 Registration
+467 RegistrationsName
+468 Seriennummer
+469 Konfiguration wurde geändert. nnCron muss neugestartet werden.%crlf% Jetzt Neustarten?   Ansonsten werden die Änderungen verworfen.
+
+470 nnCron: Aufgaben Datei *.tab
+471 Aufgaben Datei eingeben
+
+472 nnCron: Plugin
+473 Pfad zum Plugin
+
+474 Hilfedatei
+
+480 BenutzerProfil laden
+
+481 Zeige Fehlermeldungen
+
+500 Windows wird gestartet
+501 Verzeichnis wurde verändert
+502 Datei wurde erstellt/verändert
+503 DFÜ Verbindung wurde hergestellt
+504 DFÜ Verbindung wurde unterbrochen
+505 Zwischenablage wurde verändert
+506 Fenster wurde erstellt
+507 Fenster wurde aktiviert
+508 Fenster wurde geschlossen
+509 Fenstertitel hat gewechselt
+510 CD wurde eingelegt
+511 CD wurde entnommen
+512 Prozess wurde gestartet
+513 Prozess wurde angehalten
+514 Ein Benutzer meldet sich ab
+515 Windows wird beendet
+516 Tastendruck (Hotkey)
+517 Bestimmter Benutzer meldet sich an
+518 Bestimmter Benutzer meldet sich ab
+
+600 Anmelden nicht möglich.%crlf%Kann Benutzer nicht anmelden.%crlf% Fehler # %IO-ERR%,%crlf% das bedeutet:%crlf%%IO-ERR-TXT%
+601 Anmeldung war erfolgreich ;-)  Benutzername, Passwort, Domäne und "Logon-Typ" sind korrekt.%crlf%Die Aufgabe kann 'als dieser Benutzer' ausgeführt werden.
+602 Anmeldung testen
+603 Bitte geben Sie ein paar Worte als Hinweis für diesen Termin ein.
+604 Fehler beim öffnen der Datei %crlf%Fehler # %IO-ERR%%crlf%%IO-ERR-TXT%
+605 nnCron wurde nicht gestartet
+
+\ nnCron preference
+700 Allgemein
+701 Tray Icon
+702 Berechtigung
+703 Plugins
+
+720 Standard Editor
+721 Year-Feld Aktiv
+722 Backup Ordner
+723 Tray-Icon anzeigen
+724 Menü Einträge
+725 Einstellungen
+726 Beenden
+727 Tools\'Forth'Konsole
+728 Die 'Forth'Konsole beim Start öffnen
+729 Crash Schutz
+730 Starte alle Tasks mit Rechten dieses Benutzers:
+731 BenutzerProfil laden
+732 Name:
+733 Passwort:
+734 Domain:
+735 Starte GUI mit Rechten dieses Benutzers:
+
+740 Liste der vorhandenen Plugins
+
+750 Nur für Admins sichtbar
+
+777 http://www.shareit.com/product.html?cart=1&productid=154474
+
+10000 Fehlermeldung
+10001 Kann Benutzer nicht finden.%crlf%%WIN-ERR-STR%%crlf%zur INFO:%crlf%Hilfe und Tips finden Sie auch im Forum:  http://groups.yahoo.com/group/nnCron/
+10002 Start als angemeldeter User nicht möglich. (Can't get logged user token). %crlf%%WIN-ERR-STR%%crlf%Für Hilfe F1 drücken.%crlf%Hilfe und Tips finden Sie auch im Forum:  http://groups.yahoo.com/group/nnCron/%crlf%%crlf%Bitte kontrollieren Sie noch einmal Ihre Einstellungen.
+10003 WARNUNG: %CUR-TAB-FILENAME COUNT% Zeile:%CURSTR @ N>S% Pos:%>IN1 @ N>S%. Ungültige Zeitangaben. Erlaubt ist: [%BEG-RANGE N>S%-%END-RANGE N>S%].%crlf%Für Hilfe F1 drücken.%crlf%Hilfe und Tips finden Sie auch im Forum:  http://groups.yahoo.com/group/nnCron/%crlf%%crlf%Bitte kontrollieren Sie noch einmal Ihre Einstellungen.
+10004 Regelfehler. %crlf%%WIN-ERR-STR%%crlf%Für Hilfe F1 drücken.%crlf%Hilfe und Tips finden Sie auch im Forum:  http://groups.yahoo.com/group/nnCron/
+10005 Regel: stack error.%crlf%zur INFO: 'Forth' legt seine Informationen im Speicher stapelweise ab.%crlf%Dabei ist etwas durcheinander gekommen.%crlf%Hilfe und Tips finden Sie auch im Forum:  http://groups.yahoo.com/group/nnCron/
+10006 Fehler.beim löschen einer Aufgabe%crlf%%WIN-ERR-STR%
+10007 %CSP-NAME 2@%. Fehler Stack has garbage %crlf%(%CSP-DIFF ABS%)%crlf%zur INFO: 'Forth' legt seine Informationen im Speicher stapelweise ab.%crlf%Dabei ist etwas durcheinander gekommen.%crlf%Hilfe und Tips finden Sie auch im Forum:  http://groups.yahoo.com/group/nnCron/
+10008 %CSP-NAME 2@%. Fehler Stack is destroyed (%CSP-DIFF%)%crlf%zur INFO: 'Forth' legt seine Informationen im Speicher stapelweise ab.%crlf%Dabei ist etwas durcheinander gekommen.%crlf%Hilfe und Tips finden Sie auch im Forum:  http://groups.yahoo.com/group/nnCron/
+10009 Interner Fehler.%crlf%%WIN-ERR-STR%%crlf%zur INFO:%crlf%Hilfe und Tips finden Sie auch im Forum:  http://groups.yahoo.com/group/nnCron/
+10010 Fehler TASK STACK ERROR%crlf%zur INFO: 'Forth' legt seine Informationen im Speicher stapelweise ab.%crlf%Dabei ist etwas durcheinander gekommen.%crlf%Hilfe und Tips finden Sie auch im Forum:  http://groups.yahoo.com/group/nnCron/
+10011 Crontab Syntax Fehler!!!. Task Datei: %CUR-TAB-FILENAME COUNT%. Zeile: %CURSTR @%
+10012 MAIN:LOAD-CRONTAB
+10013 Gewünschter Erinnerungs- Zeitpunkt ist bereits vorbei.%crlf%Wählen Sie einen Zeitpunkt bzw. ein Datum in der Zukunft.
+10014 Action: stack error.

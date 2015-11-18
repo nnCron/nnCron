@@ -1,0 +1,25 @@
+\ File:   clipboard.spf
+\ Author: Valery Kondakoff
+\ Date:   11.06.2003
+\ Description: This ыскшзе is used to insert command line arguments
+\ to Windows clipboard: for example, it allows me to copy URLs from 
+\ GoldEd using simple keyboard shortcut.
+
+\ Usage: nncron.exe -runfile clipboard.spf "some useful arguments"
+
+CREATE str1 256 ALLOT
+: main
+    get-string str1 PLACE
+    CLIPBOARD: "%str1 COUNT%"
+;
+
+\ BEGIN
+\   BL WORD COUNT ?DUP
+    \ Blank space delimiter
+    \ BL SKIP [CHAR] " SKIP [CHAR] " WORD COUNT ?DUP
+    \ Skippin black spaces, quote as delimiter
+\ WHILE
+\   MsgBox
+\ REPEAT
+\ DROP
+

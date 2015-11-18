@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<options>
+    <option name="icontext" value="%ServiceName%" />
+    <option name="disabled" value="%DISABLE-CRON?%" />
+    <option name="TrayIconDoubleClick" value="options" />
+    <option name="TrayIconRightButton"  value="menu" />
+    <option name="TrayIconBalloonClick" value="NOOP" />
+</options>
+

@@ -1,0 +1,1 @@
+@..\nncrond.exe -runfile test.spf

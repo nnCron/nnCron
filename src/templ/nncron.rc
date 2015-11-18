@@ -1,0 +1,81 @@
+
+#include <winver.h>
+
+LANGUAGE LANG_ENGLISH, SUBLANG_DEFAULT
+
+#ifdef _DEBUG
+icon16 ICON "ico/nncron16x16-16-deb.ico"
+icon32 ICON "ico/nncron32x32-16-2.ico"
+icon16x ICON "ico/nncron16x16-16-3cross-deb.ico" 
+#else
+icon16 ICON "ico/nncron16x16-16-3.ico"
+icon32 ICON "ico/nncron32x32-16-2.ico"
+icon16x ICON "ico/nncron16x16-16-3cross.ico" 
+#endif
+
+iconon ICON "ico/iconon1-8.ico"
+iconoff ICON "ico/iconoff1-8.ico"
+
+VS_VERSION_INFO     VERSIONINFO
+#ifdef _DEBUG
+  FILEVERSION       %VER-MAJOR%,%VER-MINOR%,%BUILD-NUM%,%VER-TYPE#|0%
+  PRODUCTVERSION    %VER-MAJOR%,%VER-MINOR%,%BUILD-NUM%,%VER-TYPE#|0%
+#else
+  FILEVERSION       %VER-MAJOR%,%VER-MINOR%,%BUILD-NUM%,%VER-TYPE#|0%
+  PRODUCTVERSION    %VER-MAJOR%,%VER-MINOR%,%BUILD-NUM%,%VER-TYPE#|0%
+#endif
+FILEFLAGSMASK       VS_FFI_FILEFLAGSMASK
+#ifdef _DEBUG
+  FILEFLAGS         VS_FF_PRIVATEBUILD | VS_FF_PRERELEASE
+#else
+  FILEFLAGS         0
+#endif
+FILEOS              VOS__WINDOWS32
+FILETYPE            VFT_APP
+FILESUBTYPE         VFT2_UNKNOWN
+BEGIN
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x0409, 1252   ; US English, Windoze charset
+  END
+
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904E4"                    ; US English, Windoze charset data
+    BEGIN
+#ifdef _DEBUG
+      VALUE "FileDescription", "nnCronD - system command scheduler\0"
+#else
+      VALUE "FileDescription", "nnCron - system command scheduler\0"
+#endif
+      VALUE "ProductName", "nnCron\0"
+      VALUE "CompanyName", "nnSoft\0"
+      VALUE "LegalCopyright", "Copyright \251 1999 - %YYYY% nnSoft.\0"
+#ifdef _DEBUG
+      VALUE "FileVersion", "%VER-MAJOR%.%VER-MINOR%.%BUILD-NUM% %VER-TYPE%%VER-TYPE#% debug\0"
+      VALUE "ProductVersion", "%VER-MAJOR%.%VER-MINOR%.%BUILD-NUM% %VER-TYPE%%VER-TYPE#% debug\0"
+#else
+      VALUE "FileVersion", "%VER-MAJOR%.%VER-MINOR%.%BUILD-NUM% %VER-TYPE%%VER-TYPE#%\0"
+      VALUE "ProductVersion", "%VER-MAJOR%.%VER-MINOR%.%BUILD-NUM% %VER-TYPE%%VER-TYPE#%\0"
+#endif
+    END
+  END
+END
+
+/*
+LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+
+#ifdef _DEBUG
+icon16 ICON "ico/nncron16x16-16-deb.ico"
+icon32 ICON "ico/nncron32x32-16-2.ico"
+icon16x ICON "ico/nncron16x16-16-3cross-deb.ico" 
+#else
+icon16 ICON "ico/nncron16x16-16-3.ico"
+icon32 ICON "ico/nncron32x32-16-2.ico"
+icon16x ICON "ico/nncron16x16-16-3cross.ico" 
+#endif
+
+iconon ICON "ico/on16.ico"
+iconoff ICON "ico/off16.ico"
+
+*/

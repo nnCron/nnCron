@@ -1,0 +1,315 @@
+\ This is Czech nnCron interface translation.
+\ Feel free to report translation errors or suggestions
+\ to the maintainer: Ivan Horak <ihorak@volny.cz>
+\ You can find more translations by pointing your browser to
+\ http://www.nncron.ru/translation.shtml
+
+10 Pøedvolby
+11 Nápovìda
+12 Spustit úlohu
+13 Upravit
+14 Nová úloha
+15 Konec
+16 Nová upomínka
+17 O programu
+18 Prohlídka logu
+19 Koupit nnCron!
+20 Nástroje
+21 WinSpy
+22 Konsole
+23 Restart
+24 Zastavit nnCron
+25 Spustit nnCron
+
+30 Chcete spustit aplikaci?
+
+100 nnCron: Nová úloha
+101 Èas a nastavení
+102 Úloha
+103 Podmínka
+104 Rozšíøené
+110 Jméno úlohy
+111 nnCron. Upravit úlohu
+112 Soubor
+
+120 Jednou
+121 Kadou minutu
+122 Kadou hodinu
+123 Kadı den
+124 Tıdnì
+125 Mìsíènì
+126 Roènì
+127 Pøi události
+128 Èas.formát Cronu
+
+130 V
+131 Dne:
+132 
+133 V
+134 den v mìsíci
+135 minutu po kadé
+136 
+137 Dny v tıdnu...
+138 hodinu
+139 minutu
+
+140 Logování
+141 Odebrat po spuštìní
+142 Aktivovat
+143 Spustit chybìjící úlohu
+
+150 Spustit jako:
+151 Jméno
+152 Heslo
+153 Doména
+154 Pøihlášení
+155 Interaktivní
+156 Dávkové
+157 Síové
+158 Událost
+159 Spustit jako aktual. uivatel
+
+160 Pondìlí
+161 Úterı
+162 Støeda
+163 Ètvrtek
+164 Pátek
+165 Sobota
+166 Nedìle
+167 So+Ne
+
+170 minut
+171 hodin
+172 den
+173 mìsíc
+174 rok
+
+180 Adresáø
+181 Soubor
+182 Maska
+183 Minuta Hodina Den Mìsíc So+Ne Rok
+184 Titulek okna
+185 Minuta Hodina Den Mìsíc So+Ne
+186 Disk
+187 Jméno procesu
+188 Kláves. zkratka
+189 Uivatel. maska
+
+190 Cesta aplikace nebo dokumentu
+191 Parametry
+192 Spouštìcí adresáø
+193 Cesta souboru WAV
+194 Hrát synchronizovanì
+195 Text zprávy
+196 Èas (s)
+197 Trvání (ms)
+198 Frekvence
+199 Script
+
+
+200 OK
+201 Storno
+202 Vymazat
+203 Nápovìda
+
+209 Test
+
+210 Spustit aplikaci nebo otevøít dokument
+211 Spustit script
+212 Zobrazit zprávu
+213 Hrát zvuk (wav)
+214 Pípnutí
+215 Vytoèit telefoní linku
+216 Zavìsit telefoní linku
+217 Ukázat okno
+218 Skrıt okno
+219 Zavøít okno
+220 Ukonèit aplikaci
+221 Zmáèknuté tlaèítko
+222 Vloit text do schránky
+223 Vypnout poèítaè
+224 Restartovat poèítaè
+225 Vyèistit adresáø
+226 Ukonèit proces
+
+260 <bez podmínky>
+261 Soubor nebo adresáø existuje
+262 Okno existuje
+263 Poèítaè je pøipojen k Iternetu
+264 Soubor je prázdnı
+265 Poèítaè je pøipojen k síti (ping)
+266 Odpoveï na dotaz
+267 Je spuštìn proces
+268 POP3 poštovní schránka obsahuje e-mail
+
+280
+281 Cesta
+282 Titulek
+283 Spojení
+284 Cesta
+285 Jméno nebo IP
+286 Text otázky
+287 Jméno
+288 POP3 server
+
+300 Okno
+301 Normální
+302 Maximalizované
+303 Minimalizované
+304 Schované
+
+310 Priorita
+311 Normální
+312 Vysoká
+313 Maximální
+314 Neèinnı
+
+320 Poadavek na potvrzení
+321 Èekat na konec
+322 Titulek
+323 Tlaèítko
+324 Text
+325 Vypnout
+326 Not
+327 Cesta\maska
+328 Stáøí souborù k vymazání (dny)
+329 Jako sluba
+
+330 Vybrat aplikaci nebo dokument
+331 Vybrat soubor
+332 Parametr událost (cesta, maska atd.) nesmí bıt prázdnı
+333 Parametr pravidlo (cesta, spojení, titulek okna atd.) nesmí bıt prázdnı
+334 Uivatelské jméno není specifikováno
+335 Jméno úlohy není specifikováno
+336 'Spustit v' adresáø nenalezen
+337 Cesta nenalezena
+338 Chyba zápisu # %IO-ERR%%crlf%%IO-ERR-TXT%%crlf%
+339 Jméno
+
+
+340 Spojení
+341 Jméno
+342 Heslo
+343 Doména
+344 Pokusy
+345 Pauza, sec.
+
+400 Definice úlohy
+
+410 nnCron: Upozornìní
+411 Usnout
+412 OK
+413 Pøipomenout ještì v
+414 Usnout
+415 Zavøít
+
+420 nnCron: Nové Upozornìní
+421 Èas
+422 Datum
+423 Zobrazit prošlá upozornìní
+
+450 nnCron: Nastavení
+451 Soubory s úlohami
+452 Pøidat
+453 Soubory úloh
+454 Smazat
+455 Log. soubor
+456 Formát èasu
+457 nncron.ini
+458 Nastavení okna
+459 Priorita
+460 Jazyk
+461 Upravit
+462 Musíte restartovat nnCron, aby se zmìny v konfiguraci projevily
+463 Chcete uloit konfiguraci?
+464 Uivatel
+465 Heslo
+466 Registrace
+467 Registrace - jméno
+468 Registrace - kód
+469 Restartovat nnCron?
+
+470 nnCron: Soubor úloh
+471 Vlote jméno souboru úloh
+
+472 nnCron: Zásuvné moduly
+473 Vlote cestu k zás. modulùm
+
+474 Nápovìda
+
+480 Nahrát profil
+
+481 Ukázat chybovou zprávu
+
+500 Spuštìní
+501 Adresáø je zmìnìn
+502 Soubor je vytvoøen/zmìnìn
+503 Spojení je navázáno
+504 Spojení je pøerušeno
+505 Schránka je zmìnìna
+506 Okno je vytvoøeno
+507 Okno je aktivováno
+508 Okno je zrušeno
+509 Titulek okna byl zmìnìn
+510 Vloen CD disk
+511 Disk CD vyjmut
+512 Proces je spuštìn
+513 Proces je zastaven
+514 Odhlášení
+515 Vypnutí
+516 Klávesová zkratka
+517 Pøihlášení uivatele
+518 Odhlášení uivatele
+
+600 Nemùu pøihlásit uivatele. Error # %IO-ERR%%crlf%%IO-ERR-TXT%
+601 Uivatelské jméno, heslo, doména a zpùsob pøihlášení je v poøádku.
+602 Test pøihlášení
+603 Nemáte ádná upozornìní.
+604 Chyba nahrání souboru # %IO-ERR%%crlf%%IO-ERR-TXT%
+605 nnCron není spuštìn
+
+\ nnCron preference
+700 Hlavní
+701 Vzhled
+702 Autorizace
+703 Zásuvné moduly
+
+720 Editor
+721 Pouít letopoèet
+722 Zálohy
+723 Ikona v systém.lištì
+724 Poloky menu
+725 Volby
+726 Konec
+727 Nástroje/Konsole
+728 Otevøít konsoli pøi startu
+729 Hlídání chyby
+
+730 Spustit všechny úlohy "jako uivatel":
+731 Nahrát uivatelskı profil
+732 Jméno:
+733 Heslo:
+734 Doména:
+735 Spustit GUI "jako uivatel":
+
+740 Pøehled zásuvnıch modulù
+
+750 Pouze pro administratory
+
+777 http://www.shareit.com/product.html?cart=1&productid=154474
+
+10000 Chybová hlášení
+10001 Nemùu pøihlásit uivatele. %WIN-ERR-STR%
+10002 Nemùu získat pøíznak pøihlášeného uivatele. %WIN-ERR-STR%
+10003 VAROVÁNÍ: %CUR-TAB-FILENAME COUNT% øádek:%CURSTR @ N>S% pos:%>IN1 @ N>S%. Chybné urèení èasu. Pravdìpodobnı rozsah je [%BEG-RANGE N>S%-%END-RANGE N>S%].
+10004 Chyba pravidla. %WIN-ERR-STR%
+10005 Pravidlo: stack error.
+10006 Chyba smazání úlohy. %WIN-ERR-STR%
+10007 %CSP-NAME 2@%. Stack obsahuje chyby (%CSP-DIFF ABS%)
+10008 %CSP-NAME 2@%. Stack je narušen (%CSP-DIFF%)
+10009 Interní error. %WIN-ERR-STR%
+10010 TASK STACK ERROR
+10011 CHYBA syntaxe v souboru Crontab !!!. Soubor úloh: %CUR-TAB-FILENAME COUNT%. Øádka: %CURSTR @%
+10012 HLAVNÍ:NAHRÁNÍ-CRONTAB
+10013 Chybnı zápis èasu: Èas upomínky nemùe bıt starší ne aktuální èas.
+10014 Akce: stack error.

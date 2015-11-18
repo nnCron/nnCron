@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<tray>
+    <menu>
+%[if] ItemOptions @%
+     <item name="%10 RES%" action="ses-options" default="yes" />
+%[end]%
+     <item name="%11 RES%" action="ses-help" />
+     <popup name="%20 RES%">
+         <item name="%21 RES%" action="ses-winspy" />
+%[if] ItemConsole @%
+         <item name="%22 RES%" action="ses-console" />
+%[end]%
+     </popup>
+
+     <separator/>
+     
+     <popup name="%12 RES%">
+        %start-task-menu-items%
+     </popup>
+
+     <popup name="%13 RES%">
+        %edit-crontab-menu-items%
+        %edit-task-menu-items%
+     </popup>
+     
+     <item name="%18 RES%" action="ses-show-log"/>
+%[if] ItemReload @%
+     <item name="%23 RES%" action="reload-crontabs"/>
+%[end]%
+     <separator/>
+
+     <item name="%14 RES%" action="ses-add-task"/>
+     <item name="%16 RES%" action="ses-add-reminder"/>
+
+     <separator/>
+%[if] ItemSuspend @ DISABLE-CRON? 0= AND%
+    <item name="%24 RES%" action="disable-cron"/>
+%[end]%
+%[if] ItemSuspend @ DISABLE-CRON? AND%
+    <item name="%25 RES%" action="enable-cron"/>
+%[end]%
+     <item name="%17 RES%" action="ses-about"/>
+%[if] ItemExit @%
+     <item name="%15 RES%" action="exit-cron"/>
+%[end]%    
+    </menu>
+
+</tray>
+

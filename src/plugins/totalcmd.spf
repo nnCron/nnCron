@@ -1,0 +1,46 @@
+\ File:         totalcmd.spf
+\ Author:       Nicholas Nemtsev
+\ Date:         21.11.2004
+\ Description:  Total Commander Interface
+\ Usage: cm_ExchangeWithTabs etc. 
+
+: totalcmd.inc S" %ModuleDirName%plugins\TOTALCMD.INC" EVAL-SUBST ;
+: TOTALCMD-CLASS S" TTOTAL_CMD" ;
+
+: TOTALCMD:
+    CREATE , DOES>
+    TOTALCMD-CLASS WIN-EXIST?
+    IF
+        @ 0 SWAP 1075 WIN-HWND PostMessageA DROP
+    ELSE DROP THEN
+;
+: totalcmd-error totalcmd.inc TYPE ."  error # " . CR ;
+: totalcmd-load
+    ['] <PRE> BEHAVIOR >R
+    [NONAME
+        SOURCE 
+        IF
+            C@ DUP [CHAR] ; = SWAP [CHAR] [ = OR 
+            IF
+\                ." comment: " SOURCE TYPE CR
+                1 WORD DROP
+            ELSE
+                [CHAR] = PARSE
+                [CHAR] ; PARSE 
+                S" %1 esPICKS% TOTALCMD: %3 esPICKS%" EVAL-SUBST
+                ['] EVALUATE CATCH ?DUP
+                IF totalcmd-error 2DROP THEN
+                \ ." --->" TYPE CR
+                1 PARSE 2DROP
+            THEN
+        ELSE
+            DROP
+        THEN
+    NONAME] TO <PRE>
+    totalcmd.inc ['] INCLUDED CATCH ?DUP 
+        IF totalcmd-error 2DROP THEN
+    R> TO <PRE>
+;
+
+totalcmd-load
+

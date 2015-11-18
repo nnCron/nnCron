@@ -1,0 +1,37 @@
+\ File:         powerstate.spf
+\ Author:       Nicholas Nemtsev
+\ Date:         30.05.2005
+\ Description:  Monitors powerstate of a laptor
+\ Words: AC-LINE-STATUS, BATTERY-STATUS, BATTERY-LIFETIME, BATTERY-FULL-LIFETIME
+\ Usage: AC-LINE-STATUS
+\        Returns true if powered by AC, false when powered by battery
+\ Example:
+\ * Usage example:
+\ * #( test-power-state
+\ * NoActive
+\ * Action:
+\ *   AC-LINE-STATUS
+\ *   IF
+\ *      MSG: "The computer is powered by AC."
+\ *   ELSE
+\ *      MSG: "The computer is powered by battery."
+\ *   THEN
+\ * )#
+
+
+WINAPI: GetSystemPowerStatus KERNEL32.DLL
+: (POWER-STATUS) 0 0 0 SP@ GetSystemPowerStatus DROP ;
+: AC-LINE-STATUS ( -- 0/1/255) (POWER-STATUS) NIP NIP 0xFF AND ;
+
+1 CONSTANT BATTERY-HIGH
+2 CONSTANT BATTERY-LOW
+4 CONSTANT BATTERY-CRITICAL
+8 CONSTANT BATTERY-CHARGING
+128 CONSTANT NO-BATTERY
+255 CONSTANT BATTERY-UNKNOWN
+: BATTERY-STATUS ( -- 1/2/4/8/128/255) (POWER-STATUS) NIP NIP 8 RSHIFT 0xFF AND ;
+
+: BATTERY-LIFETIME ( -- time-in-sec/-1 ) (POWER-STATUS) DROP NIP ;
+: BATTERY-FULL-LIFETIME ( -- time-in-sec/-1 ) (POWER-STATUS) DROP DROP ;
+
+

@@ -1,0 +1,40 @@
+\ File:         sid.spf
+\ Author:       Nicholas Nemtsev
+\ Date:         27.06.2002
+\ Description:  Convert username to string SID
+\               For Windows 2000 and XP only.
+
+\ Usage:  %SID: <user-name>%
+\ Example:
+\ REG-SZ: "HKEY_USERS\%SID: Nicholas%\Control Panel\Desktop\SCRNSAVE.EXE" "G:\WINNT\System32\DPMS.SCR"
+
+Win2k?
+[IF]
+WINAPI: LookupAccountNameA ADVAPI32.DLL
+\ WINAPI: GetSidIdentifierAuthority ADVAPI32.DLL
+WINAPI: ConvertSidToStringSidA ADVAPI32.DLL
+
+WINAPI: LocalFree KERNEL32.DLL
+
+: SID { a-user u-user \ az cbSid cbDomain pSid sid dom -- a u }
+    256 ALLOCATE THROW TO sid
+    256 ALLOCATE THROW TO dom
+    256 TO cbSid 256 TO cbDomain
+    a-user u-user S>SZ DROP TO az
+    0 SP@ AT cbDomain dom AT cbSid sid az 0 LookupAccountNameA ERR THROW
+    DROP
+    0 TO pSid
+    AT pSid sid ConvertSidToStringSidA ERR THROW
+    sid FREE THROW
+    dom FREE THROW
+    az FREE THROW
+    pSid IF
+            pSid ASCIIZ> EVAL-SUBST
+            pSid LocalFree 0= ERR THROW
+         ELSE S" " THEN
+;
+
+\ S" Nicholas" SID
+
+: SID: BL SKIP 1 PARSE SID ;
+[THEN]

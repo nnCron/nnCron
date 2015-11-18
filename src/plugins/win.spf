@@ -1,0 +1,17 @@
+REQUIRE U.R lib/ext/core-ext.f
+:NONAME { xt hwnd \ -- }
+    256 PAD hwnd GetWindowTextA PAD SWAP hwnd xt CATCH IF 2DROP DROP THEN
+    TRUE
+; WNDPROC: (ENUM-WINDOWS-PROC)
+: ENUM-WINDOWS ( xt -- )
+    ['] (ENUM-WINDOWS-PROC) EnumWindows DROP
+;
+VARIABLE OUT-LINE
+: OUT-STOP?
+    OUT-LINE 1+! OUT-LINE @ 23 > 
+    IF ." Press any key..." KEY DROP 
+       13 EMIT ."                 " 13 EMIT 
+    THEN ;
+
+: WINDOW-TYPE HEX 6 U.R SPACE TYPE CR OUT-STOP? ;
+: WINDOWS OUT-LINE 0! ['] WINDOW-TYPE ENUM-WINDOWS ;

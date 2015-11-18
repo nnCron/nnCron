@@ -1,0 +1,346 @@
+\ Èia yra Lietuvðkas (Lithuanian) nnCron sàsajos vertimas skirtas nnCron 1.89.997
+\ Radæ klaidø ar turëdami pasiûlymø galite praneðti kalbos failo
+\ Priþiurëtojui: Aurimui Fiðerui (Aurimas Fischer) <aurimas_f@ktv.lt>
+\ Paskutinis atnaujinimas 2004.07.20. Daugiau vertimø galite rasti èia
+\ http://www.nncron.ru/translation.shtml
+
+\ [Main Menu]
+10 Nustatymai
+11 Pagalba
+12 Pradëti uþduotá
+13 Redaguoti
+14 Nauja uþduotis
+15 Iðeiti
+16 Naujas priminimas
+17 Apie nnCron
+18 Þiurëti registrà
+19 Pirkti nnCron dabar!
+20 Árankiai
+21 WinSpy
+22 Konsolë
+23 Perkrauti Crontabus
+24 Iðjungti nnCron
+25 Ájungti nnCron
+
+\ [Task] - prompt
+30 Ar norëtumëte paleisti programà?
+
+\ [Task]
+100 nnCron: Nauja uþduotis
+101 Laikas ir nustatymai
+102 Veiksmas
+103 Sàlyga
+104 Kita
+110 Uþduotis
+111 nnCron. Redaguoti uþduotá
+112 Failas
+
+\ [Task | Time and options]
+120 Vienà kartà
+121 Kas minutæ
+122 Kas valandà
+123 Kas dienà
+124 Kas savaitæ
+125 Kas mënesá
+126 Kas metus
+127 Ávykus ávykiui
+128 Cron laiko formatas
+
+130 Laikas
+131 Data
+132 kas
+133 kelintà
+134 mënesio dienà
+135 minutæ, kas
+136 Kelintà
+137 Savaitës dienos...
+138 val.
+139 min.
+
+140 Raðyti á registrà
+141 Ðalinti po vykdymo
+142 Aktyvi
+143 Vykdyti praleistà uþduotá
+144 vv:mm/dienos
+
+150 Vykdyti kaip
+151 Vardas
+152 Slaptaþodis
+153 Domenas
+154 Prisijungimo tipas
+155 Interaktyvus
+156 Vykdomasis
+157 Tinklinis
+158 Kada
+159 Vykdyti kaip prisijungæs vartotojas
+
+160 Pirmadienis
+161 Antradienis
+162 Treèiadienis
+163 Ketvirtadienis
+164 Penktadienis
+165 Ðeðtadienis
+166 Sekmadienis
+167 Savaitës dienos
+
+170 minutës
+171 valandos
+172 dienos
+173 mënesiai
+174 metai
+
+180 Katalogo pavadinimas
+181 Failo pavadinimas
+182 *Mask
+183 Minutë Valanda Diena Mënesis Sav. diena Metai
+184 Window title
+185 Minutë Valanda Diena Mënesis Savaitës diena
+186 Disko raidë
+187 Proceso pavadinimas
+188 Spartusis klaviðas
+189 *User mask
+
+\ [Task | Action]
+190 Programos ar dokumento kelias
+191 Parametrai
+192 Paleidimo katalogas
+193 Kelias iki Wav failo
+194 Groti sinchroniðkai
+195 Þinutës tekstas
+196 Baigtis (s)
+197 Trukmë (ms)
+198 Daþnis
+199 Skripto tekstas
+
+
+\ [Task] - buttons
+200 Gerai
+201 Nutraukti
+202 Ðalinti
+203 Pagalba
+
+209 Testas
+
+\ [Task | Action]
+210 Paleisti programà arba atidaryti dokumentà
+211 Vykdyti skriptà
+212 Parodyti praneðimà
+213 Sugroti garsà (Wav)
+214 Pypsëti
+215 Skambinti
+216 Nutraukti ryðá
+217 Rodyti langà
+218 Slëpti langà
+219 Uþdaryti langà
+220 Nutraukti programos vykdymà
+221 Paspausti mygtukà
+222 Ákelti tekstà á iðkarpø krepðelá
+223 Iðjungti
+224 Perkrauti
+225 Iðvalyti katalogà
+226 Nutraukti procesà
+
+\ [Task | Condition]
+260 <be sàlygos>
+261 Egzistuoja failas ar katalogas
+262 Egzistuoja langas
+263 Internete
+264 Failas tuðèias
+265 Adresas egzistuoja (ping)
+266 Uþklausa
+267 Egzistuoja procesas
+268 POP3 paðto dëþutë turi laiðkø
+
+280 
+281 Kelias
+282 Pavadinimas
+283 Ryðys
+284 Kelias
+285 Pavadinimas arba Ip
+286 Uþklausos tekstas
+287 Pavadinimas
+288 POP3 serveris
+
+\ [Task | Action | Run application or open document]
+300 Atidaryti
+301 Normaliai
+302 Iðskleistà
+303 Sutrauktà
+304 Paslëptà
+
+310 Prioritetas
+311 Normalus
+312 Aukðtas
+313 Kritinis
+314 Budintis
+
+320 Reikalauti patvirtinimo
+321 Laukti baigimo
+322 Antraðtë
+323 Mygtukas
+324 Tekstas
+325 Iðjungti visai
+326 Ne
+327 Kelias\kaukë
+328 Trinamø failø amþius (dienomis)
+329 Kaip servisà
+
+\ [Task] - captions and prompts
+330 Iðrinkite programà ar dokumentà
+331 Iðrinkite failà
+332 Ávykio parametras (pvz. kelias, kaukë) negali bûti tuðti
+333 Taisyklës parametrai (pvz. kelias, ryðys, lango antraðtë) negali bûti tuðti
+334 Nenurodytas naudotojo vardas
+335 Nenurodytas uþduoties pavadinimas
+336 'Pradþios' katalogas nerastas
+337 Kelias nerastas
+338 Raðymo klaida # %IO-ERR%%crlf%%IO-ERR-TXT%%crlf%
+339 Pavadinimas
+
+\ [Task | Action | Dialin]
+340 Ryðys
+341 Naudotojo vardas
+342 Slaptaþodis
+343 Domenas
+344 Bandymai
+345 Pertrauka, s
+
+\ [Task] - caption
+400 Uþduoties apraðymas
+
+\ [Reminder]
+410 nnCron: Priminimas
+411 Nusnûsti
+412 Gerai
+413 Priminti vël po
+414 Slëpti
+415 Uþdaryti
+
+420 nnCron: Naujas priminimas
+421 Laikas
+422 Data
+423 Parodyti praleistà priminimà
+
+\ [Options | General]
+450 nnCron: Nustatymai
+451 Uþduoèiø failas
+452 Pridëti
+453 Uþduoèiø failai
+454 Ðalinti
+455 Registro failas
+456 Registravimo laikas
+457 nncron.ini
+458 Numatytas lango atidarymo reþimas
+459 Numatytas prioritetas
+460 Kalba
+461 Redaguoti
+
+\ [Options] - prompts etc.
+462 Turite perkrauti nnCron, kad ásigaliotø nustatymø pakeitimai
+463 Norite iðsaugoti nustatymus?
+464 Naudotojas
+465 Slaptaþodis
+466 Registracija
+467 Vardas
+468 Kodas
+469 Perkrauti nnCron?
+
+470 nnCron: Uþduoèiø failas
+471 Áveskite uþduoties failà
+
+472 nnCron: Intarpai
+473 Áveskite intarpø kelià
+
+474 Pagalbos failas
+
+480 Ákelti profilá
+
+481 Rodyti klaidø praneðimus
+482 Spustelëjus kairájá klaviðà dukart
+483 Spustelëjus deðinájá klaviðà
+
+
+\ [Logging]
+500 Startavimas
+501 Pasikeitë katalogas
+502 Failas sukurtas/pakeistas
+503 Ryðys sukurtas
+504 Ryðys nutrûko
+505 iðkarpø krepðelis pasikeitë
+506 Langas sukurtas
+507 Langas aktyvuotas
+508 Langas sunaikintas
+509 Lango antraðtë pasikeitë
+510 CD ádëtas
+511 CD iðimtas
+512 Procesas pradëtas
+513 Procesas sustabdytas
+514 Atsijungiama
+515 Iðsijungiama
+516 Spartusis klaviðas
+517 Naudotojas prisijungë
+518 Naudotojas atsijungë
+
+\ [Messages]
+600 Nepavyko prisijungi. Klaida # %IO-ERR%%crlf%%IO-ERR-TXT%
+601 Naudotojo vardas, slaptaþodis, domenas ir prisijungimo tipas teisingi.
+602 Testuoti prisijungimà
+603 Priminimas yra tuðèias.
+604 Failo ákëlimo klaida # %IO-ERR%%crlf%%IO-ERR-TXT%
+605 nnCron nepaleistas
+
+\ [Options]
+700 Pagrindiniai
+701 Sàsaja
+702 Ágaliojimai
+703 Intarpai
+
+\ [Options | General]
+720 Redaktorius
+721 Metø laukas
+722 Atsargos kelias
+
+\ [Options | Interface]
+723 Uþduoèiø juostos piktograma
+724 Meniu elementai
+725 Nustatymai
+726 Iðeiti
+727 Árankiai/Konsolë
+728 Atidaryti konsolæ startuojant
+
+\ [ Options | General]
+729 Lûþimo apsauga
+
+\ [Options | Authorisation]
+730 Vykdyti visas uþduotis "naudotoju":
+731 Ákelti naudotojo profilá
+732 Vardas:
+733 Slaptaþodis:
+734 Domenas:
+735 Vykdyti GVS "naudotoju":
+
+\ [Options | Plugins]
+740 Intarpø sàraðas
+
+\ [Options | Interface]
+750 Tik administratoriams
+
+\ [Buy now URL]
+777 http://www.shareit.com/product.html?cart=1&productid=154474
+
+\ [Error messages]
+10000 Klaidø praneðimai
+10001 Nepavyksta prisijungti. %WIN-ERR-STR%
+10002 Nepavyksta gauti prisijungusio naudotojo leksemos. %WIN-ERR-STR%
+10003 ÁSPËJIMAS: %CUR-TAB-FILENAME COUNT% eilutë:%CURSTR @ N>S% pos:%>IN1 @ N>S%. Klaidinga laiko specifikacija. Galimas diapazonas [%BEG-RANGE N>S%-%END-RANGE N>S%].
+10004 Taisyklës klaida. %WIN-ERR-STR%
+10005 Taisyklë: steko klaida.
+10006 Uþduoties ðalinimo KLAIDA. %WIN-ERR-STR%
+10007 %CSP-NAME 2@%. Steke yra ðiukðliø (%CSP-DIFF ABS%)
+10008 %CSP-NAME 2@%. Stekas yra sunaikintas (%CSP-DIFF%)
+10009 Vidinë klaida. %WIN-ERR-STR%
+10010 UÞDUOÈIØ STEKO KLAIDA
+10011 Crontab sintaksës KLAIDA!!!. Uþduoèiø failas: %CUR-TAB-FILENAME COUNT%. Eilutë: %CURSTR @%
+10012 PAGRINDINIS:ÁKELTI-CRONTAB
+10013 Klaidinga laiko specifikacija: Priminimas negali bûti ankstesnis uþ dabartiná laikà.
+10014 Veiksmas: steko klaida.

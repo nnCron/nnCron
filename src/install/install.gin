@@ -1,0 +1,6 @@
+[Config]
+ImagePath=Image
+ExeName=nncron1
+Password=
+UpdateVersionInfo=1
+Compression=ZIP

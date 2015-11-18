@@ -1,0 +1,347 @@
+\ This is Serbian(Latin) nnCron interface translation.
+\ Feel free to report translation errors or suggestions
+\ to the maintainer: Predrag Manojlovic <pedjaman@verat.net>
+\ You can find more translations by pointing your browser to
+\ http://www.nncron.ru/translation.shtml
+\ nncron.exe v 1.89 RC6 Build 990 4.03.2004
+
+\ [Main Menu]
+10 Opcije
+11 Pomoc
+12 Pokreni posao
+13 Izmene
+14 Novi posao
+15 Izlaz
+16 Novi podsetnik
+17 O nnCron-u
+18 Vidi dnevnik
+19 Kupi nnCron Odmah!
+20 Alati
+21 WinSpy
+22 Konzola
+23 Ucitaj crontab-ove
+24 Onemoguci nnCron
+25 Omoguci nnCron
+
+\ [Task] - prompt
+30 Zelite li da pokrenete aplikaciju?
+
+\ [Task]
+100 nnCron: Novi posao
+101 Vreme i opcije
+102 Akcija
+103 Uslov
+104 Napredno
+110 Ime posla
+111 nnCron. Izmeni posao
+112 Dokument
+
+\ [Task | Time and options]
+120 Jednom
+121 Po minutu
+122 Po casu
+123 Dnevno
+124 Nedeljno
+125 Mesecno
+126 Godisnje
+127 Na dogadjaj
+128 Cron format vremena
+
+130 U
+131 Na
+132 svaki
+133 na
+134 dan u mesecu
+135 minuta nakon svakih
+136 U
+137 Dana u nedelji...
+138 casova
+139 minuta
+
+140 Upisi u dnevnik
+141 Ukloni nakon izvrsenja
+142 Aktivan
+143 Pokreni propusteni posao
+144 hh:mm/dana
+
+150 Pokreni kao korisnik
+151 Ime
+152 Lozinka
+153 Domen
+154 Tip logon-a
+155 Interaktivno
+156 Serijski
+157 Mreza
+158 Na
+159 Pokreni kao ulogovani korisnik
+
+160 Ponedeljak
+161 Utorak
+162 Sreda
+163 Cetvrtak
+164 Petak
+165 Subota
+166 Nedelja
+167 Dani u nedelji
+
+170 minuta
+171 casova
+172 dana
+173 meseci
+174 godina
+
+180 Ime fascikle
+181 Ime dokumenta
+182 Maska
+183 Minut Cas Dan Mesec Dan u nedelji Godina
+184 Naslov prozora
+185 Minut Cas Dan Mesec Dan u nedelji
+186 Slovo uredjaja
+187 Ime procesa
+188 Vruci taster
+189 Maska korisnika
+
+\ [Task | Action]
+190 Putanja do aplikacije ili dokumenta
+191 Parametri
+192 Radna fascikla
+193 Putanja do WAV dokumenta
+194 Reprodukuj sinhronizovano
+195 Tekst poruke
+196 Vreme isticanja (s)
+197 Trajanje (ms)
+198 Ucestanost
+199 Tekst skripta
+
+
+\ [Task] - buttons
+200 OK
+201 Odustani
+202 Obrisi
+203 Pomoc
+
+209 Test
+
+\ [Task | Action]
+210 Pokreni aplikaciju ili otvori dokument
+211 Pokreni skript
+212 Prikazi poruku
+213 Reprodukuj zvuk (wav)
+214 Bip
+215 Biraj broj
+216 Prekini vezu
+217 Prikazi prozor
+218 Sakrij prozor
+219 Zatvori prozor
+220 Zavrsi aplikaciju
+221 Klikni na dugme
+222 Ubaci tekst na klipbord.
+223 Ugasi racunar
+224 Restartuj racunar
+225 Ocisti fasciklu
+226 Zavrsi proces
+
+\ [Task | Condition]
+260 <bez uslova>
+261 Dokument ili fascikla postoji
+262 Prozor postoji
+263 Povezan
+264 Dokument prazan
+265 Host postoji (ping)
+266 Upit
+267 Proces postoji
+268 POP3 sanduce sadrzi postu
+
+280 
+281 Putanja
+282 Naslov
+283 Konekcija
+284 Putanja
+285 Ime ili IP
+286 Tekst upita
+287 Ime
+288 POP3 server
+
+\ [Task | Action | Run application or open document]
+300 Otvori
+301 Normalan
+302 Maksimizovan
+303 Minimizovan
+304 Sakriven
+
+310 Prioritet
+311 Normalan
+312 Visok
+313 U realnom vremenu
+314 Mirujuci
+
+320 Pitaj za potvrdu
+321 Cekaj na zavrsetak
+322 Naslov
+323 Dugme
+324 Tekst
+325 Ugasi racunar
+326 Ne
+327 Putanja\maska
+328 Starost dokumenata za uklanjanje (dana)
+329 Kao servis
+
+\ [Task] - captions and prompts
+330 Odaberi aplikaciju ili dokument
+331 Odaberi dokument
+332 Parametri dogadjaja (putanja, maska, itd.) ne mogu biti prazni
+333 Parameter pravila (putanja, konekcija, naslov prozora, itd.) ne mogu biti prazni
+334 Korisnicko ime nije navedeno
+335 Naziv posla nije naveden
+336 Radna fascikla nije pronadjena
+337 Putanja nije pronadjena
+338 Greska pri pisanju # %IO-ERR%%crlf%%IO-ERR-TXT%%crlf%
+339 Ime
+
+
+\ [Task | Action | Dialin]
+340 Konekcija
+341 Korisnicno ime
+342 Lozinka
+343 Domen
+344 Pokusaja
+345 Pauza
+
+\ [Task] - caption
+400 Definicija posla
+
+\ [Reminder]
+410 nnCron: Podsetnik
+411 Dremanje
+412 OK
+413 Podseti me ponovo za
+414 Dremanje
+415 Zatvaranje
+
+420 nnCron: Novi podsetnik
+421 Vreme
+422 Datum
+423 Prikazi propusteni podsetnik
+
+\ [Options | General]
+450 nnCron: Opcije
+451 Dokument posla
+452 Dodaj
+453 Dokumenti posla
+454 Obrisi
+455 Dokument dnevnika
+456 Vreme dnevnika
+457 nncron.ini
+458 Standardni oblik prozora
+459 Standardni prioritet
+460 Jezik
+461 Izmeni
+
+\ [Options] - prompts etc.
+462 Morate restartovati nnCron da bi se izvrsile izmene u podešavanjima
+463 Zelite li da snimite podesavanja?
+464 Korisnik
+465 Lozinka
+466 Registracija
+467 Registraciono ime
+468 Registracioni kod
+469 Restartovati nnCron?
+
+470 nnCron: Dokument posla
+471 Unesite naziv dokumenta posla
+
+472 nnCron: Dodatak
+473 Unesite putanju do dodatka
+
+474 Dokument pomoci
+
+480 Ucitaj profil
+
+481 Prikazi poruke o gresci
+482 Na dupli klik levim tasterom
+483 Na klik desnim tasterom
+
+\ [Logging]
+500 Pokreni
+501 Fascikla je promenjena
+502 Dokument je kreiran/promenjen
+503 Konekcija je uspostavljena
+504 Konekcija je prekinuta
+505 Klipbord je promenjen
+506 Prozor je kreiran
+507 Prozor je aktiviran
+508 Prozor je unisten
+509 Naslov prozora je promenjen
+510 CD je ubacen
+511 CD je uklonjen
+512 Proces je pokrenut
+513 Proces je zaustavljen
+514 Log off
+515 Ugasi racunar
+516 Vruci taster
+517 Log on korisnika
+518 Log off korisnika
+
+\ [Messages]
+600 Ne mogu da ulogujem korisnika. Greska # %IO-ERR%%crlf%%IO-ERR-TXT%
+601 Korisnicko ime, lozinka, domen i tip logon-a su ispravni.
+602 Testiraj logon
+603 Podsetnik je prazan
+604 Greška pri ucitavanu dokumenta # %IO-ERR%%crlf%%IO-ERR-TXT%
+605 nnCron nije pokrenut
+
+\ [Options]
+700 Generalno
+701 Interfejs
+702 Autorizacija
+703 Dodaci
+
+\ [Options | General]
+720 Podrazumevan editor
+721 Polje godine
+722 Putanja kopije
+
+\ [Options | Interface]
+723 Ikonica tray-a
+724 Opcije menija
+725 Opcije
+726 Izlaz
+727 Alati/Konzola
+728 Otvori konzolu pri pokretanju
+
+\ [ Options | General]
+729 Cuvar rusenja
+
+\ [Options | Authorisation]
+730 Pokreni sve poslove "kao korisnik":
+731 Ucitaj profil korisnika
+732 Ime:
+733 Lozinka:
+734 Domen:
+735 Pokreni GUI "kao korisnik":
+
+\ [Options | Plugins]
+740 Lista dodataka
+
+\ [Options | Interface]
+750 Samo za administratore
+
+\ [Buy now URL]
+777 http://www.shareit.com/product.html?cart=1&productid=154474
+
+\ [Error messages]
+10000 Poruke o gresci
+10001 Ne mogu da ulogujem korisnika. %WIN-ERR-STR%
+10002 Ne mogu da uzmem token ulogovanog korisnika. %WIN-ERR-STR%
+10003 UPOZORENJE: %CUR-TAB-FILENAME COUNT% linija:%CURSTR @ N>S% pozicija:%>IN1 @ N>S%. Neispravna specifikacija vremena. Moguci raspon je [%BEG-RANGE N>S%-%END-RANGE N>S%].
+10004 Greska u pravilu. %WIN-ERR-STR%
+10005 Pravilo: greska steka.
+10006 GRESKA brisanja posla. %WIN-ERR-STR%
+10007 %CSP-NAME 2@%. Stek ima djubre (%CSP-DIFF ABS%)
+10008 %CSP-NAME 2@%. Stek je unisten (%CSP-DIFF%)
+10009 Interna greska. %WIN-ERR-STR%
+10010 GRESKA STEKA POSLA
+10011 Crontab sintaksna GRESKA!!!. Dokument posla: %CUR-TAB-FILENAME COUNT%. Linija: %CURSTR @%
+10012 MAIN:LOAD-CRONTAB
+10013 Neispravna specifikacija vremena: Vreme podsetnika ne moze biti ranije od tekuceg vremena.
+10014 Akcija: greska steka.

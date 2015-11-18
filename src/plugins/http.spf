@@ -1,0 +1,352 @@
+\ File:         http.spf
+\ Author:       Nicholas Nemtsev
+\ Description:  http operations
+\ Date: 14.Apr.2003 (PAD relation words have been eliminated)
+\ Modified: 22.Sep.2003 (HTTP-RESULT and some bug fixed)
+\ Modified: 17.Feb.2004 + HTTPProxy-Authorization: username:password
+\ Modified: 19.Feb.2004 + port bug fixed (vPort -> vServerPort )
+\ Modified: 16.Dec.2004 SetPropS/GetPropS bug fixed
+\ Modified: 17.Dec.2004 + authorization in url (http://username:password@server:port/path)
+\ Usage: HTTP-CHANGED: <URL>  ( -- ?)        - tests Last-Modified field
+\        HTTP-GET: <URL>      ( -- a u ior)  - downloads resource
+\        HTTP-LM: <URL>       ( -- a u ior)  - retrieves Last-Modified field
+
+C" SetPropS" FIND NIP 0=
+[IF]
+: SetPropS ( a-val u-val a-name u-name l -- ) 
+    >R  S>ZALLOC >R S>ZALLOC R>  R> SetPropZ ;
+: GetPropS ( a-name u-name l -- a-val u-val) 
+    >R S>ZALLOC DUP R> GetPropZ ?DUP IF ASCIIZ> ELSE S" " THEN ROT FREE DROP ;
+[THEN]
+: BasicAuthVal ( a u -- a1 u1)
+   DUP 2* ALLOCATE THROW >R
+   R@ 0 TO 64offset base64
+   S" Basic %1 esPICKS%" EVAL-SUBST
+   [ DEBUG? ] [IF]    ." BasicAuthVal: " 2DUP TYPE CR [THEN]
+   R> FREE DROP
+;
+
+CLASS: HTTPConnection <SUPER SocketLine
+    var vServer
+    var vServerPort
+    var vPath
+    var vProxy
+    var vProxyPort
+    var vFieldList
+    var vURL
+    var vFH
+    var vUserAgent
+    var vAddField
+    var vProt
+    var vResultCode
+    var vProxy-Authorization
+    var vAuthorization
+
+M: Proxy! S>ZALLOC vProxy ! ;
+M: ProxyPort! vProxyPort ! ;
+M: Server! S>ZALLOC vServer ! ;
+M: ServerPort! vServerPort ! ;
+M: Proxy-Authorization! S>ZALLOC vProxy-Authorization ! ;
+
+M: URL ( a u -- )
+    2DUP S>ZALLOC vURL !
+    RE-SAVE
+    S" /(http\:\/\/)?((.*)@)?([^\/:]*)(\:\d*)?(\/.*)?/i" RE-MATCH
+    IF
+        [ DEBUG? ] 
+        [IF]
+        ." All=" $0 TYPE CR
+        ." Auth=" $3 TYPE CR
+        ." Server=" $4 TYPE CR
+        ." Port=" $5 TYPE CR
+        ." Path=" $6 TYPE CR
+        [THEN]
+        $1 ?DUP 0= IF DROP S" http://" THEN S>ZALLOC vProt !
+        $3 ?DUP IF BasicAuthVal S>ZALLOC vAuthorization ! ELSE DROP THEN
+        $4 Server!
+        $5 ?DUP IF 1 /STRING S>NUM vServerPort ! ELSE DROP THEN
+        $6 ?DUP 0= IF DROP S" /" THEN S>ZALLOC vPath !
+    THEN
+    RE-REST
+;
+
+CONSTR: init ( a u -- )
+    init
+    80 vServerPort !
+    80 vProxyPort !
+    URL
+    S" Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 4.0)" DROP vUserAgent !
+;
+
+: free-fields 
+    [NONAME NodeValue DUP @ ?FREE DUP CELL+ @ ?FREE ?FREE NONAME] 
+    vFieldList DoList
+    vFieldList FreeList ;
+
+DESTR: free free  
+    vPath   @ ?FREE2
+    vProxy  @ ?FREE
+    vServer @ ?FREE
+    vURL    @ ?FREE
+    vUserAgent @ ?FREE2
+    vProt @ ?FREE2
+    vProxy-Authorization @ ?FREE2
+    free-fields ;
+
+M: AddField ( a-name u-name a-val u-val -- )  2SWAP vFieldList SetPropS ;
+
+M: GetField ( a u -- a1 u1) vFieldList GetPropS ;
+
+DEBUG?
+[IF]
+: ShowFields
+    vFieldList 
+    BEGIN @ ?DUP WHILE
+      DUP
+      NodeValue DUP @AZ TYPE ." =" CELL+ @AZ TYPE CR
+    REPEAT
+;
+[THEN]
+
+M: SetAddr
+    vProxy @
+    IF vProxy @AZ
+       vProxyPort @ 
+    ELSE
+       vServer @AZ
+       vServerPort @ 
+    THEN
+    vPort ! Addr!
+;
+            
+M: RequestString ( a1 u1 -- a2 u2)
+    0.
+    <# S"  HTTP/1.1" HOLDS 
+          vProxy @ IF \ vURL @AZ
+                       vPath @AZ HOLDS
+                       vServerPort @ ?DUP IF S>D #S [CHAR] : HOLD 2DROP THEN
+                       vServer @AZ HOLDS
+                       vProt @AZ HOLDS
+                   ELSE vPath @AZ  HOLDS THEN
+          BL HOLD
+          2SWAP HOLDS #> 
+    [ DEBUG? ] [IF] 2DUP TYPE CR [THEN]
+;
+
+M: SendOption ( a1 a2 u2 -- )
+    ROT @ ?DUP 
+    IF ASCIIZ> <# HOLDS S" : " HOLDS HOLDS 0. #> WriteLine 
+    ELSE 2DROP THEN ;
+
+M: SendRequest ( a u -- )
+    SetAddr
+    Create Connect
+    RequestString  WriteLine
+    vUserAgent S" User-Agent" SendOption
+\    Wget/1.8"  WriteLine
+    vServer S" Host"          SendOption
+    S" Accept: */*"           WriteLine
+    vProxy-Authorization S" Proxy-Authorization" SendOption
+    vAuthorization S" Authorization" SendOption
+    vAddField @ ?DUP IF ASCIIZ> WriteLine THEN
+\    S" Connection: Keep-Alive" WriteLine
+\    S" Pragma: no-cache"
+    WriteCRLF ;
+
+M: GetHeader ( -- )
+    RE-SAVE
+    free-fields
+    BEGIN ReadLine ?DUP WHILE
+[ DEBUG? ] [IF]  ." --"  2DUP TYPE CR [THEN]
+      2DUP S" /(.*): (.*)/" RE-MATCH
+      IF  $1 $2 AddField THEN
+      S" /HTTP\/\d\.\d (\d+) /" RE-MATCH
+      IF $1 S>NUM vResultCode ! THEN
+    REPEAT
+[ DEBUG? ] [IF] ShowFields [THEN]
+    DROP
+    RE-REST
+;
+
+M: HEAD ( -- ior)
+    [NONAME
+      S" HEAD" SendRequest
+      GetHeader
+      Close
+    NONAME] CATCH 
+    [ DEBUG? ] [IF] ShowFields [THEN]
+;
+
+M: GetBody { \ buf len-buf cont-len len -- }
+    S" Content-Length" GetField S>NUM TO cont-len
+[ DEBUG? ] [IF] ." Content-Length=" cont-len . CR [THEN]
+    512 TO len-buf
+    len-buf ALLOCATE THROW TO buf 
+    LINE_BUFF_SIZE ReadFromPending DUP TO len
+    vFH @ WRITE-FILE THROW
+    BEGIN
+      len cont-len < cont-len 0= OR
+      IF
+          buf len-buf Sock ReadSocket DUP -1002 =
+          IF 2DROP FALSE ELSE THROW THEN
+          ?DUP
+      ELSE
+        FALSE
+      THEN
+    WHILE
+       DUP AT len +!
+       buf SWAP \ 2DUP TYPE CR
+       vFH @ WRITE-FILE THROW
+    REPEAT
+    buf FREE THROW
+;
+
+M: GET ( a u -- ior)
+    R/W MAKE-FILE THROW vFH !
+    [NONAME
+      S" GET" SendRequest
+      GetHeader
+      GetBody
+      Close
+    NONAME] CATCH 
+    vFH @ CLOSE-FILE DROP
+;
+
+M: Last-Modified ( -- a u ior)
+    HEAD ?DUP
+    IF S" " ROT 
+    ELSE
+      S" Last-Modified" GetField ?DUP 0=
+      IF DROP  S" Content-Length" GetField THEN
+      0
+    THEN
+;
+
+;CLASS
+
+USER-VALUE http
+USER-VALUE HTTP-RESULT
+VARIABLE HTTPProxy
+VARIABLE HTTPProxyPort   3128 HTTPProxyPort !
+VARIABLE HTTPProxy-Authorization
+VARIABLE HTTPProxy-Authorization-Type
+
+: HTTPProxy: get-string S>ZALLOC HTTPProxy ! ;
+: HTTPProxyPort: get-number HTTPProxyPort ! ;
+: HTTPProxy-Authorization: 
+    get-string 
+    HTTPProxy-Authorization-Type @
+    CASE
+       0 OF
+           DUP 2* ALLOCATE THROW >R
+           R@ 0 TO 64offset base64
+           S" Basic %1 esPICKS%" EVAL-SUBST
+            [ DEBUG? ] 
+            [IF]
+               ." HTTPProxy-Authorization: " 2DUP TYPE CR 
+            [THEN]
+           R> FREE DROP
+       ENDOF
+    ENDCASE
+    S>ZALLOC HTTPProxy-Authorization !
+;
+
+WITH HTTPConnection
+: new-http
+    HTTPConnection NEW TO http
+    HTTPProxy @ ?DUP 
+    IF ASCIIZ> http => Proxy! HTTPProxyPort @ http => ProxyPort! 
+        HTTPProxy-Authorization @ ?DUP
+        IF ASCIIZ> http => Proxy-Authorization! THEN
+    THEN ;
+
+: HTTP-LM ( a u -- a u ior)
+    new-http
+    http => Last-Modified
+    ?DUP 0= IF S>TEMP 0 THEN
+    http => vResultCode @ TO HTTP-RESULT
+    http => SELF DELETE
+;
+
+
+: HTTP-GET { a u \ tmpname -- a u ior }
+    a u new-http
+    TempFile S>ZALLOC TO tmpname
+    tmpname ASCIIZ> http => GET ?DUP 0=
+    IF
+       tmpname ASCIIZ> FILE 0
+    ELSE
+       S" " ROT
+    THEN
+    http => vResultCode @ TO HTTP-RESULT
+    http DELETE
+    tmpname ASCIIZ> DELETE-FILE DROP
+    tmpname ?FREE
+;
+
+ENDWITH
+
+VARIABLE HTTP-LIST  \ list of URL with corresponding Last-Modified
+VARIABLE HTTP-SEM
+: htime.txt S" etc\htime.txt" ;
+
+: ?load-htime { \ len buf1 buf2 f -- }
+    HTTP-SEM GET
+    HTTP-LIST @ 0=
+    IF
+      htime.txt R/O OPEN-FILE-SHARED DUP 2 <>
+      IF
+         THROW TO f
+         1024 TO len
+         len CELL+ ALLOCATE THROW TO buf1
+         len CELL+ ALLOCATE THROW TO buf2
+         BEGIN buf1 len f READ-LINE THROW WHILE
+           buf1 SWAP
+           buf2 len f READ-LINE THROW DROP
+           buf2 SWAP 2SWAP HTTP-LIST GLOBAL SetPropS LOCAL
+         REPEAT
+         DROP
+         f CLOSE-FILE DROP
+         buf1 ?FREE 
+         buf2 ?FREE
+      ELSE 2DROP THEN
+    THEN
+    HTTP-SEM RELEASE
+;
+: htime-line htime.txt FAPPEND CRLF htime.txt FAPPEND ;
+: write-htime
+    HTTP-SEM GET
+    HTTP-LIST @ 
+    IF
+        htime.txt R/W MAKE-FILE THROW CLOSE-FILE DROP
+        [NONAME
+            NodeValue DUP @AZ htime-line 
+            CELL+ @AZ htime-line
+        NONAME] HTTP-LIST DoList
+    THEN
+    HTTP-SEM RELEASE
+;
+
+: HTTP-CHANGED { a u -- ? }
+    ?load-htime
+    a u HTTP-LM 0=
+    IF
+        2DUP a u HTTP-LIST GetPropS COMPARE 
+        IF
+            HTTP-SEM GET
+            2DUP a u HTTP-LIST GLOBAL SetPropS LOCAL DROP ?FREE
+            HTTP-SEM RELEASE
+            write-htime
+            TRUE
+        ELSE
+            2DROP FALSE
+        THEN
+    ELSE 2DROP FALSE THEN
+;
+
+C" eval-string," FIND NIP
+[IF]
+: HTTP-CHANGED: eval-string, POSTPONE HTTP-CHANGED ; IMMEDIATE
+: HTTP-LM: eval-string, POSTPONE HTTP-LM ; IMMEDIATE
+: HTTP-GET: eval-string, POSTPONE HTTP-GET ; IMMEDIATE
+[THEN]

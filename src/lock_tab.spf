@@ -1,0 +1,21 @@
+VARIABLE h
+0 VALUE err
+: (main)
+    ." Press any key..." KEY DROP CR
+    S" nncron.tab" R/W OPEN-FILE THROW h !
+    ." nncron.tab file is locked." CR
+    ." Press any key..." KEY DROP CR
+    h @ CLOSE-FILE DROP
+;
+
+: main
+    CONSOLE
+\    MSG: "lock nnCron tab file"
+    START-QUIT
+    ['] (main) CATCH ?DUP IF TO err MSG: "Can't lock nncron.tab %err%" THEN
+;
+
+: BYE
+   h @ CLOSE-FILE DROP
+   BYE
+;

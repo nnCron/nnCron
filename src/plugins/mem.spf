@@ -1,0 +1,116 @@
+REQUIRE OPEN/CREATE-FILE ~nn/lib/file.f
+WINAPI: GetProcessHeaps KERNEL32.DLL
+WINAPI: HeapWalk        KERNEL32.DLL
+WINAPI: HeapLock        KERNEL32.DLL
+WINAPI: HeapUnlock      KERNEL32.DLL
+
+: GetHeaps ( -- addr n )
+\ addr - адрес массива с хэндлами хипов
+\ n - к-во хэндлов в массиве
+  PAD 250 GetProcessHeaps PAD SWAP
+;
+
+
+0
+CELL -- lpData
+CELL -- cbData
+   1 -- cbOverhead
+   1 -- iRegionIndex
+   2 -- wFlags
+\    union {
+\        struct {
+\            HANDLE hMem;
+\            DWORD dwReserved[ 3 ];
+\        } Block;
+\        struct {
+\            DWORD dwCommittedSize;
+\            DWORD dwUnCommittedSize;
+\            LPVOID lpFirstBlock;
+\            LPVOID lpLastBlock;
+\        } Region;
+\    };
+5 CELLS -- xOtherInfo
+CONSTANT /PROCESS_HEAP_ENTRY
+
+USER MEM-TOTAL
+USER MEM-SPF
+USER MEM-F
+
+: MEM-TYPE ( a u -- ) MEM-F @ WRITE-FILE THROW ;
+: MEM-CR LT LTL @ MEM-TYPE ;
+: MEM-SPACE S"  " MEM-TYPE ;
+: MEM-SPACES 0 ?DO MEM-SPACE LOOP ;
+: MEM-D. ( d -- ) \ 94 DOUBLE
+\ Вывести d на дисплей в свободном формате.
+  DUP >R DABS <# #S R> SIGN #>
+  MEM-TYPE MEM-SPACE
+;
+
+: MEM-. ( n -- ) \ 94
+\ Напечатать n в свободном формате.
+  S>D MEM-D.
+;
+
+: MEM-U. ( u -- ) \ 94
+\ Напечатать u в свободном формате.
+  U>D MEM-D.
+;
+
+: MEM-EMIT SP@ 1 MEM-TYPE DROP ;
+: MEM-.0
+  >R 0 <# #S #> R> OVER - 0 MAX DUP 
+    IF 0 DO [CHAR] 0 MEM-EMIT LOOP
+    ELSE DROP THEN MEM-TYPE 
+;
+
+
+: HeapEnum ( xt h -- )
+  DUP >R DUP HeapLock
+  IF
+    [NONAME
+    /PROCESS_HEAP_ENTRY ALLOCATE  THROW ( xt h entry ) SWAP 2>R
+    BEGIN
+      2R@ HeapWalk
+    WHILE
+      2R@ DROP OVER ['] EXECUTE CATCH ?DUP IF  ." EXC:" U. DEPTH . CR ( DROP) 2DROP THEN
+    REPEAT DROP
+    2R> DROP FREE  THROW
+    NONAME] CATCH R> HeapUnlock DROP ?DUP IF ." HeapEnum error # " . CR 2DROP THEN
+  ELSE RDROP 2DROP THEN
+;
+
+: MemDump1 ( entry -- )
+  MEM-SPACE MEM-SPACE
+  DUP @ 6 MEM-.0
+  CELL+ @ DUP MEM-TOTAL +!
+  DECIMAL 0 <# #S #> 8 OVER - 0 MAX MEM-SPACES MEM-TYPE HEX
+;
+: MemDump ( entry -- )
+  DUP DUP MemDump1 MEM-SPACE MEM-SPACE  
+  @ @ WordByAddr OVER >R MEM-TYPE MEM-CR
+  R> 2 S" <n" COMPARE 0= IF DROP ELSE CELL+ @ MEM-SPF +! THEN
+;
+: MEM-DUMP
+  BASE @ HEX
+  ['] DROP TO <EXC-DUMP>
+  GetHeaps 0 ?DO MEM-CR
+    DUP @ DUP 4 MEM-.0 GetProcessHeap = 
+    IF S"  - Process heap (not used by SPF)" MEM-TYPE MEM-CR ['] MemDump1
+    ELSE MEM-CR ['] MemDump THEN
+    OVER @ HeapEnum CELL+
+  LOOP DROP
+  BASE !
+;
+
+: MEM ( a u -- )
+  R/W OPEN/CREATE-FILE THROW MEM-F !
+  MEM-F @ >EOF
+  S" ******* %YYYY%-%MMM%-%DD% %hh%:%mm% *************" EVAL-SUBST MEM-TYPE MEM-CR
+  MEM-TOTAL 0! MEM-SPF 0!
+  ['] MEM-DUMP CATCH ?DUP IF DECIMAL ." MEM ERROR # " . CR THEN
+  MEM-CR S" Total: " MEM-TYPE MEM-TOTAL @ MEM-U. S"  Forth: " MEM-TYPE MEM-SPF @ MEM-U.
+  MEM-F @ CLOSE-FILE DROP
+  ." Total: " MEM-TOTAL @ U. CR 
+  ." Forth: " MEM-SPF @ U. CR
+;
+

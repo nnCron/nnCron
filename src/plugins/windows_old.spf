@@ -1,0 +1,90 @@
+\ File:         windows.spf
+\ Author:       Nicholas Nemtsev, Valery Kondakoff
+\ Date:         25.06.2003 (TOPMOST? added)
+\ Description:  Useful words for windows manipulation
+
+\ Usage: <hwnd> VISIBLE?, <hwnd> MINIMIZED?, <hwnd> TOPMOST?
+\ Example: 
+\         WIN-EXIST: "xxx"
+\         IF WIN-HWND VISIBLE? 0=
+\            IF WIN-SHOW: "xxx" THEN THEN
+
+WINAPI: IsWindowVisible USER32.DLL
+WINAPI: IsIconic USER32.DLL
+WINAPI: GetWindowLongA USER32.DLL
+
+: VISIBLE? ( hwnd -- ?)  IsWindowVisible ;
+: MINIMIZED? ( hwnd -- ?)  IsIconic ;
+
+
+\ WIN-ENUM  
+\ it is obsolete solution - use FOR-WINDOWS: loop to enumerate windows
+
+:NONAME { lparam hwnd -- } 
+    TRUE
+    256 PAD hwnd GetWindowTextA ?DUP 
+    IF PAD SWAP lparam CATCH 
+        IF 2DROP DROP FALSE THEN
+    THEN
+; WNDPROC: WIN-ENUM-PROC
+
+: WIN-ENUM ( xt -- )
+    ['] WIN-ENUM-PROC EnumWindows DROP
+;
+
+\ Usage:
+\ : LOG-WIN-TITLE ( a u -- )
+\     S" win-title.log" LOG ;
+\ ...
+\ Action:
+\     ['] LOG-WIN-TITLE WIN-ENUM
+\ ...
+
+Win2k?
+[IF]
+WINAPI: SetLayeredWindowAttributes USER32.DLL
+WINAPI: SetWindowLongA USER32.DLL
+WINAPI: GetWindowLongA USER32.DLL
+
+0x00080000 CONSTANT WS_EX_LAYERED
+-20        CONSTANT GWL_EXSTYLE
+
+: SET-WS-LAYERED { hwnd flag -- }
+    GWL_EXSTYLE hwnd GetWindowLongA WS_EX_LAYERED
+    flag IF OR ELSE -1 XOR AND THEN
+    GWL_EXSTYLE hwnd SetWindowLongA DROP
+;
+
+: (WIN-TRANSPARENCY) { hwnd n -- }
+    255 n 0 MAX 254 MIN - TO n
+    n 255 <
+    IF 
+        hwnd TRUE SET-WS-LAYERED
+        2 n 0 hwnd SetLayeredWindowAttributes DROP 
+    ELSE
+        hwnd FALSE SET-WS-LAYERED
+    THEN
+;    
+
+: WIN-TRANSPARENCY { a u n -- }
+    a u WIN-EXIST?
+    IF
+        WIN-HWND n 0 MAX (WIN-TRANSPARENCY)
+    THEN ;
+
+C" eval-string," FIND NIP
+[IF]
+: WIN-TRANSPARENCY: 
+    eval-string, number, POSTPONE WIN-TRANSPARENCY ; IMMEDIATE 
+[THEN]
+
+\ Usage:
+\   WIN-TRANSPARENCY: win-pattern transparency[0-255]
+[THEN]
+
+: TOPMOST? { hwnd -- ? } 
+  \ GWL_EXSTYLE (-20)
+  -20 hwnd GetWindowLongA 
+  \ if WS_EX_TOPMOST (8) is included in extended window styles?
+  8 AND?
+;

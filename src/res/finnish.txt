@@ -1,0 +1,314 @@
+\ Tämä on Suomenkielinen käännös nnCron käyttöliittymästä.
+\ Virheet/ehdotukset voi lähettää kääntäjälle 
+\ Ville Pilviö <vp.nncron@retico.com> 
+\ Muita käännöksiä löytyy täältä:
+\ http://www.nncron.ru/translation.shtml
+
+10 Asetukset
+11 Apua
+12 Suorita Tehtävä
+13 Muokkaa
+14 Uusi Tehtävä
+15 Lopetus
+16 Uusi Muistutus
+17 nnCron Tietoa
+18 Näytä Loki
+19 Osta nnCron!
+20 Työkalut
+21 WinSpy
+22 Komentorivitulkki
+23 Tarkista Crontabs
+24 Keskeytä nnCron
+25 Poista Keskeytys
+
+30 Haluatko käynnistää ohjelman?
+
+100 nnCron: Uusi Tehtävä
+101 Aika ja Valinnat
+102 Toiminta
+103 Ehto
+104 Lisää vaihtoehtoja
+110 Tehtävän Nimi
+111 nnCron. Muokka Tehtävä
+112 Tiedosto
+
+120 Kerran
+121 Joka minuutti
+122 Joka tunti
+123 Joka päivä
+124 Joka viikko
+125 Joka kuukausi
+126 Joka vuosi
+127 Tapahtuman jälkeen
+128 Cron aika-muoto
+
+130 Tähän aikaan
+131 Aikana
+132 Jokaisella
+133 Päivän
+134 Kuukauden päivänä
+135 Minuuttia jokaisen jälkeen
+136 Tähän aikaan
+137 Viikon päivät
+138 Tunnit
+139 Minuutit
+
+140 Kijoita lokiin
+141 Poista ajon jälkeen
+142 Aktiivinen
+143 Suorita ohitetut tehtävät
+150 Suorita käyttäjänä
+151 Nimi
+152 Salasana
+153 Domaini
+154 Sisäänkirjoittautimismuoto
+155 Interaktiivinen
+156 Eräajo
+157 Verkko
+158 Päällä
+159 Suorita nykykäyttäjänä
+
+160 Maanantai
+161 Tiistai
+162 Keskiviikko
+163 Torstai
+164 Perjantai
+165 Lauantai
+166 Sunnuntai
+167 Arkipäivinä
+
+170 Minuutit
+171 Tunnit
+172 Päivät
+173 Kuukaudet
+174 Vuosi
+
+180 Hakemiston nimi
+181 Tiedoston nimi
+182 Maski
+183 Minuutti Tunti Päivä Kuukausi Viikonpäivä Vuosi
+184 Ikkunan Otsikko
+185 Minuutti Tunti Päivä Kuukausi Viikonpäivä
+186 Kovalevyn kirjain
+187 Prosessin nimi
+188 Pikanäppäin
+189 Käyttäjärajoitin
+
+190 Ohjelman tai dokumentin polku
+191 Parametrit
+192 Aloituskansio
+193 WAV tiedoston polku
+194 synkroninen soitto
+195 Viestin teksti
+196 Odotusaika rajoitus (s)
+197 Kesto (ms)
+198 Frekvenssi
+199 Skriptin teksti
+
+
+200 OK
+201 Peruuta
+202 Poista
+203 Apua
+
+209 Testi
+
+210 Käynnistä ohjelma tai avaa asiakirja
+211 Käynnistä skripti
+212 Näytä viesti
+213 Soita äänitiedosto (wav)
+214 Piippaus
+215 Aloita modeemiyhteys
+216 Lopeta modeemiyhteys
+217 Näytä ikkuna
+218 Piilota ikkuna
+219 Sulje ikkuna
+220 Keskeytä ohjelma
+221 Klikkaa nappia
+222 Lisää teksti välimuistiin
+223 Sulje tietokone
+224 Uudelleenkäynnistä tietokone
+225 Tyhjennä hakemisto
+226 Lopeta prosessi
+
+260 <ilman ehtoja>
+261 Tiedosto tai kansio on olemassa
+262 Ikkuna on olemassa
+263 Online
+264 Tyhjä tiedosto
+265 Yhteys koneeseen toimii (ping)
+266 Tiedustelu
+267 Processi on olemassa
+268 POP3 postilaatikossa on postia
+
+280 
+281 Polku
+282 Otsikko
+283 Yhteys
+284 Polku
+285 Nimi tai IP-osoite
+286 Haku teksti
+287 Nimi
+288 POP3 palvelin
+
+300 Avaa
+301 Normaali
+302 Maksimoitu
+303 Minimoitu
+304 Piilotettu
+
+310 Prioriteetti
+311 Normaali
+312 Korkea
+313 Reaaliaikainen
+314 Joutoaikainen
+
+320 Vahvista
+321 Odota loppuun
+322 Otsikko
+323 Nappi
+324 Teksti
+325 Sammuta
+326 Muttei
+327 Polku\Rajoitus
+328 Poistettavien tiedostojen ikä (päivissä)
+329 Palveluna
+
+330 Valitse ohjelma tai dokumentti
+331 Valitse tiedosto
+332 Tapahtuman parametri (polku, maski yms.) ei voi olla tyhjä
+333 Sääntö parametri (polku, yhteys, ikkunan otsikko yms.) ei voi olla tyhjä
+334 Käyttäjätunnus puuttuu
+335 Tehtävän nimi puuttuu
+336 Aloituskansio ei löydy
+337 Polku ei löydy
+338 Kirjoitusvirhe # %IO-ERR%%crlf%%IO-ERR-TXT%%crlf%
+339 Nimi
+
+
+340 Yhteys
+341 Käyttäjätunnus
+342 Salasana
+343 Domaini
+344 Yrityksiä
+345 Paussi, s
+
+400 Tehtävänkuvaus
+
+410 nnCron: Muistutus
+411 Snooze lisäaika
+412 OK
+413 Muistuta uudestaan ajassa
+414 Snooze Lisäaika
+415 Sulje
+
+420 nnCron: Uusi Muistutus
+421 Aika
+422 Päivämäärä
+423 Näytä ohitetut muistutukset
+
+450 nnCron: Asetukset
+451 nnCron: Tehtävätiedosto
+452 Lisää
+453 Tehtävätiedostot
+454 Poista
+455 Lokitiedosto
+456 Lokin aika
+457 nncron.ini
+458 Oletusikkunan koko
+459 Oletus prioriteetti
+460 Kieli
+461 Muokkaa
+462 nnCron on käynnistettävä uudelleen uusilla asetuksilla
+463 Talletetaanko asetukset?
+464 Käyttäjä
+465 Salasana
+466 Registeröinti
+467 Registeröintinimi
+468 Registeröintikoodi
+469 Käynnistetäänkö nnCron uudelleen?
+
+470 nnCron: Tehtävätiedosto
+471 Syötä tehtävätiedoston nimi
+
+472 nnCron: Plugin apupalikat
+473 Syötä plugin polku
+
+474 Aputiedosto
+
+480 Lataa profiilit
+
+481 Näytä virheviestit
+
+500 Käynnistys
+501 Hakemisto on muuttunut
+502 Tiedosto luotu/muuttunut
+503 Yhteys saatu
+504 Yhteys suljettu
+505 Välimuisti muuttunut
+506 Ikkuna luotu
+507 Ikkuna aktiivinen
+508 Ikkuna tuhottu
+509 Ikkunan otsikko muuttunut
+510 CD syötetty
+511 CD poistettu
+512 Prosessi käynnistynyt
+513 Prosessi päättynyt
+514 Kirjoittaudu ulos
+515 Sulje tietokone
+516 Pikanäppäin
+517 Kirjoita käyttäjä sisään
+518 Kirjoita käyttäjä ulos
+
+600 Käyttäjä ei voi kirjoittautua sisään. Virhe # %IO-ERR%%crlf%%IO-ERR-TXT%
+601 Käyttäjätunnus, salasana, domaini ja sisäänkirjoittautuminen onnistui.
+602 Testaa sisäänkirjoittautuminen
+603 Tyhjä muistutus.
+604 Tiedoston lataus virhe # %IO-ERR%%crlf%%IO-ERR-TXT%
+605 nnCron ei ole käynnistetty
+
+\ nnCron asetukset
+700 Yleistä
+701 Käyttöliittymä
+702 Oikeudet 
+703 Lisäpalikat
+
+720 Oletus-editori
+721 Vuosi-kenttä
+722 Varmuuskopion polku
+723 Ikoni näkyy
+724 Valikon kohdat
+725 Asetukset
+726 Lopetus
+727 Työkalut/Komentorivi-ikkuna
+728 Komentorivi-ikkuna aloituksessa
+729 Crash guard - suoja
+
+730 Suorita kaikki tehtävät "käyttäjänä":
+731 Lataa käyttäjäprofiili
+732 Nimi:
+733 Salasana:
+734 Domaini:
+735 Suorita graafinen käyttöliittymä "käyttäjänä":
+
+740 Asennetut apupalikat
+
+750 Admin pelkästään
+
+777 http://www.shareit.com/product.html?cart=1&productid=154474
+
+10000 Virheviestit
+10001 Käyttäjän sisäänkirjoittautuminen epäonnistui. %WIN-ERR-STR%
+10002 Nykyisen käyttäjän tiedot puuttuvat. %WIN-ERR-STR%
+10003 VAROITUS: %CUR-TAB-FILENAME COUNT% rivi:%CURSTR @ N>S% pos:%>IN1 @ N>S%. Virheellinen aika-määrite. Mahdolliset arvot välillä [%BEG-RANGE N>S%-%END-RANGE N>S%].
+10004 Sääntövirhe. %WIN-ERR-STR%
+10005 Sääntö: pinovirhe.
+10006 Tehtävä poistettu VIRHE. %WIN-ERR-STR%
+10007 %CSP-NAME 2@%. PINO Roskainen (%CSP-DIFF ABS%)
+10008 %CSP-NAME 2@%. PINO tuhottu (%CSP-DIFF%)
+10009 Sisäinen virhe. %WIN-ERR-STR%
+10010 TEHTÄVÄ PINO VIRHE
+10011 Crontab syntaksi VIRHEELLINEN!!!. Tehtävätiedosto: %CUR-TAB-FILENAME COUNT%. Rivi: %CURSTR @%
+10012 MAIN:LOAD-CRONTAB
+10013 Virheellinen aikamääritelmä: Muistutusaika menneisyydessä.
+10014 Tapahtuma: pino virhe.

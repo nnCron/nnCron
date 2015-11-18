@@ -1,0 +1,62 @@
+\ File:         process.spf
+\ Author:       Nicholas Nemtsev
+\ Date:         14.06.2002
+\ Modified:     10.03.2006 (PROC-WAIT-CPU-USAGE)
+\ Modified:     25.11.2003 (PROC-WAIT-CPU-USAGE)
+\ Description:  Process priority setting etc.
+
+\ Usage: S" process-name" <priority-class> PRIORITY
+\        Priority classes: NORMAL_PRIORITY_CLASS, IDLE_PRIORITY_CLASS,
+\                          HIGH_PRIORITY_CLASS, REALTIME_PRIORITY_CLASS,
+\                          BELOW_NORMAL_PRIORITY_CLASS, ABOVE_NORMAL_PRIORITY_CLASS
+\        S" process-name" <interval-sec> <min-usage> <max-count> PROC-WAIT-CPU-USAGE
+\        S" process-name" <affinity-mask> AFFINITY
+\ Example: S" plugger.exe" HIGH_PRIORITY_CLASS PRIORITY
+
+WINAPI: SetPriorityClass KERNEL32.DLL
+
+WINAPI: SetProcessAffinityMask KERNEL32.DLL
+\ BOOL SetProcessAffinityMask(
+\  HANDLE hProcess,                  // handle to process
+\  DWORD_PTR dwProcessAffinityMask)  // process affinity mask
+
+
+
+0x00000020 CONSTANT NORMAL_PRIORITY_CLASS
+0x00000040 CONSTANT IDLE_PRIORITY_CLASS
+0x00000080 CONSTANT HIGH_PRIORITY_CLASS
+0x00000100 CONSTANT REALTIME_PRIORITY_CLASS
+0x00004000 CONSTANT BELOW_NORMAL_PRIORITY_CLASS
+0x00008000 CONSTANT ABOVE_NORMAL_PRIORITY_CLASS
+
+: PRIORITY { a u p \ hproc -- }
+    a u PROC-EXIST? ?DUP
+    IF
+        FALSE 0x200 OpenProcess TO hproc
+        p hproc SetPriorityClass DROP
+        hproc CloseHandle DROP
+    THEN
+;
+
+: PROC-WAIT-CPU-USAGE { a u interval-sec threshold-usage max-count \ ms cnt -- }
+    threshold-usage 1 MAX 100 MIN TO threshold-usage
+    interval-sec 1 MAX 60 MIN 1000 * TO ms
+    max-count 0 MAX TO max-count
+    0 TO cnt
+    BEGIN
+        a u ms (PROC-CPU-USAGE) threshold-usage <
+        IF  cnt 1+  ELSE  0 THEN
+        TO cnt
+        cnt max-count >
+    UNTIL
+;
+
+: AFFINITY { a u am \ hproc -- }
+    a u PROC-EXIST? ?DUP
+    IF
+        FALSE 0x200 OpenProcess TO hproc
+        am hproc SetProcessAffinityMask DROP
+        hproc CloseHandle DROP
+    THEN
+;
+

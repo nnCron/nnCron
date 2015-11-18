@@ -1,0 +1,405 @@
+\ File:         SendInput_keys.spf
+\ Author:       VoidVolker
+\ Date:		07/06/2008 10:15
+
+\ Description:  Keys & mouse emulation ; Эмуляция клавиатуры и мыши
+\ 	Первоначально было написано для ннКрона, и затем адаптировано для спф(см ниже), напрямую подключается к ннКрону как плагин.
+\ Platforms:
+\	Windows 95: Not Supported. 
+\	Windows 98: Supported. 
+\	Windows NT: Requires Windows NT 4.0 with Service Pack 3 (SP3) or later. 
+\	Windows 2000: Supported. 
+\	Windows CE: Requires Windows CE 2.0 or later.
+\	Windows XP: Supported.
+
+\ ###########
+\ Описание:
+
+\ XYMOUSE	( x y -- )	Перемещает курсор в указанные координаты
+\ XYMOUSE+	( x y -- )	Перемещает курсор на указанное количество пикселей относительно текущих координат
+
+\ LBDN		Нажимает левую кнопку мыши
+\ LBUP		Отпускает левую кнопку мыши
+\ LCLICK		Клик левой кнопкой мыши
+\ DLCLICK		Двойной клик левой кнопкой мыши
+
+\ RBDN		Нажимает правую кнопку мыши
+\ RBUP		Отпускает правую кнопку мыши
+\ RCLICK		Клик правой кнопкой мыши
+
+\ MBDN		Нажимает среднюю кнопку мыши
+\ MBUP		Отпускает среднюю кнопку мыши
+\ MBCLICK		Клик средней кнопкой мыши
+
+\ XBDN		Нажимает X кнопку мыши
+\ XBUP		Отпускает X кнопку мыши
+\ XBCLICK		Клик X кнопкой мыши
+
+\ MITIME! KITIME!  ( time_ms -- )	 Отметка времени для события, в миллисекундах. Если этот параметр - 0, система предоставит свою собственную отметку времени.
+						\ (Даже не знаю зачем оно надо и что делает :/)
+
+\  Код виртуальной клавиши. Код должен быть значением в диапазоне 1 - 254. Заголовочный файл Winuser.h предоставляет на каждое значение макроопределения (VK_ *).
+\ AKEYUP  ( VK -- )	Нажимает клавишу
+\ AKEYDN  ( VK -- )	Отпускает клавишу
+\ AKEY    ( VK -- )	Однократно нажимает клавишу
+
+
+\ Аппаратный скэн-код для клавиши, определяет символ Unicode, который должен отправиться  активному приложению.
+\ UKEYUP  ( UNICODE  -- )		Нажимает клавишу
+\ UKEYDN  ( UNICODE  -- )		Отпускает клавишу
+\ UKEY    ( UNICODE -- )			Однократно нажимает клавишу
+\ UKEYS   ( wa wu -- )			Нажимает все клавиши в юникод-строке, при этом будут отправлены именно те символы, что указаны в строке
+\ UKEYS  ZKEYS  OKEYS  AKEYS	( a u -- )	Нажимает все клавиши в строке, при этом будут отправлены именно те символы, что указаны в строке 
+							\ (Первый символ указывает кодировку/тип строки: U = Unicode; Z = Zero-string; O = OEM; A = ANSI) Для ннКрона - AKEYS
+
+\ ;Конец_описания
+\ ###########
+
+\ \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\ \\\
+\ Вот этот небольшой кусочек кода необходим для работы в спф, в кроне его можно закомментировать:
+\ REQUIRE  {        lib/ext/locals.f 
+\ WINAPI:	MultiByteToWideChar	KERNEL32.DLL
+\ WINAPI:	WideCharToMultiByte	KERNEL32.DLL
+\ WINAPI:	GetCursorPos		USER32.DLL
+\ : MOUSE-POS ( -- x y ) 0 0 SP@ GetCursorPos DROP SWAP ;  \ ~nn\lib\mouse.f 
+\ \\\
+\ \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+: S>UNI { a u \ buf -- addr2 u2 }  \ ~nn\lib\unicode.f
+  u 2* CELL+ DUP ALLOCATE THROW TO buf
+  u IF
+      buf u a 0 ( flags) 0 ( CP_ACP)
+      MultiByteToWideChar DUP ERR THROW
+  ELSE DROP 0 THEN
+  buf
+  SWAP 2*
+  2DUP + 0 SWAP W!
+;
+
+: AZ>UNI DUP IF ASCIIZ> S>UNI DROP THEN ;  \ ~nn\lib\unicode.f
+
+WINAPI: SendInput USER32.DLL
+
+28 CONSTANT SIBSize
+
+0x8000 CONSTANT  MOUSEEVENTF_ABSOLUTE
+0x2 CONSTANT  MOUSEEVENTF_LEFTDOWN 
+0x4 CONSTANT  MOUSEEVENTF_LEFTUP
+0x20 CONSTANT  MOUSEEVENTF_MIDDLEDOWN
+0x40 CONSTANT  MOUSEEVENTF_MIDDLEUP
+0x1 CONSTANT  MOUSEEVENTF_MOVE
+0x8 CONSTANT  MOUSEEVENTF_RIGHTDOWN
+0x10 CONSTANT  MOUSEEVENTF_RIGHTUP
+0x80 CONSTANT  MOUSEEVENTF_WHEEL
+0x100 CONSTANT  MOUSEEVENTF_XDOWN
+0x200 CONSTANT  MOUSEEVENTF_XUP
+120 CONSTANT  WHEEL_DELTA
+0x1 CONSTANT  XBUTTON1
+0x2 CONSTANT  XBUTTON2
+
+0x1 CONSTANT  KEYEVENTF_EXTENDEDKEY
+0x2 CONSTANT  KEYEVENTF_KEYUP
+0x4 CONSTANT  KEYEVENTF_UNICODE
+
+\  0 CONSTANT INPUT_MOUSE
+\  1 CONSTANT INPUT_KEYBOARD
+\  2 CONSTANT INPUT_HARDWARE  
+
+4  \ Тип события: "0" - мышь
+4 -- MIx
+4 -- MIy
+4 -- MImouseData
+4 -- MIFlags
+4 -- MItime
+4 -- MIExtraInfo
+CREATE |MInput ALLOT
+
+4  \ Тип события: "1" - клавиатура
+2 -- KIVk
+2 -- KIScan
+4 -- KIFlags
+4 -- KItime
+4 -- KIExtraInfo
+CREATE |KInput 4 - 1 , ALLOT
+
+\ Структура HARDWAREINPUT(содержит информацию о смоделированном сообщении, созданном устройством ввода данных, а  не  клавиатурой или мышью) - отсутствует, т.к. сильно сомневаюсь в ее полезности, но если кому надо, то вот вам:
+\ 4  \ Тип события: "2" - устройство ввода
+\ 2 -- HIwParamL
+\ 2 -- HIwParamH
+\ CREATE |HInput 4 - 2 , ALLOT
+\ : HARDWARE-INPUT
+\   SIBSize |HInput 1 SendInput DROP
+\   |HInput 4 + 4 ERASE ;
+\ : HIwPL!  |HInput HIwParamL ! ;
+\ : HIwPH!  |HInput HIwParamH ! ;
+
+\ Mouse Input
+: MOUSE-INPUT  ( win_f -- )
+  |MInput MIFlags !
+  SIBSize |MInput 1 SendInput DROP
+  |MInput SIBSize ERASE ;
+
+: MDATA!
+  |MInput MImouseData ! ;
+: MITIME!  ( time_in_ms -- )  \ Отметка времени для события, в миллисекундах. Если этот параметр - 0, система предоставит свою собственную отметку времени.
+  |MInput MItime ! ;
+
+\ (Не работает)
+\ : XWHEEL  ( n -- )  \ n - число вращений колеса мышки, отрицательное число - в обратную сторону
+  \  WHEEL_DELTA * MDATA!
+  \  MOUSEEVENTF_WHEEL
+  \  MOUSE-INPUT ;
+
+: XYMOUSE+  ( x_relative  y_relative -- )
+  |MInput MIy !
+  |MInput MIx !
+  MOUSEEVENTF_MOVE 
+  MOUSE-INPUT ;
+: XYMOUSE  ( x_absolute  y_absolute -- )
+  MOUSE-POS D-
+  XYMOUSE+ ;
+
+: LBDN
+  MOUSEEVENTF_LEFTDOWN
+  MOUSE-INPUT ;
+: LBUP
+  MOUSEEVENTF_LEFTUP
+  MOUSE-INPUT ;
+: LCLICK  LBDN LBUP ;
+: DLCLICK  LCLICK LCLICK ;
+
+: RBDN
+  MOUSEEVENTF_RIGHTDOWN
+  MOUSE-INPUT ;
+: RBUP
+  MOUSEEVENTF_RIGHTUP
+  MOUSE-INPUT ;
+: RCLICK  RBDN RBUP ;
+
+: MBDN
+  MOUSEEVENTF_MIDDLEDOWN
+  MOUSE-INPUT ;
+: MBUP
+  MOUSEEVENTF_MIDDLEUP
+  MOUSE-INPUT ;
+: MBCLICK  MBDN  MBUP ;
+
+: XBDN
+  MOUSEEVENTF_XDOWN
+  MOUSE-INPUT ;
+: XBUP
+  MOUSEEVENTF_XUP
+  MOUSE-INPUT ;
+: XBCLICK  XBDN  XBUP ;
+
+
+\ Keyboard Input
+: KBF!
+  |KInput KIFlags ! ;
+: KBVK!
+  |KInput KIVk W! ;
+: KB-INPUT
+  SIBSize |KInput 1 SendInput DROP
+  |KInput 4 + 16 ERASE ;
+: KISCAN!
+  |KInput KIScan ! ;
+: KITIME!  ( time_in_ms -- )  \ Отметка времени для события, в миллисекундах. Если этот параметр - 0, система предоставит свою собственную отметку времени.
+  |KInput KItime ! ;
+
+\  Код виртуальной клавиши. Код должен быть значением в диапазоне 1 - 254. Заголовочный файл Winuser.h предоставляет на каждое значение макроопределения (VK_ *).
+: AKEYUP  ( VK -- )  \ Нажимает клавишу (A = ANSI)
+  KBVK!
+  KEYEVENTF_KEYUP KBF!
+  KB-INPUT ;
+: AKEYDN  ( VK -- )  \ Отпускает клавишу (A = ANSI)
+  KBVK!
+  KB-INPUT ;
+
+: AKEY  ( VK -- )  \ Однократно нажимает клавишу (A = ANSI)
+  DUP AKEYDN AKEYUP ;
+
+\ Аппаратный скэн-код для клавиши, определяет символ Unicode, который должен отправиться  активному приложению.
+: UKEYUP  ( UNICODE  -- )  \ Нажимает клавишу (U = Unicode)
+  KISCAN!
+  KEYEVENTF_KEYUP KEYEVENTF_UNICODE OR KBF!
+  KB-INPUT ;
+: UKEYDN  ( UNICODE  -- )  \ Отпускает клавишу (U = Unicode)
+  KISCAN!
+  KEYEVENTF_UNICODE KBF!
+  KB-INPUT ;
+
+: UKEY  ( UNICODE  -- )  \ Однократно нажимает клавишу (U = Unicode)
+  DUP UKEYDN UKEYUP ;
+
+: UKEYS  ( wa wu -- )  \ Нажимает все клавиши в юникод-строке (U = Unicode)
+  OVER >R + R> DO  \ ( a_конец_строки  a_начало_строки )
+  I @ UKEY  
+  2 +LOOP ;
+  
+: AKEYS  ( a u -- )  \ Нажимает все клавиши в ANSI-строке, при этом будут отправлены именно те символы, что указаны в строке (A = ANSI)
+  S>UNI UKEYS ;
+
+: ZKEYS  ( az -- )  \ Нажимает все клавиши в нуль-строке, при этом будут отправлены именно те символы, что указаны в строке (Z = ZeroString)
+  AZ>UNI UKEYS ;
+
+: OKEYS  ( a u -- )  \ Нажимает все клавиши в OEM-строке, при этом будут отправлены именно те символы, что указаны в строке (O = OEM)
+  OEM>ANSI S>UNI UKEYS ;
+
+\ Не символьные кнопки, используются сразу числовые значения констант клавиш - чтобы не тянуть за собой плагин keystate.spf с константами
+: Ctrl  0x11 AKEY ;
+: Alt  0x12 AKEY ;
+: Shift  0x10 AKEY ;
+
+: LeftCtrl  0xA2 AKEY ;
+: LeftAlt  0xA4 AKEY ;
+: LeftShift  0xA0 AKEY ;
+
+: RightCtrl  0xA3 AKEY ;
+: RightAlt  0xA5 AKEY ;
+: RightShift  0xA1 AKEY ;
+
+\ Для выполнения различных комбо
+: Ctrl(  0x11 AKEYDN ;
+: Alt(  0x12 AKEYDN ;
+: Shift(  0x10 AKEYDN ;
+
+: LeftCtrl(  0xA2 AKEYDN ;
+: LeftAlt(  0xA4 AKEYDN ;
+: LeftShift(  0xA0 AKEYDN ;
+
+: RightCtrl(  0xA3 AKEYDN ;
+: RightAlt(  0xA5 AKEYDN ;
+: RightShift(  0xA1 AKEYDN ;
+
+
+: )Ctrl  0x11 AKEYUP ;
+: )Alt  0x12 AKEYUP ;
+: )Shift  0x10 AKEYUP ;
+
+: )LeftCtrl  0xA2 AKEYUP ;
+: )LeftAlt  0xA4 AKEYUP ;
+: )LeftShift  0xA0 AKEYUP ;
+
+: )RightCtrl  0xA3 AKEYUP ;
+: )RightAlt  0xA5 AKEYUP ;
+: )RightShift  0xA1 AKEYUP ;
+
+: Win  0x5B AKEY ;
+: Win(  0x5B AKEYDN ;
+: )Win  0x5B AKEYUP ;
+
+: Backspace  0x8 AKEY ;
+: BS  Backspace ; : BKSP  Backspace ;
+
+: Break  0x13 AKEY ;
+
+: CapsLock  0x14 AKEY ;
+: Delete  0x2E AKEY ;
+: Down  0x28 AKEY ;
+: End  0x23 AKEY ;
+: Enter  0xD AKEY ;
+: Esc  0x1B AKEY ;
+: Home  0x24 AKEY ;
+: Insert  0x2D AKEY ;
+: Left  0x25 AKEY ;
+: NumLock  0x90 AKEY ;
+: PageDown  0x22 AKEY ;
+    : PGDN  PageDown ;
+: PageUp  0x21 AKEY ;
+    : PGUP  PageUp ;
+: PrintScreen  0x2C AKEY ;
+    : PRTSC  PrintScreen ;
+: Right  0x27 AKEY ;
+: ScrollLock  0x91 AKEY ;
+
+: Tab  0x9 AKEY ;
+: Up  0x26 AKEY ;
+: F1  0x70 AKEY ;
+: F2  0x71 AKEY ;
+: F3  0x72 AKEY ;
+: F4  0x73 AKEY ;
+: F5  0x74 AKEY ;
+: F6  0x75 AKEY ;
+: F7  0x76 AKEY ;
+: F8  0x77 AKEY ;
+: F9  0x78 AKEY ;
+: F10  0x79 AKEY ;
+: F11  0x7A AKEY ;
+: F12  0x7B AKEY ;
+: F13  0x7C AKEY ;
+: F14  0x7D AKEY ;
+: F15  0x7E AKEY ;
+: F16  0x7F AKEY ;
+
+: Numpad0  0x60 AKEY ;
+: Numpad1  0x61 AKEY ;
+: Numpad2  0x62 AKEY ;
+: Numpad3  0x63 AKEY ;
+: Numpad4  0x64 AKEY ;
+: Numpad5  0x65 AKEY ;
+: Numpad6  0x66 AKEY ;
+: NumpaD7  0x67 AKEY ;
+: Numpad8  0x68 AKEY ;
+: Numpad9  0x69 AKEY ;
+: Multiply  0x6A AKEY ;
+: Add  0x6B AKEY ;
+: Subtract  0x6D AKEY ;
+: Decimal  0x6E AKEY ;
+: Divide  0x6F AKEY ;
+
+: App  0x5D AKEY ;
+
+: Browser_back  0xA6 AKEY ;
+: Browser_forward  0xA7 AKEY ;
+: Browser_refresh  0xA8 AKEY ;
+: Browser_stop  0xA9 AKEY ;
+: Browser_search  0xAA AKEY ;
+: Browser_favorites  0xAB AKEY ;
+: Browser_home  0xAC AKEY ;
+
+: Volume_mute  0xAD AKEY ;
+: Volume_down  0xAE AKEY ;
+: Volume_up  0xAF AKEY ;
+: Media_next_track  0xB0 AKEY ;
+: Media_prev_track  0xB1 AKEY ;
+: Media_stop  0xB2 AKEY ;
+: Media_play_pause  0xB3	AKEY ;
+: Launch_mail  0xB4 AKEY ;
+: Launch_media_select  0xB5 AKEY ;
+: Launch_app1  0xB6 AKEY ;
+: Launch_app2  0xB7 AKEY ;
+
+
+\EOF \ Тестовая секция, примеры
+: test-keys  S" !@#$%^&№;%:? ABC abc Тестовая строка" KEYS ;
+test-keys
+
+\ Кавычки
+: Quote 34 UKEY ; 
+Quote
+
+\ Бомба (с индикатором) 
+\ REQUIRE BEEP ~nn\lib\beep.f (для спф, не проверялось)
+: бомба 50 0 DO 400 I 8 * - PAUSE NumLock  100 I 2 * - PAUSE CapsLock  150 I 3 * -  PAUSE ScrollLock 50 900 BEEP LOOP 1000 0 DO 10 I 10 * BEEP LOOP 5000 10000 BEEP ;
+
+: вин-поиск  VK_LWIN AKEYDN  [CHAR] F AKEY  VK_LWIN AKEYUP ;
+: выполнить  VK_LWIN AKEYDN  [CHAR] R AKEY  VK_LWIN AKEYUP ;
+: свернуть-все  VK_LWIN AKEYDN  [CHAR] M AKEY  VK_LWIN AKEYUP ;
+: свернуть-все2  VK_LWIN AKEYDN  [CHAR] D AKEY  VK_LWIN AKEYUP ;
+: мой-комп  VK_LWIN AKEYDN  [CHAR] E AKEY  VK_LWIN AKEYUP ;
+: task-man  Ctrl( Shift(  Esc  )Ctrl )Shift  ;
+
+: 1PAUSE  1000 PAUSE ;
+: 2PAUSE  2000 PAUSE ; \ Для медленных компов увеличить 
+
+: запуск!  ( a u -- ) выполнить 2PAUSE KEYS 1PAUSE Enter ;
+: блокнот S" notepad.exe" запуск! ;
+: искать-на-харде  ( a u -- )  вин-поиск 2PAUSE Down 1PAUSE Down 1PAUSE Down 1PAUSE Enter 1PAUSE KEYS 1PAUSE Tab 1PAUSE  Tab 1PAUSE  Tab 1PAUSE  Tab 1PAUSE  Tab 1PAUSE  Tab 1PAUSE  Tab 1PAUSE  Enter ;  \ Для WinXp
+: музыку!  свернуть-все 1PAUSE PAUSE Launch_media_select 2PAUSE 2PAUSE Media_play_pause ;
+: фортеры S" http://www.forth.org.ru/" запуск! ;
+
+: MARK-TEXT>  ( n -- )  \ Выделить n символов в тексте _вправо_ от курсора
+  Shift(  0 DO Right LOOP  )Shift ;
+: MARK-TEXT<  ( n -- )  \ Выделить n символов в тексте _влево_ от курсора
+  Shift(  0 DO Left LOOP  )Shift ;

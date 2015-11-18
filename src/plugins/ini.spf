@@ -1,0 +1,61 @@
+\ File:         ini.spf
+\ Author:       Valery Kondakoff (based on Alan West idea)
+\ Date:         06.05.2004
+\ Description:  Words for retrieving/setting a string from/to the 
+\               specified section in an ini-file. A section in the
+\               initialization file must have the following form: 
+\               [section]
+\               key=string
+\               .
+\               .
+\               . 
+\ Usage: S" filename" S" section_name" S" key_name" GET_INI_VALUE
+\        S" filename" S" section_name" S" key_name" S" value" SET_INI_VALUE
+\ Example:
+\     #( test_ini_value
+\     NoActive
+\     Action:
+\         S" c:\temp\test.ini" S" first" S" first_key" S" first_value"
+\         SET_INI_VALUE
+\         S" c:\temp\test.ini" S" first" S" first_key" GET_INI_VALUE
+\         MSG: "Current value: %1 esPICKS%" 
+\     )#
+
+WINAPI: GetPrivateProfileStringA KERNEL32.DLL
+WINAPI: WritePrivateProfileStringA KERNEL32.DLL
+
+\ initialization filename:
+USER-CREATE INI_FileName 256 USER-ALLOT
+\ key name:
+USER-CREATE INI_KeyName 256 USER-ALLOT
+\ section name:
+USER-CREATE INI_SectionName 256 USER-ALLOT
+\ destination buffer:
+USER-CREATE INI_DefaultBuffer 256 USER-ALLOT
+\ default string:
+USER-CREATE INI_KeyDefaultValue 256 USER-ALLOT
+
+: GET_INI_VALUE ( a u a u a u -- a u )
+
+  INI_KeyName ZPLACE
+  INI_SectionName ZPLACE
+  INI_FileName ZPLACE
+  \ this is the default string:
+  S" new_default_value" INI_KeyDefaultValue ZPLACE
+
+  INI_FileName 255 INI_DefaultBuffer INI_KeyDefaultValue INI_KeyName INI_SectionName GetPrivateProfileStringA
+
+  INI_DefaultBuffer SWAP
+
+;
+
+: SET_INI_VALUE ( a u a u a u a u -- )
+
+  INI_DefaultBuffer ZPLACE
+  INI_KeyName ZPLACE
+  INI_SectionName ZPLACE
+  INI_FileName ZPLACE
+
+  INI_FileName INI_DefaultBuffer INI_KeyName INI_SectionName WritePrivateProfileStringA DROP
+
+;

@@ -1,0 +1,145 @@
+\ File:         time.spf
+\ Author:       Nicholas Nemtsev
+\ Date:         08.01.2003
+\ Date:         19.04.2005 (+ UPTIME)
+\ Description:  Time operations.
+\ Words: FILE-TIME:, FILE-ATIME:, FILE-WTIME:, CUR-FTIME, FTIME-, FILE-CHANGE:
+\ Usage: FILE-TIME: filename        ( -- d ) 
+\        d - is a 64-bit value representing the 
+\        number of 100-nanosecond intervals since January 1, 1601
+\        [RECURSIVE] FILE-CHANGE: "file mask"      ( -- ?)
+\ Example: 
+\ CUR-FTIME FILE-TIME: xxx.txt FTIME- 300 > \ curtime-filetime>300sec
+\ IF FILE-DELETE: xxx.txt THEN
+ 
+
+
+: FT-OP  IF __FFB ftCreationTime   2@ SWAP ELSE 0. THEN ;
+: FAT-OP IF __FFB ftLastAccessTime 2@ SWAP ELSE 0. THEN ;
+: FWT-OP IF __FFB ftLastWriteTime  2@ SWAP ELSE 0. THEN ;
+: FILE-TIME  ['] FT-OP FILE-OP ;
+: FILE-ATIME ['] FAT-OP FILE-OP ;
+: FILE-WTIME ['] FWT-OP FILE-OP ;
+
+: FILE-TIME: eval-string, POSTPONE FILE-TIME ; IMMEDIATE
+: FILE-ATIME: eval-string, POSTPONE FILE-ATIME ; IMMEDIATE
+: FILE-WTIME: eval-string, POSTPONE FILE-WTIME ; IMMEDIATE
+
+
+\ USER-CREATE FST /SYSTEMTIME USER-ALLOT
+\ 
+\ : CUR-FTIME ( -- d) \ current time as filetime format
+\     FST GetSystemTime DROP
+\    0 0 SP@ FST SystemTimeToFileTime ERR THROW
+\    SWAP ;
+
+: CUR-FTIME  FT-CUR ;
+
+\ :NONAME
+\    DNEGATE D+ DUP 0< >R DABS
+\    10000000 ?UM/MOD IF NIP ELSE 2DROP 0 THEN
+\    R> IF NEGATE THEN ;
+\ 
+\ : FTIME- ( d1 d2 -- sec) \ time difference between two file time in sec
+\     LITERAL CATCH IF 2DROP 2DROP 0 THEN ;
+
+: FTIME- FT- FT>SEC D>XS ;
+
+\ ============ FILE-CHANGE =============================
+
+USER FCH-FLAG
+USER FCH-NODE
+
+VARIABLE FCH-SEM
+VARIABLE FCH-LIST
+USER FCH-CH-LIST
+
+0 VALUE FCH
+: FCH-NAME S" etc/filechange.txt" ;
+
+: FCH-READ 
+    FCH-SEM GET
+    FCH-LIST @ 0= 
+    IF 
+        FCH-NAME R/O OPEN-FILE-SHARED 
+        IF DROP 
+        ELSE TO FCH
+            BEGIN PAD 512 FCH READ-LINE THROW WHILE
+               PAD SWAP GLOBAL S>ZALLOC FCH-LIST AddNode LOCAL
+            REPEAT
+            DROP
+            FCH CLOSE-FILE DROP
+        THEN
+    THEN
+    FCH-SEM RELEASE
+;
+: FCH-WRITELN NodeValue ASCIIZ> FCH WRITE-LINE DROP ;
+: FCH-WRITE
+    FCH-SEM GET
+    FCH-NAME R/W CREATE-FILE-SHARED 
+    IF DROP 
+    ELSE 
+        TO FCH
+        ['] FCH-WRITELN FCH-LIST DoList
+        FCH CLOSE-FILE DROP
+    THEN
+    FCH-SEM RELEASE
+;
+
+: FCH-IS-FILE? { a u -- ? }
+    FCH-LIST
+    BEGIN @ ?DUP WHILE
+      DUP NodeValue 17 + ASCIIZ>
+      a u ICOMPARE 0=
+      IF NodeValue FCH-NODE ! TRUE EXIT THEN
+    REPEAT
+    FALSE
+;
+
+: FCH-TIME 
+    BASE @ >R HEX
+    FCH-NODE @ 16 S>DOUBLE
+    R> BASE !
+;
+
+: FILE-CHANGE ( a u -- ?)
+    FCH-READ
+    FCH-SEM GET
+    FCH-CH-LIST @ IF FCH-CH-LIST FreeList THEN
+    FCH-CH-LIST 0!
+    FCH-FLAG OFF
+    FOR-FILES
+        FOUND-FULLPATH FCH-IS-FILE? 0=
+        IF  
+            FOUND-FULLPATH DUP 18 + 
+            GLOBAL ALLOCATE THROW >R
+            R@ 17 BLANK
+            [CHAR] 0 R@ C!
+            R@ 17 + ZPLACE
+            R@ FCH-NODE !
+            R> FCH-LIST AddNode LOCAL
+        THEN
+        FOUND-FULLPATH FILE-WTIME 2DUP FCH-TIME D<>
+        IF
+          BASE @ >R HEX    <# 16 0 DO # LOOP #>       R> BASE !
+          FCH-NODE @ SWAP CMOVE
+          FCH-NODE @ 17 + FCH-CH-LIST AppendNode
+          FCH-FLAG ON
+        ELSE
+          2DROP
+        THEN
+    ;FOR-FILES
+    FCH-SEM RELEASE
+    FCH-FLAG @ DUP IF FCH-WRITE THEN
+;
+
+: FILE-CHANGE: eval-string, POSTPONE FILE-CHANGE ; IMMEDIATE
+
+
+WINAPI: QueryPerformanceCounter KERNEL32.DLL
+WINAPI: QueryPerformanceFrequency KERNEL32.DLL
+
+: UPTIME ( -- sec)
+    0 0 SP@ QueryPerformanceCounter DROP SWAP
+    0 0 SP@ QueryPerformanceFrequency DROP NIP UM/MOD NIP
+;

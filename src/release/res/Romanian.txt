@@ -1,0 +1,346 @@
+\ This is English nnCron interface translation.
+\ Feel free to report translation errors or suggestions
+\ to the maintainer: Valery Kondakoff <support@nncron.ru>
+\ You can find more translations by pointing your browser to
+\ http://www.nncron.ru/translation.shtml
+
+\ [Main Menu]
+10 Optiuni
+11 Ajutor
+12 Lansare Task
+13 Editare
+14 Task Nou
+15 Terminare
+16 Nou Reminder
+17 Despre nnCron
+18 View Log
+19 Cumpara nnCron Acum!
+20 Unelte
+21 WinSpy
+22 Consola
+23 Reincarcare Crontabs
+24 Deactiveaza nnCron
+25 Activeaza nnCron
+
+\ [Task] - prompt
+30 Vrei sa lansezi aplicatia?
+
+\ [Task]
+100 nnCron: Task nou
+101 Timp si Optiuni
+102 Actiune
+103 Conditie
+104 Avansat
+110 Nume Task
+111 nnCron. Modificare Task
+112 Fisier
+
+\ [Task | Time and options]
+120 O data
+121 Pe minut
+122 Pe ora
+123 Zilnic
+124 Saptamanal
+125 Lunar
+126 Anual
+127 Eveniment 
+128 Format Cron time format
+
+130 La
+131 In
+132 fiecare
+133 in
+134 zi din luna
+135 minute dupa fiecare
+136 La
+137 In zilele de ...
+138 ore
+139 minute
+
+140 Scrie in jurnal
+141 Sterge dupa executie
+142 Activ
+143 Lanseaza taskuri omise
+144 oo:mm/zile
+
+150 Ruleaza ca utilizator
+151 Nume
+152 Parola
+153 Domeniu
+154 Tip de logare
+155 Interactiva
+156 Batch
+157 Retea
+158 La
+159 Ruleaza ca utilizator logat
+
+160 Luni
+161 Marti
+162 Miercuri
+163 Joi
+164 Vineri
+165 Sambata
+166 Duminica
+167 Zile
+
+170 minute
+171 ore
+172 zile
+173 luni
+174 an
+
+180 Nume director
+181 Nume fisier
+182 Masca
+183 Minut Ora Zi Luna 'Zi din sapt'  An 
+184 Titlul ferestrei
+185 Minut Ora Zi Luna Weekday
+186 Litera Disc
+187 Nume proces
+188 Hot key
+189 Masca Utilizator
+
+\ [Task | Action]
+190 Calea pentru aplicatie sau document
+191 Parametrii
+192 Director de start
+193 Calea pentru fisier WAV
+194 Ruleaza sincronizat
+195 Text pentru mesaj
+196 Expira in (s)
+197 Durata (ms)
+198 Frecventa
+199 Text script
+
+
+\ [Task] - buttons
+200 OK
+201 Anulat
+202 Sterge
+203 Ajutor
+
+209 Test
+
+\ [Task | Action]
+210 Ruleaza aplicatie sau deschide document
+211 Ruleaza script
+212 Mesaj
+213 Ruleaza fisier wav
+214 Beep
+215 Conecteaza dialup
+216 Deconecteaza dialup
+217 Afiseaz fereastra
+218 Ascunde fereastra
+219 Inchide fereastra
+220 Termina aplicatia
+221 Click pe buton
+222 Adauga text in clipboard
+223 Shutdown
+224 Restart
+225 Goleste director
+226 Termina un proces
+
+\ [Task | Condition]
+260 <in orice conditii>
+261 Existenta fisierul sau directorul
+262 Existenta fereastra
+263 Online
+264 Fisier gol
+265 Existenta unui host in retea (ping)
+266 Intrebare
+267 Existenta procesul
+268 Email nou (serviciu POP3)
+
+280
+281 Calea
+282 Titlu
+283 Conexiune
+284 Calea
+285 Nume sau IP
+286 Textul intrebarii
+287 Nume
+288 Server POP3
+
+\ [Task | Action | Run application or open document]
+300 Open
+301 Normal
+302 Maximizat
+303 Minimizat
+304 Ascuns
+
+310 Prioritate
+311 Normal
+312 Mare
+313 Timp Real
+314 Redusa
+
+320 Cere confirmare
+321 Asteapta terminarea
+322 Titlu
+323 Buton
+324 Text
+325 Power off
+326 Nu
+327 Calea\masca
+328 'Varsta' fisierelor de sters (zile)
+329 Ca servici
+
+\ [Task] - captions and prompts
+330 Alege aplicatia sau documentul
+331 Alege fisierul
+332 Parametru pentru eveniment (calea, masca etc.) nu poate fi gol
+333 Parametru pentru conditie (calea, conexiune, titlu fereastra etc.) nu poate fi gol
+334 Lipseste numele utilizatorului
+335 Lipseste numele taskului
+336 Nu gasesc directorul 'Start in'
+337 Nu gasesc calea
+338 Eroare la scriere # %IO-ERR%%crlf%%IO-ERR-TXT%%crlf%
+339 Nume
+
+\ [Task | Action | Dialin]
+340 Conexiune
+341 Utilizator
+342 Parola
+343 Domeniu
+344 Nr de incercari
+345 Pauza, s
+
+\ [Task] - caption
+400 Definire task
+
+\ [Reminder]
+410 nnCron: Reminder
+411 Motaie
+412 OK
+413 Aminteste din nou in
+414 Motaie
+415 Inchide
+
+420 nnCron: New Reminder
+421 Ora
+422 Data
+423 Afiseaza reminderi pierduti
+
+\ [Options | General]
+450 nnCron: Optiuni
+451 Fisier task 
+452 Adauga
+453 Fisiere task
+454 Sterge
+455 Fisier jurnal
+456 Ora jurnal
+457 nncron.ini
+458 Tip de fereastra (implicit)
+459 Prioritate implicita
+460 Limba/Language
+461 Modifica
+
+\ [Options] - prompts etc.
+462 Pentru a activa modificarile trebuie sa restartati nnCron
+463 Vreti sa salvati configuratia?
+464 Utilizator
+465 Parola
+466 Inregistrare
+467 Nume inregistrare
+468 Cod inregistrare
+469 Restartam nnCron?
+
+470 nnCron: Task file
+471 Dati nume pentru fisierul task
+
+472 nnCron: Plugin
+473 Calea pentru plugin 
+
+474 Fisier ajutor
+
+480 Incarca profilul
+
+481 Afiseaza mesaje de eroare
+482 Dublu click buton stanga
+483 Click buton dreapta
+
+
+\ [Logging]
+500 Pornire
+501 Directul este modificat
+502 Fisierul este creat/modificat
+503 Creare de conexiune
+504 Pierderea conexiunii
+505 Modificari in clipboard
+506 Fereastra creata
+507 Fereastra activata
+508 Fereastra distrusa
+509 Titlul fereastrei modifcat
+510 introducere CD
+511 CD is removed
+512 Lansare proces
+513 Terminare proces
+514 Log off
+515 Shutdown
+516 Hot key
+517 Log on utilizator
+518 Log off utilizator
+
+\ [Messages]
+600 Nu pot loga utilizatorul. Eroare # %IO-ERR%%crlf%%IO-ERR-TXT%
+601 Nume utilizator, parola, domeniu si tip de logon sunt corecte.
+602 Testeaza logarea.
+603 Reminder'ul e gol.
+604 Eroare la incarcarea fisierului # %IO-ERR%%crlf%%IO-ERR-TXT%
+605 nnCron nu ruleaza.
+
+\ [Options]
+700 General
+701 Interfata
+702 Autorizatie
+703 Plug-in'uri
+
+\ [Options | General]
+720 Editor implicit
+721 Camp pentru an
+722 Calea pentru backup
+
+\ [Options | Interface]
+723 Icoana in bara sistem
+724 Meniu
+725 Optiuni
+726 Terminare
+727 Unelte/Consola
+728 Porneste consola la startare
+
+\ [ Options | General]
+729 Crash guard
+
+\ [Options | Authorisation]
+730 Lanseaza toate taskurile "ca utilizator":
+731 Incarca profilul utilizatorului
+732 Nume:
+733 Parola:
+734 Domeniu:
+735 Lanseaza GUI "ca utilizator":
+
+\ [Options | Plugins]
+740 Lista de plug-in'uri
+
+\ [Options | Interface]
+750 Numai pt. administratori
+
+\ [Buy now URL]
+777 http://www.shareit.com/product.html?cart=1&productid=154474
+
+\ [Error messages]
+10000 Mesaj de eroare
+10001 Nu pot loga utilizatorul. %WIN-ERR-STR%
+10002 Can't get logged user token. %WIN-ERR-STR%
+10003 WARNING: %CUR-TAB-FILENAME COUNT% line:%CURSTR @ N>S% pos:%>IN1 @ N>S%. Timp invalid. Limite: [%BEG-RANGE N>S%-%END-RANGE N>S%].
+10004 Eroare de regula. %WIN-ERR-STR%
+10005 Regula: eroare in stack.
+10006 Eroare la stergere task. %WIN-ERR-STR%
+10007 %CSP-NAME 2@%. Stack has garbage (%CSP-DIFF ABS%)
+10008 %CSP-NAME 2@%. Stack distrus (%CSP-DIFF%)
+10009 Eroare interna. %WIN-ERR-STR%
+10010 TASK STACK ERROR
+10011 Eroare in sintaxa crontab!!!. Fisier Task: %CUR-TAB-FILENAME COUNT%. Linia: %CURSTR @%
+10012 MAIN:LOAD-CRONTAB
+10013 Timp invalid: Reminder nu poate fi in trecut.
+10014 Action: stack error.

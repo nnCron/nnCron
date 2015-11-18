@@ -1,0 +1,126 @@
+\ File:         timesync.spf
+\ Author:       Nicholas Nemtsev
+\ Date:         11.04.2002
+\ Modified:     08.01.2004 (leap-year bug)
+\ Description:  Time synchronization by Time Protocol
+
+\ Usage: TP-SYNC: server-name
+\ user-value variables (use these after TP-SYNC):
+\       TP-SYNC-RESULT - 0 if ok, otherwise winsock error code
+\       TP-SYNC-DELAY  - delay of server respond in ms
+\ Note: You must perform authorization. And user must have
+\       "Change the system time" privilege.
+
+\ --- Example: ---
+\ #( time_adjust
+\ OnceADay
+\ Rule: ONLINE?
+\ Action:
+\     TP-SYNC: time.nist.gov
+\     TP-SYNC-RESULT 0<>
+\     IF CLEAR-ONCE 
+\        MSG: "Can't synchronize time"
+\     ELSE
+\        TMSG: "Time is synchronized." 10
+\     THEN
+\ )#
+
+
+\ --- Time server list ---
+\ time.nist.gov
+\ clock.psu.edu
+\ finch.cc.ukans.edu
+\ ntp.css.gov
+\ ntp.lth.se
+\ ntp.maths.tcd.ie
+\ ntp0.cornell.edu
+\ ntp-1.ece.cmu.edu
+\ ntp-2.ece.cmu.edu
+\ ntp2a.mcc.ac.uk
+\ Rolex.PeachNet.EDU
+\ salmon.maths.tcd.ie
+\ sundial.columbia.edu
+\ time.nrc.ca
+\ timelord.uregina.ca
+\ timex.cs.columbia.edu
+\ Timex.PeachNet.EDU
+
+DECIMAL 
+
+USER-VALUE TP-SYNC-RESULT
+USER-VALUE TP-SYNC-DELAY
+
+WINAPI: SetSystemTime KERNEL32.DLL
+
+USER <time>
+
+: TCHGORD
+    <time> C@     <time> 1+ C@    <time> 2+ C@    <time> 3 + C@  
+    <time> C!     <time> 1+ C!    <time> 2+ C!    <time> 3 + C!
+;
+
+: UT>TIME { u \ d m y leap? -- s m h d m y }
+    u 0 60 UM/MOD 
+    60 /MOD
+    24 /MOD 
+    1461 /MOD 4 * TO y 365 /MOD DUP 0= TO leap? y + 1900 + TO y
+    1+ leap? IF 1+ THEN
+    1 TO m
+    13 1
+    DO  y I MonLength \ 2DUP . . CR
+        2DUP > 
+        IF - m 1+ TO m 
+        ELSE DROP TO d LEAVE THEN
+    LOOP
+    d  m  y 
+;
+
+: (GET-TIME) { a u \ s delay -- s m h d m y delay }
+    SocketsStartup THROW
+    CreateSocket THROW TO s
+\    CreateUdpSocket THROW TO s
+\    5 s SetSocketTimeout THROW
+    a u GetHostIP THROW
+    GetTickCount SWAP
+    37 s ConnectSocket THROW
+    <time> 4 s ReadSocket THROW DROP
+    GetTickCount SWAP -  TO delay \ . CR
+    s CloseSocket THROW
+    SocketsCleanup THROW
+    TCHGORD
+    <time> @ UT>TIME
+    delay
+\    . . . . . .
+\    GET-CUR-TIME ." --- " Min@ . Sec@ . CR
+;
+
+: GET-TIME ( a u \ s delay -- s m h d m y delay =t | ior =f )
+    ['] (GET-TIME) CATCH ?DUP 
+    IF >R 2DROP R> FALSE ELSE TRUE THEN
+;
+
+: TP-SYNC ( a u -- )
+    0 TO TP-SYNC-RESULT
+    GET-TIME 
+    IF
+        TO TP-SYNC-DELAY
+
+        /SYSTEMTIME RALLOT >R
+        R@ wYear W!     R@ wMonth W!    R@ wDay W!      
+        R@ wHour W!     R@ wMinute W!   R@ wSecond W!
+        TP-SYNC-DELAY 2000 <
+        IF
+\            S" SeSystemtimePrivilege" PrivOn DROP
+            R@ SetSystemTime DROP ( ERR ." SetSystemTime=" . CR)
+        ELSE 102 TO TP-SYNC-RESULT THEN
+        RDROP
+        /SYSTEMTIME RFREE
+    ELSE
+        TO TP-SYNC-RESULT
+    THEN
+;
+
+C" eval-string," FIND NIP
+[IF]
+: TP-SYNC: eval-string, POSTPONE TP-SYNC ; IMMEDIATE
+[THEN]

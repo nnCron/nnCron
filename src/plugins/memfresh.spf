@@ -1,0 +1,12 @@
+
+:NONAME { a u id \ h -- ? }
+    id 0 256 OpenProcess TO h
+    h IF -1 -1 h SetProcessWorkingSetSize DROP 
+        h CLOSE-FILE DROP
+        THEN
+    TRUE
+;
+
+: FreshMem
+    LITERAL WalkProcNT
+;

@@ -1,0 +1,15 @@
+: WORDS-LIKE ( -- )
+  BL WORD COUNT 2>R
+  CONTEXT @ @
+  BEGIN
+    DUP 0<>
+  WHILE
+    DUP COUNT 2R@ SEARCH NIP NIP
+    IF
+       DUP ID. SPACE
+    THEN
+    CDR
+  REPEAT DROP 
+  2R> 2DROP
+  CR
+;

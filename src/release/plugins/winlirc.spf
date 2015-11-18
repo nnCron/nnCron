@@ -1,0 +1,128 @@
+\ File:         winlirc.spf
+\ Author:       Nicholas Nemtsev
+\ Date:         08.04.03
+\ Modified:     17.04.03 (LIRC-TASK waits winlirc start)
+\ Description:  Monitors remote control commands from winlirc (http://winlirc.sourceforge.net/).
+\ Words: WatchLirc:
+\ Usage: WatchLirc: <command-pattern>
+\        <command-pattern> is wild card or regexp
+\ Example:
+\ * <%
+\ * : SEND2WINAMP ( n -- )
+\ *    WIN-EXIST: "Winamp v1.x"
+\ *    IF
+\ *      0 SWAP 273 WIN-HWND SendMessageA DROP
+\ *    ELSE
+\ *      DROP
+\ *    THEN
+\ * ;
+\ * %>
+\ * #( play-winamp
+\ * WatchLirc: play
+\ * Action:
+\ *     40045 SEND2WINAMP
+\ * )#
+
+\ * Others WinAmp's codes:
+\ *    Next track button 40048
+\ *    Play button 40045
+\ *    Pause/Unpause button 40046
+\ *    Stop button 40047
+\ *    ...
+
+
+DECIMAL
+8765 CONSTANT LIRC-PORT
+VARIABLE LIRC-LIST
+: WATCH-LIRC-START ( a u -- h )
+    GLOBAL WATCH-OBJECT-S! LOCAL
+    GLOBAL CUR-WATCH LIRC-LIST AppendNode LOCAL
+    0
+;
+
+: WatchLirc:
+    POSTPONE WATCH:
+    eval-string, POSTPONE WATCH-LIRC-START
+    POSTPONE END-WATCH
+; IMMEDIATE
+
+SocketLine POINTER sLIRC \ socket
+CREATE LIRC-WORD 64 ALLOT
+: LIRC-READ ( -- )
+    BEGIN
+        [NONAME sLIRC ReadLine NONAME] CATCH ?DUP
+        IF
+            DUP 10060 ( WSAETIMEDOUT) =
+            IF DROP FALSE ELSE THROW THEN
+        ELSE TRUE THEN
+    UNTIL
+DBG( ." LIRC: " 2DUP TYPE )
+    LIRC-WORD 0!
+    <TIB
+        NextWord 2DROP
+        NextWord 2DROP
+        NextWord LIRC-WORD ZPLACE
+    TIB>
+;
+: LIRC-FIT? { w -- ? }
+    LIRC-WORD ASCIIZ>
+    w WATCH-OBJECT @ ASCIIZ>
+    WC|RE-COMPARE
+;
+: LIRC-LAUNCH ( w -- )
+    WATCH-CRON-NODE @ SP@ LAUNCH DROP
+;
+
+: LIRC-TEST
+    [NONAME
+        NodeValue DUP LIRC-FIT?
+        IF
+            LIRC-LAUNCH
+        ELSE DROP THEN
+    NONAME] LIRC-LIST DoList
+;
+
+:NONAME
+    DBG( ." LIRC start" CR )
+    SocketLine NEW TO sLIRC
+    [NONAME
+        S" 127.0.0.1" sLIRC Addr!
+        LIRC-PORT sLIRC vPort !
+        sLIRC Create
+\        sLIRC Connect
+        BEGIN
+            sLIRC IPAddr sLIRC vPort @ sLIRC Sock ConnectSocket DUP
+            10061 =     \ WSAECONNREFUSED     Connection refused.
+        WHILE
+            DROP
+            10000 PAUSE
+        REPEAT
+        THROW
+        BEGIN
+            LIRC-READ
+            LIRC-TEST
+        AGAIN
+    NONAME] CATCH
+    DBG( ." LIRC stop=" DUP . CR )
+    DROP
+; TASK: LIRC-TASK
+
+WARNING @ WARNING 0!
+: AfterCrontabLoading
+    LIRC-LIST @ 0<>
+    IF
+        LIRC-TASK START
+    THEN
+    AfterCrontabLoading
+;
+
+: BeforeCrontabLoading
+    LIRC-LIST @ 0<>
+    IF
+        sLIRC Close
+        GLOBAL LIRC-LIST FreeList LOCAL
+        LIRC-LIST 0!
+    THEN
+    BeforeCrontabLoading
+;
+WARNING !

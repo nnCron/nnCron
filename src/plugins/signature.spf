@@ -1,0 +1,260 @@
+\ File: signature.spf
+
+\ Version: 0.1
+
+\ Author: Valery Kondakoff
+
+\ Description: This plugin defines new words, that write different info
+\ to a user specified text files. Later you can include any of these 
+\ text files in your outgoing mail along with your signature. 
+\ Currently you can play with:
+\   - your OS info and system up time
+\   - name of the track that is played by Winamp 2.xx
+\   - how many days remains to user specified date
+\   - how manu days were passed from user specified date
+\   - nnCron version info
+\ Have fun!
+
+\ Usage:
+
+\ writing system up time and OS info to a specified text file:
+\ S" filename" uptime_counter
+
+\ counting the days remaining to (passed from) the specified date
+\ and writing the result to a file:
+\ <year> <month> <day> S" user defined string" S" filename" day_counter
+
+\ writing nnCron version to a user specified text file:
+\ S" user defined string" S" filename" nncron_version
+
+\ 'Now-playing' plugin for Winamp 2.xx replacement: writing the title 
+\ of a song that is currently played in Winamp to a user-specified file:
+\ S" filename" now_playing
+
+\ Examples:
+
+\ #( test_uptime_counter
+\ NoLog
+\ Rule: PROC-EXIST: "thebat.exe"
+\       PROC-EXIST: "Xnews.exe"
+\ 	  PROC-EXIST: "gedcyg.exe" OR OR
+\ Action:
+\ 	S" c:\temp\uptime.txt" uptime_counter
+\ )#
+\ 
+\ #( test_day_counter
+\ OnceADay
+\ Action:
+\ 	2002 12 31 S" До Нового Года осталось " 
+\ 	S" c:\temp\day_counter.txt" day_counter
+\ )#
+\ 
+\ #( test_day_counter1
+\ OnceADay
+\ Action:
+\ 	2001 12 31 S" С прошлого Нового Года прошло: " 
+\ 	S" c:\temp\day_counter1.txt" day_counter
+\ )#
+\ 
+\ #( test_nncron_version
+\ Time: START-TIME
+\ Action:
+\ 	S" I'm using nnCron " S" c:\temp\nncron_version.txt" nncron_version
+\ )#
+\ 
+\ #( test_now_playing
+\ SingleInstance
+\ Time: *
+\ Also
+\ WatchProc: "winamp.exe"
+\ Rule: PROC-EXIST: "winamp.exe"
+\ Action:
+\ 	S" D:\TOOLS\WINAMP\np.txt" now_playing
+\ )#
+
+
+
+\ defining WIN > OEM and OEM > WIN char encoding conversion words
+: WIN2OEM ( a u -- a u ) 2DUP SWAP DUP CharToOemBuffA DROP ;
+: OEM2WIN ( a u -- a u ) 2DUP SWAP DUP OemToCharBuffA DROP ;
+
+
+0 VALUE VER_MINOR
+0 VALUE VER_MAJOR
+0 VALUE VER_PLATFORM
+\ checking OS version
+: win_platform 
+    VER_PLATFORM 2 = 
+    IF 
+    	VER_MAJOR 4 = 
+       	IF 
+       		S" NT" 
+       	ELSE
+       		VER_MINOR 0 =
+       		IF S" 2000"	ELSE S" XP"	THEN 
+        THEN
+    ELSE 
+       	VER_MAJOR 4 =
+		IF 
+			VER_MINOR 0 =  
+    		IF 
+    			S" 95" 
+    		ELSE
+    			VER_MINOR 10 =
+    			IF S" 98" ELSE S" ME" THEN
+    		THEN
+		THEN
+    THEN
+;
+
+\ typesaver-word
+: N>PAD N>S PAD +ZPLACE ;
+\ writes system up time to a specified text file
+: uptime_counter
+   	\ getting Windows version
+    GET-VER TO VER_PLATFORM TO VER_MAJOR TO VER_MINOR
+	
+	\ getting up time
+	GetTickCount 1000 / DUP >R
+	60 MOD \ SECONDS
+	R> 60 / DUP	 >R
+	60 MOD \ MINUTES
+	R> 60 / DUP >R
+	24 MOD  \ HOURS
+	R> 24 / \ DAYS
+
+    \ creating output string
+    S" OS: Windows " PAD ZPLACE 
+    win_platform PAD +ZPLACE 
+    S"  (" PAD +ZPLACE 
+    VER_MAJOR N>PAD 
+    S" ." PAD +ZPLACE
+    VER_MINOR N>PAD 
+    S" )" PAD +ZPLACE 
+    crlf PAD +ZPLACE
+    S" System Up Time: " PAD +ZPLACE 
+    N>PAD \ DAYS
+    S"  days, " PAD +ZPLACE
+    N>PAD \ HOURS
+    S"  hours, " PAD +ZPLACE
+    N>PAD \ MINUTES
+    S"  minutes, " PAD +ZPLACE
+    N>PAD \ SECONDS
+    S"  seconds." PAD +ZPLACE
+    
+    
+    PAD ASCIIZ> 2SWAP FWRITE
+;
+
+\ writing nncron version to a specified file
+: nncron_version    
+    2SWAP
+    
+    PAD ZPLACE \ сохряняем строку, предшествующую версии
+    SVERSION PAD +ZPLACE
+ 	
+ 	PAD ASCIIZ> 
+ 	\ comment next line if you don't need WIN2OEM encoding conversion
+ 	WIN2OEM
+ 	2SWAP FWRITE
+;
+
+: day_spelling
+	\ Russian language:
+	>R
+	R@ 10 MOD 1 > R@ 10 MOD 5 < AND
+	R@ 100 MOD 11 > R@ 100 MOD 15 < AND NOT AND  
+	IF
+		S"  дня"
+	ELSE
+		R@ 10 MOD 1 = R@ 11 <> AND
+		IF
+			S"  день"
+		ELSE
+			S"  дней"
+		THEN
+	THEN
+	R> DROP
+	\ English language:
+\     1 =
+\     IF
+\         S"  day"
+\     ELSE
+\         S"  days"
+\     THEN
+;
+
+: day_counter
+	2SWAP
+	PAD ZPLACE
+	>R >R 
+
+	YMD>DATE CUR-DATE DATE- DUP 0<
+	IF
+		NEGATE
+	THEN
+    
+    DUP
+
+    N>S PAD +ZPLACE
+    day_spelling PAD +ZPLACE
+
+    PAD ASCIIZ>
+ 	\ comment next line if you don't need WIN2OEM encoding conversion
+ 	WIN2OEM
+ 	R> R> FWRITE
+;
+
+USER-CREATE WINAMP_TITLE 256 USER-ALLOT
+USER-CREATE WINAMP_NEW_TITLE 256 USER-ALLOT
+USER-CREATE np_text 256 USER-ALLOT
+USER-CREATE np_stopped_text 256 USER-ALLOT
+USER-CREATE np_paused_text 256 USER-ALLOT
+USER-CREATE np_file 256 USER-ALLOT
+\ writes the title of a song that is currently played in Winamp 
+\ to a user-specified text file.
+: now_playing
+np_file PLACE
+S" np: " np_text PLACE
+S"  [stopped]" np_stopped_text PLACE
+S"  [paused]" np_paused_text PLACE
+
+	BEGIN
+		S" Winamp v1.x" WIN-EXIST?
+	WHILE
+		\ Getting track title from Winamp window caption.
+        \ You may need to change this regexp.
+		FOUND-WINDOW S" /\d+\. (.*) - Winamp/" RE-MATCH
+		IF
+			104 0 1024 WIN-HWND SendMessageA \ TO WINAMP_STATUS
+			DUP 3 =  \ Winamp status = 3 (paused)
+			IF
+				S" %$1%%np_paused_text COUNT%" EVAL-SUBST 
+											   WINAMP_NEW_TITLE PLACE
+				DROP
+			ELSE
+				1 <> \ Winamp status not equal to 1 (stopped)
+				IF
+					S" %$1%%np_stopped_text COUNT%" EVAL-SUBST 
+					                                WINAMP_NEW_TITLE PLACE
+				ELSE
+					$1 WINAMP_NEW_TITLE PLACE
+				THEN
+			THEN
+			WINAMP_NEW_TITLE COUNT WINAMP_TITLE COUNT COMPARE
+			IF
+				WINAMP_NEW_TITLE COUNT WINAMP_TITLE PLACE
+				S" %np_text COUNT%%WINAMP_NEW_TITLE COUNT%" EVAL-SUBST
+				\ comment next line if you don't need WIN2OEM conversion
+				\ WIN2OEM
+				np_file COUNT FWRITE
+			THEN
+		THEN
+		\ Change pause length to suit your needs
+		4000 PAUSE
+	REPEAT
+	\ Emptyiing 'np.txt' when Winamp is inactive.
+    \ You may use smth like this instead:
+    \ FILE-WRITE: "%NP_FILE%" "%NP_TEXT%Winamp not active"
+	S"  " np_file COUNT FWRITE
+;

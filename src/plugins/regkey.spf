@@ -1,0 +1,117 @@
+VARIABLE RK
+0 VALUE RK?
+VARIABLE ProgNAME 0 ,
+0 VALUE PROG?
+0 VALUE LastW
+0 VALUE xUR?
+0 VALUE td1
+0 VALUE td1'
+0 VALUE td2
+0 VALUE td3
+0 VALUE tdd1
+0 VALUE tdd1'
+0 VALUE tdd2
+0 VALUE tdd3
+
+
+CEZ: RKS ( a u -- sum ) 2DUP TYPE SPACE 0 ROT ROT OVER + SWAP ?DO I C@ + LOOP DUP . CR ;CEZ
+
+CEZ: kfil  S" %ModuleDirName%nn.key" EVAL-SUBST ;CEZ
+CEZ: kfil2-1 S" %ModuleDirName%INSTALL.LOG" EVAL-SUBST ;CEZ
+CEZ: kfil2-2 S" %ModuleDirName%uninstall.exe" EVAL-SUBST ;CEZ
+CEZ: kfil3 S" %ModuleDirName%." EVAL-SUBST ;CEZ
+\ CEZ: kfil S" %ModuleDirName%nn.key" EVAL-SUBST ;CEZ
+
+CEZ: GRKF  1 WORD DUP TO LastW COUNT RKS RK +! ;CEZ
+CEZ: xUSER1 S" xUSSR регистрация" EVAL-SUBST ;CEZ
+CEZ: xUSER2 S" xUSSR pегистpация" EVAL-SUBST ;CEZ
+CEZ: xUSER3 S" xUSSR registration" EVAL-SUBST ;CEZ
+CEZ: FNCUO S" Зарегистрирован только для некоммерческого использования%crlf%Registered for non-commercial use only"
+    EVAL-SUBST ;CEZ
+CEZ: xUR12? ( a u -- ?)
+    2DUP TYPE SPACE
+    2DUP xUSER1 COMPARE 0= DUP . >R
+    2DUP xUSER2 COMPARE 0= DUP . >R
+         xUSER3 COMPARE 0= DUP . R> OR R> OR DUP . CR
+;CEZ
+CEZ: Prog:
+    FALSE TO RK? RK 0!
+    GRKF
+    LastW COUNT       2DUP TYPE CR
+    ProgNAME 2@       2DUP TYPE CR
+     ICOMPARE 0=      DUP . CR
+    TO PROG?
+;CEZ
+
+: EMl: GRKF ;
+: UName: GRKF LastW COUNT xUR12? TO xUR? ;
+: DR: GRKF ;
+: NumCopy: GRKF ;
+CEZ: ReK: 1 WORD COUNT 0. 2SWAP >NUMBER 2DROP D>S RK @ - DUP . 0= DUP . CR TO RK? ;CEZ
+
+CEZ: >RKNUM ( a u - u1)
+    BASE @ >R
+    36 BASE !
+    0. 2SWAP >NUMBER 2DROP D>S
+    R> BASE !
+;CEZ
+
+CEZ: PRE-RK
+    STATE 0!
+    PAD 0! 0
+    BEGIN BL WORD DUP C@ WHILE
+       COUNT >RKNUM OVER CELLS PAD + !
+       1+
+    REPEAT
+    DROP
+    CELLS PAD + 0!
+    PAD ASCIIZ> \ 2DUP TYPE CR
+    ['] EVALUATE CATCH IF 2DROP THEN
+    PAD 100 ERASE
+;CEZ
+
+CEZ: RKL ( addr u -- ?)
+    ProgNAME 2!
+    RK 0! FALSE TO RK? FALSE TO PROG?
+    ['] PRE-RK TO <PRE>
+    kfil ['] INCLUDED CATCH IF 2DROP THEN
+    ['] NOOP TO <PRE>
+ \   RK? . CR
+    RK? PROG? AND \ DUP
+;CEZ
+
+
+
+VARIABLE Ired
+
+: CUR-DATE-OLD GET-CUR-TIME Year@ 12 * Mon@ 1- + 31 * Day@ + ;
+
+CEZ: draz ( n -- ? )
+    DUP 0< SWAP 30 > OR 0=
+;CEZ
+
+CEZ: fDTEST ( -- ?)
+    CUR-DATE R-DATE       DUP TO td1 DATE- DUP TO tdd1 draz  
+    CUR-DATE-OLD          DUP TO td1' R-DATE - DUP TO tdd1' draz OR
+
+    CUR-DATE 
+        kfil2-1 EXIST? IF kfil2-1 ELSE kfil2-2 THEN
+        FCDATE DUP TO td2 DATE- DUP TO tdd2 draz AND
+    CUR-DATE kfil3 FCDATE DUP TO td3 DATE- DUP TO tdd3 draz AND
+\    CR
+;CEZ
+
+CEZ: RK&DTest ( a u -- )
+    2DUP 2>R ADD-R-D
+    Ired OFF
+    2R> RKL 0=
+    IF
+        fDTEST 0= Ired !
+    THEN
+;CEZ
+
+: main
+    CONSOLE
+    S" nnCron" RK&DTest Ired @ .
+    KEY DROP
+;

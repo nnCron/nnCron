@@ -1,0 +1,9 @@
+#CRONTAB FILE 
+# Classic crontab format:
+# Minutes Hours Days Months WeekDays Years Command
+# see 'example.tab'
+
+#( purge-cron-log
+    Time: 0 12 * * 5 *
+    Action: PURGE-OLD: "log\*.log" 7
+)#

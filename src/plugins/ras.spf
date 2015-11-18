@@ -1,0 +1,81 @@
+\ File:         ras.spf
+\ Author:       Nicholas Nemtsev
+\ Date:         11.08.2002
+\ Description:  Establishing of RAS connection using credentials of the logged-on user.
+
+\ DIAL-DLG: establishes a RAS connection using a specified phone-book entry
+\ and the credentials of the logged-on user.
+\ The function displays a stream of dialog boxes that indicate
+\ the state of the connection operation. 
+\ For NT/2k/XP only.
+
+\ Usage: DIAL-DLG: "ras-entry"
+\ Don't forget to perform authorization (User: "IP-user" Password: "IP-passw")
+
+\ DIAL-DLG: returns flag. If it is TRUE, a connection is established and
+\ you can do online operations.
+\ Example:
+0 [IF]
+#( download-task
+User: "Nicholas" SecPassword: "zvcxcvxc" LogonInteractive
+WatchClipboard: "*"
+: wget1-mask S" /(http)|(ftp)|(https):\/\/[^ ]+?\.(zip)|(rar)|(exe)|(pdf)|(gz)|(jpg)|(jpeg)|(txt)/i" ;
+Rule: RE-MATCH: %CLIPBOARD% %wget1-mask% ;
+Action:
+  RE-ALL: %CLIPBOARD% %wget1-mask%
+     QUERY: "Download?%crlf%%$0%"
+     IF
+        ONLINE? 0=
+        IF
+           DIAL-DLG: MyProvider
+        ELSE TRUE THEN
+
+        IF
+          StartIn: e:\home\download
+          ShowMinimized
+          START-APP: E:\bin\wget\wget.exe %$0%
+        THEN
+     THEN
+  ;RE-ALL
+)#
+
+[THEN]
+
+\ BOOL RasDialDlg(
+\   LPTSTR lpszPhonebook,   // pointer to the full path and file name of
+\                           //  the phone-book file
+\   LPTSTR lpszEntry,       // pointer to the name of the phone-book 
+\                           //  entry to dial
+\   LPTSTR lpszPhoneNumber, // pointer to replacement phone number to 
+\                           //  dial
+\   LPRASDIALDLG lpInfo     // pointer to a structure that contains 
+\                           //  additional parameters
+\ );
+
+WinNT?
+[IF]
+WINAPI: RasDialDlgA RASDLG.DLL
+
+0                           \ typedef struct tagRASDIALDLG {
+1 CELLS -- RDD.dwSize       \   IN  DWORD          dwSize;
+1 CELLS -- RDD.hwndOwner    \   IN  HWND           hwndOwner;
+1 CELLS -- RDD.dwFlags      \   IN  DWORD          dwFlags;
+1 CELLS -- RDD.xDlg         \   IN  LONG           xDlg;
+1 CELLS -- RDD.yDlg         \   IN  LONG           yDlg;
+1 CELLS -- RDD.dwSubEntry   \   IN  DWORD          dwSubEntry;
+1 CELLS -- RDD.dwError      \   OUT DWORD          dwError;
+1 CELLS -- RDD.reserved     \   IN  DWORD          reserved;
+1 CELLS -- RDD.reserved2    \   IN  DWORD          reserved2;
+                            \ } RASDIALDLG;
+CONSTANT /RASDIALDLG
+VARIABLE DIAL-DLG-ERR
+: DIAL-DLG { a u \ info -- ? }
+    /RASDIALDLG ALLOCATE THROW TO info
+    /RASDIALDLG info RDD.dwSize !
+    info 0 a 0 RasDialDlgA 
+    info RDD.dwError @ DIAL-DLG-ERR !
+    info FREE THROW
+;
+
+: DIAL-DLG: eval-string, POSTPONE DIAL-DLG ; IMMEDIATE
+[THEN]

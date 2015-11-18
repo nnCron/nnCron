@@ -1,0 +1,377 @@
+\ Este é o módulo do idioma Português (Brasil) para a interface nnCron v1.89RC2.
+\ Sinta-se à vontade de comunicar eventuais erros de tradução e/ou sugestões 
+\ ao tradutor responsável: Euler German <efgerman.trans@mailnull.com>. 
+\ Os arquivos deste tradutor são acompanhados por uma assinatura digital (sig) 
+\ para autenticação de origem.
+\ Você encontrará versões de outros idiomas no endereço:
+\ http://www.nncron.ru/translation.shtml
+
+
+\ [Main Menu]
+10 Preferências
+11 Ajuda
+12 Executar Tarefa
+13 Editar
+14 Nova Tarefa
+15 Sair
+16 Novo Aviso
+17 Sobre o nnCron
+18 Exibir o Log
+19 Compre o nnCron Já!
+20 Ferramentas
+21 WinSpy
+22 Console
+23 Recarregar Crontabs
+24 Desativar o nnCron
+25 Ativar o nnCron
+
+
+\ [Task] - prompt
+30 Quer executar esta aplicação?
+
+
+\ [Task]
+100 nnCron: Nova Tarefa
+101 Horários e Opções
+102 Ação
+103 Condição
+104 Avançado
+110 Nome da Tarefa
+111 nnCron: Editar Tarefa
+112 Arquivo
+
+
+\ [Task | Time and options]
+120 Uma vez
+121 Cada Minuto
+122 Cada Hora
+123 Diariamente
+124 Semanalmente
+125 Mensalmente
+126 Anualmente
+127 Por Evento
+128 Formato de tempo Cron
+
+130 Às
+131 Em
+132 Cada
+133 no dia
+134 do mês
+135 minuto(s) após cada
+136 Em
+137 Dias da semana
+138 horas
+139 minutos
+
+140 Registrar no log
+141 Remover após execução
+142 Ativo
+143 Executar a tarefa caso perdida
+144 hh:mm/dias
+
+150 Como o usuário
+151 Nome
+152 Senha
+153 Domínio
+154 Tipo de logon
+155 Interativo
+156 Batch
+157 Rede
+158 Evento
+159 Como o usuário corrente
+
+160 Segunda
+161 Terça
+162 Quarta
+163 Quinta
+164 Sexta
+165 Sábado
+166 Domingo
+167 Dias da Semana
+
+170 minutos
+171 horas
+172 dias
+173 meses
+174 anos
+
+180 Pasta
+181 Arquivo
+182 Máscara
+183 Minuto Hora Dia Mês Dia-da-Semana Ano
+184 Título da janela
+185 Minuto Hora Dia Mês Dia-da-Semana
+186 Letra do drive
+187 Nome do processo
+188 Tecla de atalho
+189 Máscara do usuário
+
+
+\ [Task | Action]
+190 Endereço da aplicação ou documento:
+191 Parâmetros:
+192 Iniciar em:
+193 Endereço do arquivo WAV
+194 Execução síncrona
+195 Texto da mensagem
+196 Aguardar (s)
+197 Duração (ms)
+198 Freqüência
+199 Texto do script
+
+
+\ [Task] - buttons
+200 OK
+201 Cancelar
+202 Excluir
+203 Ajuda
+
+209 Testar
+
+
+\ [Task | Action]
+210 Abrir aplicação ou documento
+211 Executar script
+212 Exibir mensagem
+213 Tocar som (wav)
+214 Bip!
+215 Discar
+216 Desconectar
+217 Abrir janela
+218 Ocultar janela
+219 Fechar janela
+220 Terminar aplicação
+221 Pressionar botão
+222 Copiar texto para o clipboard
+223 Desligar computador
+224 Reiniciar computador
+225 Limpar a pasta
+226 Terminar processo
+
+
+\ [Task | Condition]
+260 <nenhuma condição>
+261 Arquivo ou pasta existe
+262 Janela existe
+263 Conectado
+264 Arquivo vazio
+265 Servidor existe (ping)
+266 Interrogar
+267 Processo existe
+268 Caixa de correio POP3 tem eMail
+
+280 
+281 Endereço
+282 Título
+283 Conexão
+284 Endereço
+285 Endereço (URL) ou IP
+286 Texto de "query"
+287 Nome
+288 Servidor POP3
+
+
+\ [Task | Action | Run application or open document]
+300 Janela
+301 Normal
+302 Maximizada
+303 Minimizada
+304 Oculta
+
+310 Prioridade
+311 Normal
+312 Alta
+313 Tempo real
+314 Tempo ocioso
+
+320 Pedir confirmação
+321 Aguardar o término
+322 Título
+323 Botão
+324 Texto
+325 Desligar energia
+326 Não
+327 Endereço\máscara
+328 Idade dos arquivos a remover (dias)
+329 Como um serviço
+
+
+\ [Task] - captions and prompts
+330 Selecione a aplicação ou documento
+331 Selecione o arquivo
+332 Não se pode omitir parâmetros de um evento (endereço, máscara, etc.)
+333 Não se pode omitir parâmetros de uma condição (arquivo, conexão, processo, etc.)
+334 Nome do usuário não foi informado
+335 Nome da tarefa não foi informada
+336 Pasta 'Iniciar em' não foi encontrada
+337 Endereço não foi encontrado
+338 Erro de gravação # %IO-ERR%%crlf%%IO-ERR-TXT%%crlf%
+339 Nome
+
+
+\ [Task | Action | Dialing]
+340 Conexão
+341 Nome do usuário
+342 Senha
+343 Domínio
+344 Tentativas
+345 Pausa (s)
+
+
+\ [Task] - caption
+400 Definição de tarefas
+
+
+\ [Reminder]
+410 nnCron: Avisos
+411 Repetir
+412 OK
+413 Lembre-me novamente em
+414 Repetir
+415 Fechar
+
+420 nnCron: Novo Aviso
+421 Hora
+422 Data
+423 Exibir o Aviso, mesmo se perdido
+
+
+\ [Options | General]
+450 nnCron: Preferências
+451 Arquivo de tarefas
+452 Novo
+453 Arquivos de tarefas
+454 Excluir
+455 Arquivo de Log
+456 Hora do Log
+457 nncron.ini
+458 Tipo de janela padrão
+459 Prioridade padrão
+460 Idioma
+461 Editar
+
+
+\ [Options] - prompts etc.
+462 Você precisa reiniciar o nnCron para efetivar as alterações na configuração
+463 Você deseja salvar a configuração?
+464 Usuário
+465 Senha
+466 Registro
+467 Nome de registro
+468 Chave de registro
+469 Reiniciar o nnCron?
+
+470 nnCron: Arquivo de tarefas
+471 Digite o nome do arquivo
+
+472 nnCron: Plugin
+473 Digite o endereço do plugin
+
+474 Arquivo de ajuda
+
+480 Carregar perfil
+
+481 Exibir mensagens de erro
+482 Ao duplo-clique-esquerdo do mouse:
+483 Ao clique-direito do mouse:
+
+
+\ [Logging]
+500 Ao iniciar
+501 Pasta foi alterada
+502 Arquivo foi criado/alterado
+503 Conexão foi estabelecida
+504 Conexão foi terminada
+505 Clipboard foi alterado
+506 Janela foi criada
+507 Janela foi ativada
+508 Janela foi destruída
+509 Título da janela foi alterado
+510 CD foi carregado
+511 CD foi removido
+512 Processo foi iniciado
+513 Processo foi terminado
+514 Logoff
+515 Desligar computador
+516 Tecla de atalho
+517 Logon do usuário
+518 Logoff do usuário
+
+600 Falhou logon do usuário. Erro # %IO-ERR%%crlf%%IO-ERR-TXT%
+601 Nome do usuário, senha, domínio e tipo de logon estão corretos.
+602 Testar logon
+603 O Aviso está vazio.
+604 Erro na carga do arquivo # %IO-ERR%%crlf%%IO-ERR-TXT%
+605 O nnCron não foi iniciado
+
+
+\ [Options]
+700 Gerais
+701 Interface
+702 Permissões
+703 Plugins
+
+
+\ [Options | General]
+720 Editor padrão
+721 Campo de Ano
+722 Pasta de backup
+
+
+\ [Options | Interface]
+723 Ícone na bandeja
+724 Ítens do menu
+725 Preferências
+726 Sair
+727 Ferramentas/Console
+728 Abrir console ao iniciar
+
+
+\ [ Options | General]
+729 Proteção anti-falhas
+
+
+\ [Options | Authorisation]
+730 Executar todas tarefas "como usuário":
+731 Carregar perfil do usuário
+732 Nome:
+733 Senha:
+734 Domínio:
+735 Executar GUI "como usuário":
+
+
+\ [Options | Plugins]
+740 Lista de plugins
+
+
+\ [Options | Interface]
+750 Apenas Administradores
+
+
+\ [Buy now URL]
+777 http://www.shareit.com/product.html?cart=1&productid=154474
+
+
+\ [Error messages]
+10000 Mensagens de erro
+10001 Impossível o logon do usuário. %WIN-ERR-STR%
+10002 Impossível obter o token do usuário corrente. %WIN-ERR-STR%
+10003 ADVERTÊNCIA: %CUR-TAB-FILENAME COUNT% linha:%CURSTR @ N>S% col:%>IN1 @ N>S%. Especificação de hora inválida. O intervalo válido é [%BEG-RANGE N>S%-%END-RANGE N>S%].
+10004 Erro de condição. %WIN-ERR-STR%
+10005 Condição: erro de pilha.
+10006 ERRO ao eliminar tarefa. %WIN-ERR-STR%
+10007 %CSP-NAME 2@%. Pilha contém lixo (%CSP-DIFF ABS%)
+10008 %CSP-NAME 2@%. Pilha foi destruída (%CSP-DIFF%)
+10009 Erro interno. %WIN-ERR-STR%
+10010 ERRO NA PILHA DE TAREFAS
+10011 ERRO de sintaxe Crontab!!!. Arquivo de tarefas: %CUR-TAB-FILENAME COUNT%. Linha: %CURSTR @%
+10012 MAIN:LOAD-CRONTAB
+10013 Especificação de hora inválida: hora do Aviso não pode ser anterior à hora atual.
+10014 Ação: erro de pilha.
+
+
+\ -----------------------------------------------------------------------------
+\ Translated into Portuguese by Brainstorm Solutions in Thu May 08, 2003 22:19h
+\ Last Update in Sun, Nov 27, 2003 18:42h.
+\ © Copyright 2003 by Euler German — All Rights Reserved.
+\ -----------------------------------------------------------------------------

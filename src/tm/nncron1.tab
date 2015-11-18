@@ -1,0 +1,181 @@
+#Crontab file
+#Classic format is:
+# <Minutes> <Hours> <Days> <Months> <WeekDays> <Years> <system coomand>
+SET MyVariable=Hello my dear friends
+SET CurTime=%hh%:%mm%:%ss%
+SET WGETRC=e:\home\.wgetrc
+
+#( upload-task
+    VARIABLE AreFileForUpload
+    : upl-dir S" e:\home\nick\inet\virtualave.net" ;
+    : upl-list S" e:\tmp\ftpauto\mailsrv\upload" ;
+    : \>/ { a u \ last -- }
+        0 TO last
+        a u OVER + SWAP 
+        DO I C@ [CHAR] \ =
+            IF [CHAR] / I C! I TO last THEN
+        LOOP
+        last
+        IF 0 last C!
+           a last OVER -
+        ELSE
+           a 0
+        THEN
+    ;
+
+    Time: 0 4 * * * *
+    Action:
+        FILE-DELETE: "%upl-list%"
+        AreFileForUpload OFF
+        RECURSIVE
+        FOR-FILES: "%upl-dir%\*.*"
+            FILE-APPEND: "%upl-list%" "%upl-dir%\%FOUND-RELPATH% /public_html/%FOUND-RELPATH \>/% C%crlf%"
+            AreFileForUpload ON
+        ;FOR-FILES
+        AreFileForUpload @
+        IF
+            StartIn: e:\tmp\ftpauto
+            START-APP: cmd /c mailsrv.bat
+        THEN
+)#
+
+#( test-file-date
+    VARIABLE wdate
+    User: Nicholas SecPassword: "%mypwd%" Domain: NICK
+    LogonInteractive
+    Time: 0 12 * * * *
+    Action:
+        FOR-FILES: e:\home\src\cron\*.*
+            FILE-APPEND: "test-date.txt" "%FOUND-RELPATH%%crlf%"
+            FILE-WRITE-DATE: "\\serv\nick$\archive\src\cron\%FOUND-FILENAME%"
+                wdate !
+            FILE-APPEND: "test-date.txt" "%WRITE-DATE DATE>S% %wdate @ DATE>S%%crlf%"
+        ;FOR-FILES
+)#
+
+#( test-bat
+NoActive
+    User: Nicholas SecPassword: "%mypwd%"
+    Action:
+        ShowMinimized
+        START-APP: E:\win\The Bat!\thebat.exe       
+)#
+
+#( set-clipboard
+NoActive
+    Action:
+        S" Hello, %USERNAME%. Time is %hh%:%mm%:%ss%" EVAL-SUBST TO CLIPBOARD
+        MSG: %CLIPBOARD@%
+)#
+
+#( test-watch-clipboard
+    WatchClipboard: http://*.zip
+    Rule: QUERY: "Download %CLIPBOARD%?"
+    Action:
+        StartIn: e:\home\download
+        ShowNormal
+        START-APP: wget %CLIPBOARD%
+)#
+
+#( test-watch-clipboard1
+    WatchClipboard: http://*.rar
+    Rule: QUERY: "Download %CLIPBOARD%?"
+    Action:
+        StartIn: e:\home\download
+        ShowNormal
+        START-APP: wget %CLIPBOARD%
+)#
+
+
+#( test-play-sound
+    NoActive
+    Action:
+     PLAY-SOUND: "C:\WINNT\Media\The Microsoft Sound.wav" 
+    \ PLAY-SOUND: E:\home\download\music\LZ\lz1\01gt.mp3 
+)#
+
+#( good-time-go-home
+\ You can delete or change this task,  if don't want go home at that time:-)
+    Time: 55-59 16 * * 1-5 *
+    Action: 500 Min@ 54 - * 1 MAX 300 BEEP
+)#
+
+#( TEST-SET
+ NoActive
+    Action:  
+        MSG: " ERROR task"
+        ShowNormal
+        START-APPW: cmd.exe /c echo Cur time is %PERCENT%CurTime%PERCENT% && pause
+\        ERR-MSG: "cmd.exe /c echo Cur time is %CurTime% && pause"
+)#
+
+#( xxxx
+NoActive
+    Time: */15 * * * * *
+    Action: TMSG: "%ACTIVE-WINDOW% " 1 
+
+)#
+#( test-step
+NoActive
+    Time: */20 */2 * * mon-fri *
+    Action: TMSG: hello 3
+)#
+
+#( trans-log-task
+   NoActive
+   CREATE FOUND-ALL-FILES 256 ALLOT
+      Rule: EXIST: "c:\tmp\*.*" ;
+      Action:
+          FOUND-ALL-FILES 0!
+          FOR-FILES: "c:\tmp\*.*"
+              IS-DIR? 0=
+              IF
+                FOUND-FILENAME FOUND-ALL-FILES +PLACE
+                S"  " FOUND-ALL-FILES +PLACE
+              THEN
+          ;FOR-FILES
+          MSG: "%FOUND-ALL-FILES COUNT%"
+          
+)#
+
+#( priority-test
+NoActive
+    IdlePriority
+    User: Nicholas SecPassword: "%mypwd%" Domain: NICK
+    LogonInteractive
+
+    Command: test.cmd
+)#
+
+#( bible-task
+NoActive
+    Time: 30 12,16 * * * *
+    User: Nicholas SecPassword: "%mypwd%" Domain: NICK
+    LogonInteractive
+    Action: \ SWHide START-APP: calc.exe
+        START-APP: E:\win\BibleQuote\bibleqt4.exe
+)#
+
+#( TEST-INTERVAL
+ NoActive
+    Rule:
+        INTERVAL: 8:00-17:00/1:0
+    Action: 200 3000 BEEP
+        <# 0 HOLD Min@ S>D # # [CHAR] : HOLD 2DROP
+           Hour@ S>D # # #> 1 TimeMsgBox
+)#
+
+#( TEST-DATE-INTERVAL
+Rule:
+  DATE-INTERVAL: "1.8.2000-15.8.2000/1"
+Action:
+  TMSG: "DATE-INTERVAL" 10
+)#
+
+#( TEST-WATCH-DIR
+\ NoActive
+    WatchFile: E:\bin\nncron\TEST1\XXXXXX
+    Action: 150 150 BEEP
+)#
+
+

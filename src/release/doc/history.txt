@@ -1,0 +1,741 @@
+                        nnCron history
+                        ~~~~~~~~~~~~~~
+      + new feature
+      * improvement/modification or bug fix
+      - deleted feature
+
+1.93
+    beta 13 (2013-03-16)
+    + if nncron installation directory contains file "portable", this directory is working directory on any mode of nnCron execution;
+    + it's not need to specify -ns at startup nncron "as application", and -dir, if you expect the default directory.
+
+    beta 12 (2013-03-13)
+    * bug fixes two concurrent reminders;
+    + PLACE0;
+    * DAYS bug fixed;
+    + JDAYS ( y m d -- julian_days );
+    * install as application bug fixed;
+    * some bug fixed.
+ 
+    beta 10 (2009-12-03)
+    + new tm.exe option TaskList (this dialog appears by default when you run tm.exe without parameters);
+
+    beta 9 (2009-12-02)
+    * nnGuard runs nnCron correcly with -dir option;
+    * directory of tm.out fixed.
+
+    beta 8 (2009-03-19)
+    * WIN-INPUT-TEXT: bug fixed.
+
+    beta 7 (2009-03-12)
+    + New nncron.ini options Outfile, Logging;
+    * search in vocabulary by hash on reload crontabs bug fixed.
+
+    beta 6 (2009-03-03)
+    + search in vocabulary by hash
+    * some bug fixed.
+
+    beta 5 (26.Feb.09)
+    * ICOMPARE (also -TEXT, UPPER-CHAR, UPPER) bug fixed.
+
+    beta 4 (18.Feb.09)
+    * WIN-EXIST+ADD-TI bug fixed.
+
+    beta 3 (29.Dec.08)
+    * "default editor" bug fixed;
+    * restarting nncron from GUI bug fixed;
+    * some bugs fixed.
+
+    beta 2 (19.Dec.08)
+    * nnCron home folder bug fixed;
+    * default direcory changed to %AppData%nnCron;
+    * menu option "Help" bug fixed;
+    * restart nnCron after nncron.ini saving bug fixed (Vista);
+    * reminder saving bug fixed (Vista).
+
+    beta 1 (27.Aug.08)
+    + option -dir works during install.
+
+1.92 
+    beta 2 (27.Nov.07)
+    + new variables %USER-HOME-DIR%, %FOLDER-PROFILE%;
+    + new nncron.exe options -app-for-all, -app-for-user (for -install/-remove);
+    + new nncron.exe and tm.exe option -dir <current-directory-name>;
+    + it's possible run several nncron.exe instances;
+
+    beta 1 (04.May.06)
+    * WIN-TEXT is changed.
+
+1.91 (20.Mar.06) release
+    + AFFINITY (plug-in process.spf).
+    
+    prerelease 4 (08.Nov.05)
+    * Reminder bug fixed.
+
+    prerelease 3 (19.Oct.05)
+    * registry tools bugs fixed (+HKEY_CLASSES_ROOT, invalid paths parsing error).
+
+    prerelease 2 (11.Oct.05)
+    * CPU-USAGE and PROC-CPU-USAGE bug fixed (for multiprocessor system);
+    * tray.exe: "disable/enable cron" menu item bug fixed.
+
+    prerelease 1 (14.Sep.05)
+    * HINT-COLOR bug fixed.
+
+    beta 13 (08.Sep.05)
+    * "IconForAdminsOnly ON" bug fixed.
+
+    beta 12 (21.Jul.05)
+    * memory allocation changed;
+    + <bgcolor> <fgcolor> HINT-COLOR, S" font name" <font-size> HINT-FONT;
+    * time of focus stealing by hint window is decreased;
+    * POP3-TOP bug fixed.
+
+    beta 11 (15.Jun.05)
+    * Plug-in sid.spf is remove from install package;
+    * TRAY-REFRESH bug fixed (w2k).
+
+    beta 10 (10.Jun.05)
+    + POP3-CONNECT, POP3-RETR, POP3-DELE, POP3-QUIT, POP3-TOP;
+    * AsLoggedUser bug fixed (WTS,Windows XP,2003 connect to console);
+    * Another bug of WatchConnect fixed;
+    * WIN-INPUT-TEXT bug fixed.
+
+    beta 9 (02.Jun.05)
+    + WIN-INPUT-TEXT ( a u a u a u n -- a u 0 | -- 1/2), 
+      WIN-INPUT-TEXT: "caption" "prompt text" "default" <timeout> .
+
+    beta 8 (16.May.05)
+    * SEND-KEYS changed.
+
+    beta 7 (12.May.05)
+    * AsLoggedUser on Win2K Server bug fixed;
+    * locals changed.
+
+    beta 6 (31.Jan.05)
+    * LOGGEDON? bug fixed (Win 2003);
+
+    beta 5 (25.Jan.05)
+    * TRAY-REFRESH (WinXp SP2) bug fixed;
+    * Handle leakage on HOST-EXIST:, POP3-CHECK: fixed.
+
+    beta 4 (14.Dec.04)
+    + New nncron.ini option MaxClipboardSize: <size-in-bytes>;
+    * HOST-EXIST bug fixed;
+
+    beta 3 (08.Dec.04)
+    * yet another WatchWin* bug fixed;
+    * WTS* bug fixed.
+
+    beta 2 (06.Dec.04)
+    * USERNAME is changed;
+    * New condition word Win2003? and WinVersionString is changed;
+    * AsLoggedUser works properly with FUS feature;
+    + WTSWatchConnect, WTSWatchDisconnect, WTSWatchLogon,
+        WTSWatchLogoff, WTSWatchLock, WTSWatchUnlock, 
+        WTSWatchRemoteConnect, WTSWatchRemoteDisconnect, WATCH-SESSIONID;
+    + tray.exe;
+    + EVAL-SUBST supports now conditional substitution 
+      %[if] cond% ... %[else]% ... %[end]%;
+    + New MAX-CB-SIZE VALUE-variable (clipboard buffer limitation).
+
+    beta 1 (28.Oct.04)
+    * ThreadId bug fixed;
+    * TRAY-REFRESH bug fixed;
+    * MONITOR-LOW, MONITOR-OFF, MONITOR-ON bug fixed (WinXP sp2);
+    * MIXER-VOLUME@, MIXER-VOLUME! bug fixed;
+    + WatchQueryShutdown, INTERCEPT-SHUTDOWN, CONTINUE-SHUTDOWN;
+
+1.89 (12.May.04) release
+    + Belarussian readme and res-files are available (thanks to the translator!)
+    * RunMissed + Time which specify range bug fixed;
+    * FILE-CROP: incorrect crop of NetWare files bug fixed;
+    + WatchResumeAuto.
+    + IS-CD-PRESENT: <letter>
+
+    prerelease 6 (04.Mar.04)
+    * appearance of nncron.log after execution of an oneliner bug fixed;
+    * combined usage of WatchHotKey:, Rule: and non-US kbd layout bug fixed;
+    * default value of MonitorResponseTime is changed to 100 ms.
+
+    prerelease 5 (19.Feb.04)
+    * new option TrayIconBalloonClick: <word> and new USER-variable OnBalloonClick;
+    * current directory loss bug fixed;
+    * repeated show balloon after logoff/logon bug fixed;
+    * plugin http.spf changed.
+
+    prerelease 4 (04.Feb.04)
+    * WatchDir/File bug fixed (on file instead dir);
+    * START-TIME and open console on start bug fixed;
+    * remote console: OEM to ANSI input converting bug fixed;
+    + new variable DelayOnStartup (temporary solution for Win98).
+
+    prerelease 3 (22.Jan.04)
+    * SCREENSAVER-ON?, SCREENSAVER-OFF bug fixed;
+    * Crontab on removable media bug fixed;
+    * WatchLogoff: <username> bug fixed;
+    + WatchDrive: *, %DRIVE-LETTER%;
+    * AsLogged and -ns  combined usage bug is fixed;
+    * http.spf changed;
+    * Backslash at eol before )# bug fixed another time;
+    * WatchProc[Stop]: bug fixed;
+    + New condition RunMissed?;
+    * Win95 crash bug fixed;
+    * Duplicating tasks on GUI editing bug fixed;
+    * Crash on start fixed (Win NT).
+
+    prerelease 2 (25.Nov.03)
+    * WatchLogon didn't work on fast computers. Fixed once again.
+    * New options: TrayIconDoubleClick: <word>, TrayIconRightButton: <word>
+    * Backslash at eol before )# bug fixed
+    * Crash on logon test when domain name is empty fixed.
+    + GUI/Options/Interface TrayIconDoubleClick and TrayIconRightButton setup,
+      new resource strings: 482 and 483;
+    * Another bug of ADD-HOST (win2tray.spf) is fixed.
+    + WatchCPUUsage: <CPUUsage%> <seconds> and PerfMonitor ini-parameter. (WinNT/2000/XP only)
+    + CPU-USAGE ( -- %), PROC-CPU-USAGE ( a u -- %) (WinNT/2000/XP only)
+    + PROC-WAIT-CPU-USAGE (see plugins/process.spf) (WinNT/2000/XP only)
+    * WatchDriveInsert: changed to WatchDrive:
+    * WatchHotKey bug fixed.
+
+    prerelease 1 (08.Nov.03)
+    * GUI RunMised: bug is fixed
+    + full-text search was added to the help file
+    * Problem with '%','"' and empty lines in reminders is eliminated.
+    * OnceAHour etc., Time: and RunMissed combined usage bug is fixed.
+    * GetLastError now returns correct error code after FILE-RENAME: and FILE-COPY:
+    * WatchLogon didn't work on fast computers. Fixed.
+    + New word PROC-WAIT-IDLE ( pid --)
+    + New ini-parameter ReloadImmediately
+    * Bug of ADD-HOST (win2tray.spf) is fixed.
+
+    beta 9 (18.Oct.03)
+    * "ERROR PASS" bug of beta 8 is fixed
+    + New words GetVolID/GET-VOL-ID (see system.spf)
+
+    beta 8 (15.Oct.03)
+    * tools.spf changed: TABS, TASK-DEL, TASK-ADD
+    + WatchFileDelete: <file_path>
+    * GUI: width of crontab dropdown list depends of crontab names length
+    * Log troubles fixed.
+    + New command line option -wp (run without plugins) for -runfile.
+    * Bug of FILE-CROP: fixed
+    + Semantic of RunMissed is extended
+    + Czech, Dutch, Italian, Polish, Serbian (Latin) and Ukrainian
+      readme and res-files are available (thanks to all the translators!)
+    + new nnCron installer
+    * if a resource string is absent, the string is taken from English resources.
+    * bug of -run <taskname> fixed
+    + New task option RunMissed: hh:mm|days
+    + New ini-parameter DefaultRunMissedTime: hh:mm|days
+    * WatchHotkey: is changed
+    + New resource string 144
+    * WatchProc:, WatchProcStop:, WatchHotkey:, WatchLogon, WatchLogoff,
+      WatchShutdown, WatchSuspend, WatchResume are changed to minimize
+      system resources using.
+    * WatchLogoff: <username> bug fixed
+
+    beta 7 (17.Jun.03)
+    * POWER-HIBERNATE and POWER-SUSPEND bug fixed (98,ME).
+    + evSourceName, evComputername, evStrings, evStrings2String,
+      evNString, evUserSid
+    * Time: statement parsing bug fixed (GUI).
+    * RAS connection name losing bug fixed (GUI).
+    * CLIPBOARD bug fixed.
+    * FOR-PROCS: works with PID extra.
+    + PROC-NAME ( pid - a u), PROC-FULLNAME ( pid - a u)
+
+    beta 6 (09.Jun.03)
+    + TRAY-REFRESH eliminates dead system tray icons
+    * Log system bug fixed.
+    * USERNAME is changed for XP.
+    + WatchRegistry: key-path, REG-CHANGE-NAME, REG-CHANGE-ATTRIBUTES,
+      REG-CHANGE-LAST-SET, REG-CHANGE-SECURITY, WatchSubtree
+
+    beta 5 (31.May.03)
+    * tm.exe could not edit the tasks with quoted names. Fixed.
+    + New words: MIXER-STATE, MIXER-MUTE, MIXER-UNMUTE,
+      MIXER-VOLUME@, MIXER-VOLUME!, MIXER+, MIXER-UP, MIXER-DOWN
+    + WatchEventLog: <logname> etc.,
+       FOR-NEW-EVENTS ... FOUND-EVENT ... ;FOR-NEW-EVENTS
+    * Logging system is changed.
+    + French and Finnish interface languages.
+
+    beta 4 (15.May.03)
+    + res-files changed (see 143 and 423)
+    + RunMissed task option (also GUIs of add task and reminder are changed)
+    + Portuguese and Portuguese-BR interface languages.
+    * Hotkey retrieving changed (WinSpy)
+
+    beta 3 (07.May.03)
+    * res-files changed (see 170-174)
+    * vertical scroll bar is added to reminder
+    * CLIPBOARD returns current value of clipboard
+
+    beta 2 (18.Apr.03)
+    * winlirc.spf changed
+    + "Virtual Key" tool added to WinSpy
+    + It is possible to enter virtual key code into WatchHotkey: expression (WatchHotkey: {0x20})
+    * GUI changed
+    + MenuHotkey: <combination keystroke>
+    + German and Spanish interface languages.
+
+    beta 1 (09.Apr.03)
+    * some reminder bugs fixed
+    + RANDOM, START-SEQUENCE - random generator
+    * Double task start (during one minute) bug fixed
+    + winlirc.spf plug-in
+    + Numpad, multimedia and BREAK keys support (see SEND-KEYS: and WatchHotkey:)
+
+1.88 (26.Feb.03) release
+
+    prerelease 9 (26.Feb.03)
+    * Windows 9x version info is corrected
+    * WatchProcStop: bug fixed
+    * Negative window positions is written to tm.ini correctly
+
+    prerelease 8 (21.Feb.03)
+    + English help file 'help.chm'
+    * Directory 'txt' is deleted
+    * MSG: bug fixed
+    * Some cosmetic improvements
+
+    prerelease 7 (18.Feb.03)
+    + CD-TRAY-EJECT: <cd-drive-letter>, CD-TRAY-CLOSE: <cd-drive-letter>
+    + Version info in nncron.exe
+    * "Suspend nnCron" bug fixed (a task with Rule: worked on suspended mode)
+
+    prerelease 6 (23.Jan.03)
+    * FOR-FILES: bug fixed (with SKIPERRORS)
+    + FORCE-SHUTDOWN, FORCE-REBOOT, FORCE-LOGOFF, FORCE-POWEROFF and
+      semantics of SHUTDOWN, REBOOT, LOGOFF, POWEROFF
+    * Name of deleted task is removed from once.txt
+
+    prerelease 5 (21.Jan.03)
+    + FOR-PROCS: proc-pattern ... ;FOR-PROCS
+    + FOUND-PROC, FOUND-PID
+    * FOR-FILES: changed (be careful)
+    + SKIPERRORS option of FOR-FILES:
+
+    prerelease 4 (15.Jan.03)
+    + FT>MS, FT>SEC, FT>MIN, FT>HOUR, FT>DAY
+    * ProcActiveTime returns ms as double value
+    * PURGE-OLD: bug fixed
+
+    prerelease 3 (11.Jan.03)
+    * Memory leakage on WatchProc/WatchProcStop fixed
+    * Handle leakage for FILE-TIME: etc. fixed
+    * Name of commands changed (it's possible to use old names too):
+      SUSPEND-CRON  -> DISABLE-CRON
+      RESUME-CRON   -> ENABLE-CRON
+      suspend       -> disable      (it's filename)
+      AddTask       -> NewTask      (tm.exe options)
+      AddReminder   -> NewReminder
+    * Jun -> Jan
+
+    prerelease 2 (16.Dec.02)
+    * -v, -?, -ep work properly.
+    prerelease 2 (11.Dec.02)
+    * bug of service installation fixed
+    + fVAR varname         (file variable)
+    + regVAR varname       (registry variable)
+    prerelease (07.Dec.02)
+    * Editing task is saved in old place of crontab.
+    * Bug of Rem. console on "Log2StdOut ON" fixed.
+    + New plug-in http.spf
+    * WatchProc: and WatchProcStop: are changed
+    + %WATCH-PROC-ID% (only for WatchProc:, WatchProcStop: tasks)
+    * PROC-EXIST: procname -> PROC-EXIST: proc-pattern
+    * WatchClipboard: wc-pattern|/re-pattern/
+    beta 12 (20.Nov.02)
+    * %FOLDER-WINDOWS% is corrected for Win9x
+    + New plug-in system.spf
+    + Remote console (see nncron.ini parameters: RemConsole,
+      RemConsolePort:, RemAllowed:, RemDisallowed:)
+    * FILE-DELETE: filename -> [RECURSIVE] FILE-DELETE: filemask
+    + Title: "console title"
+    + WIN-SET-TITLE: "pattern" "new title"
+    * WIN- commands can treat handle of window as pattern.
+    * SYS-SET bug fixed.
+    + tm.exe Console <host> <port>
+    + Window handle in WinSpy tool
+    * Updating of nncron.ini file on installing is changed.
+
+    beta 11 (03.Nov.02)
+    + BALLOON: "tooltip title" "tooltip text"
+    * Occasional crash on choosing "help" menu item bug fixed.
+    + SUSPEND-CRON, RESUME-CRON and corresponding menu item.
+    * WatchHotKey: bug fixed (keyboard layout)
+    * Watch* bug fixed
+    * FOR-FILES: changed
+    + FF-EXIT completes FOR-FILES: loop
+    + New option of nncron.ini Log2StdOut
+
+    beta 10 (28.Oct.02)
+    * Another bug of FREE-SPACE: fixed
+    + New word SYS-SET which serves for assignment values to system
+      environment variables (SYS-SET PATH="c:\bin;c:\")
+    * Bug of WatchLogon: and WatchLogoff: fixed.
+    * example.tab changed.
+    * Add reminder bug fixed (error, if CRLF is absent at EOF)
+    * Add/Edit crontab/plug-in dialog changed
+    + New word PROC-ID. Use it after an application start (START-APP:) only.
+    * Semantic of KILL: is extended (KILL: "proc_name OR proc_id")
+    * WIN-TOPMOST:, WIN-NOTOPMOST: bug fixed
+    * Algorithm of WatchFile: and WatchDir: is enhanced.
+    + New word WIN-RESIZE ( w h -- )
+    * Help file did not launched on -ns switch or windows 9x/ME
+    + PROC-FULLPATH option of PROC-EXIST:
+
+    beta 9 (10.Oct.02)
+
+    * Plug-in wakeup.spf changed. You can use %% variables in time spec. now
+    * New semantic of FILE-COPY:,FILE-MOVE:,FILE-RENAME:
+    * DIR-DELETE: and DIR-EMPTY: bug fixed
+    * WIN-ACTIVATE: did not restore minimized windows. Fixed
+    + Plug-in windows.spf is changed (WIN-TRANSPARENCY:)
+    * bug of FREE-SPACE: fixed
+    * PLAY-SOUND did work synchronously. Fixed.
+    * Console window was not active on opening.
+    * Algorithm of %USERNAME% changed for NT-XP.
+    + WatchLogon: username-pattern, WatchLogoff: username-pattern
+    * A task with AsLoggedUser option will not run, if logged user is absent.
+    * IconForAdminsOnly works properly
+    + It is allowed use the backslash (\) as a continuation character at end of line
+    beta 8 (15.Aug.02)
+    * bug of -ini switch fixed  (tm.exe did not use this parameter)
+    * Background color of hint is system color of tooltip (COLOR_INFOBK)
+    + HelpFile: option of nncron.ini
+    * nnCron is less sensitive to stack manipulation errors in Rule: and Action: parts.
+    * Error in default nncron.tab fixed (1st-hello: Crontab syntax ERROR!!!...)
+
+    beta 7 (13.Aug.02)
+    * REG-DELETE-KEY: deletes a key and all its subkeys.
+    * Modifier FILESONLY (of FOR-FILES:) works now.
+    * Background of whole of HINT window is yellow now.
+    * bug of -stop fixed
+    * It is possible to use "Time: START-TIME" with another Time: specifications
+    * nnCron GUI did not considered YearField option on adding reminder.
+    + SyntaxRestriction option of nncron.ini
+    + New nncron.exe command line switches: -ini inifilename,  -out outfilename
+    * Scripting error on Windows 9x bug fixed
+    * Saving nncron.ini bug fixed (tm.exe did not save an option,
+      if this option was absent in the nncron.ini file)
+    beta 6 (16.Jul.02)
+    + New monitor event WatchLogon
+    * PROC-EXIST: returns boolean value instead PID
+    * Command line switches -v, -?, -ep work properly.
+    * Plug-in time.spf, FILE-CHANGE: bug fixed (on simultaneous usage in several tasks)
+    * "WatchConnect" event generating on crontab reloading bug fixed.
+    + WIN-NOTOPMOST: "title"
+    + WITHDIRS modifier of PURGE-OLD:
+    * FILE-COPY: now copies files over existing read-only files.
+    beta 5 (26.Jun.02)
+    * Logon testing changed
+    * Some cosmetic improvement
+    + WatchSuspend, WatchResume, WatchStandby, WatchResumeStandby,
+      WatchQuerySuspend, WatchQueryStandby, WatchBatteryLow
+    + Now is allowed to use several "Watch*" and "Rule:" in one task.
+    beta 4 (18.Jun.02)
+    * GUI processed non standard minutely and hourly intervals incorrectly
+    + New task option 'SingleInstance'
+    + Plug-in wakeup.spf changed: new word WakeAt: hh:mm
+    * New syntax of PAUSE: hh:mm|ms
+    + Error message on reminder adding, if time of reminder is over.
+    * Error on opening documents which have space in the name.
+    beta 3 (25.May.02)
+    - MONITOR-LOW?, MONITOR-OFF?, MONITOR-ON?, SCREENSAVER-ON?
+    + new examples (see example.tab)
+    * hanging up on shutdown (Win 9x) bug fixed.
+    * win2tray.spf plug-in changed.
+    * LoadProfile option location changed
+    + nnCron runs GUI as logged user.
+    beta 2 (23.May.02)
+    + ShowErrorMsg option (see nncron.ini)
+    + AsLoggedUser task option.
+    beta 1 (23.May.02)
+    + IconForAdminsOnly option (see nncron.ini)
+    * WatchHotKey bug fixed (hot-key did not work properly after crontab reloading).
+    + Several tasks with the same WatchHotkey: key allowed now.
+    * nnguard.exe crush bag fixed.
+    * Clipboard monitor changed.
+    + POWER-SUSPEND, POWER-HIBERNATE, MONITOR-LOW, MONITOR-OFF,
+      MONITOR-ON, SCREENSAVER-ON, SCREENSAVER-OFF
+    + MONITOR-LOW?, MONITOR-OFF?, MONITOR-ON?, SCREENSAVER-ON?
+    + New plug-in: wakeup.spf (WakeAfter: hh:mm)
+    * nnCron icon appeared no always after explorer.exe restarting.
+1.87 (07.May.02)
+    + "Also" option (using: Time: ... Also Watch* ...)
+    + WatchHotKey: "hot-key"
+    + WatchShutdown, WatchLogoff (NT/2k/XP only)
+    * Now Rule: condition is tested after authorization
+    * task deleting/editing on opened nncron.tab file bug fixed
+    * bug of WatchWin* fixed (loss of window title)
+    beta 9 (16.04.2002)
+    * HOST-EXIST: bug fixed (ok on "IP_DEST_HOST_UNREACHABLE" end etc. reply)
+    * time.spf plugin-changed (+ FILE-CHANGE: "mask" condition)
+    * IDLE: is changed for Win2k/XP (hooks not used for these OS)
+    * User list generating (as user) bug fixed (NT 4)
+    + -q command line switch  - be quiet on install/remove
+    beta 8 (09.04.2002)
+    * error on locked once.txt fixed
+    * error on opened nncron.tab or nncron.ini fixed
+    * win2tray.spf plug-in changed
+    beta 7 (09.03.2002)
+    * ancient memory leak fixed
+    * of WIN-WAIT: bug fixed (stack garbage)
+    beta 6 (05.03.2002)
+    + "Reload crontabs" menu item and ItemReload option.
+    * WIN-TERMINATE: didn't work
+    * example.tab is corrected
+    * some bugs fixed
+    beta 5 (27.02.2002)
+    * DefualtPassword: -> DefaultPassword:
+    * -runfile bug fixed (of beta 4).
+    * changed options loss when 'nncron.ini' file is blocked.
+    * once.txt format changed.
+    beta 4 (22.02.2002)
+    * QUERY: waits infinite time.
+    * Misoperation of WatchDisconnect is eliminated. CONNECT and
+      DISCONNECT tasks are changed in example.tab
+    + %LAST-CONNECTION% - name of last RAS connection (for WatchDisconnect)
+    * Crash of nnCron on crontab reloading when a connection is
+      established (WatchConnect/WatchDisconnect)
+    * Error # 87 on logon test.
+    * START-APP: semantic is enhanced.
+    + New options (see nncron.ini):
+        RunAsDefaultUser, DefaultUser:, DefualtPassword:, DefaultDomain:
+        DefaultLoadProfile, WithoutProfile, NoRunAs
+        GUIAsUser, GUIUser:, GUIPassword:, GUIDomain:, GUILoadProfile
+    * New options GUI.
+    beta 3 (12.02.2002)
+    + WaitFor: <ms or hh:mm> option of START-APPW: (kill after <ms or hh:mm>)
+    + DialOnce option
+    + Possibility enter username (Run as user) which is absent in user list.
+    * User list is made after completion editing of Domain.
+    * Invisible (only caption) message box bug fixed (WinXP).
+    + TQUERY: "message" timeout-in-sec Yes/No
+    + QUERY: uses QueryStartTimeout as timeout and QueryStartAnswer as
+      default answer
+    * WatchFile slept simultaneous creation two or more controllable files
+      in one directory.
+    * False firing of WatchFile on nnCron starting or crontab reloading,
+      if file exist (now creation and last write time of file
+      is written into once.txt)
+    + Plugins:
+        time.spf - some time operation (FILE-TIME: etc.)
+    beta 2 (23.01.2002)
+    * Adding empty reminder bug fixed
+    + Semantics of FOR-FILES changed
+      (now FOR-FILES passes directories by *.* mask)
+    + TODEPTH, FILESONLY modifiers of FOR-FILES
+    * Error message on access to unloaded media fixed (FILE-EXIST:)
+    + %ACTIVE-WINDOW% title of active window
+    + FOR-WINDOWS: "pattern-or-regexp" ... ;FOR-WINDOWS loop
+    + FOR-CHILD-WINDOWS: "pattern-or-regexp" ... ;FOR-CHILD-WINDOWS loop
+    + ALL modifier of WIN-* commands
+    + Added possibility to use regexp as "pattern" in WIN-* commands
+    + [RECURSIVE] DIR-SIZE: "path"   - size of dir
+    + DIR-EMPTY: "path" - TRUE, if directory not contain files and directories
+    * CRONTAB-ERROR changed (see txt\nncron.ini)
+    + Now it is possible to use $0-$15 (%$0%,%$1% etc.) after RE-MATCH:
+    * GUI bugs:
+        fall of connection name (DIAL:)
+        appearance of garbage (RunOnce NoDel) on absence of Time: sentence
+        impossibility of transference to some control by TAB keystroke
+    * Tab distance is decreased in multi-line edit boxes
+    + German interface language.
+    + Plugins:
+        win2tray.spf - hides windows to system tray
+            [ALL] WIN-TO-TRAY: "pattern"
+        timesync.spf - sycnhronizes system time by Time Protocol
+            TP-SYNC: "time-server"
+            %TP-SYNC-RESULT% - 0 ok, otherwise error code
+            %TP-SYNC-DELAY%  - delay of time server respond
+        windows.spf  - useful words for FOR-WINDOWS: loop
+            VISIBLE?, MINIMIZED?
+
+    beta 1 (09.01.2002)
+    + Guard option of ini-file (now nnCron has nearly total-lot floodability)
+    * Several BEEP: GUI bug fixed.
+    * Misprint (Jun->Jan) fixed.
+1.86 (05.12.2001)
+    + Console tool and "Console" option of ini-file
+    + ItemExit, ItemOptions, ItemConsole options of ini-file
+    * Bug of LoadProfile (for NT4) fixed.
+    * Crash on open menu after task changing fixed.
+    * Crash on synchronous using HOST-EXIST: (in Action: part)
+        in two or more tasks
+    + NHOST-EXIST: host-name-or-IP num
+1.85 (29.11.2001)
+    + <task-name> RUN, <task-name> LAUNCH
+    + SHUTDOWN, REBOOT, POWEROFF, LOGOFF
+    + SEND-KEYS-DELAY: <keystrokes-delay-in-ms> <delay-after-SEND-KEYS-in-ms>
+    + HINT: "text of hint", HINT-OFF
+      (also HINTW: "text", THINT: "text" sec, THINTW: "text" sec)
+      HINT-POS: x y, HINT-SIZE: w h
+    + tools/WinSpy menu item
+    * bug of memory leakage on Watch* tasks fixed
+    + IDLE: seconds
+    + PROC-TIME: "proc-name" (WinNT/2000/XP only)
+    * About box is changed
+    + Full range in time specification (e.g. Time: 55-5 22-7 28-2 10-2 5-2 *)
+    + New switches of nncron.exe:
+        -run task-name  - runs specified task
+        -runfile file   - runs specified file (it mast contain word 'main')
+        -hi             - hides tray icon
+        -si             - shows tray icon
+    + Authorization for Watch* tasks (now you can monitor network
+      directories and files)
+    + REG-SZ: "registry-path" "data string"
+      REG-DWORD: "registry-path" number
+      REG-DELETE-KEY: "registry-path", REG-DELETE-VALUE: "registry-path"
+      <buffer> GET-REG: "registry-path"
+    + AboveNormalPriority, BelowNormalPriority (2k/XP only)
+    * WatchProc bug fixed (occasional crash on crontab reload)
+    + WIN-TOPMOST: "title"
+    + LoadProfile option of START-APP: (NT/2k/XP)
+    + new plugins: plugins\ net.spf, sid.spf, process.spf
+1.84 (16.10.2001)
+    * 'Hourly' have been changed to 'OnceAHour', etc.
+    + HIDE-ICON, SHOW-ICON - operations with tray icon
+    + WatchProc: "proc name" , WatchProcStop: "proc name",
+      WatchProcDelay: ini-file parameter
+    + SEND-KEYS: "string", WIN-SEND-KEYS: "win-title" "string"
+    + WIN-ACTIVATE: "title"
+    + %FOUND-WINDOW% - contents title of window after WIN- commands
+    + %WIN-TITLE%   - additional semantic for WIN- commands
+    + PAUSE: ms
+    + WinNT? flag, WIN-VER and GET-VER commands
+    + %FILE: filename%  - inserts content of file 'filename'
+    + WIN-MOVE: x y , WIN-MOVER: x y , WIN-WAIT
+    + MOUSE-MOVE: x y , MOUSE-MOVER: x y , MOUSE-MOVEW: x y
+        and other mouse operation
+    + FILE-CROP: "filename" max-size size-to-crop
+    + New examples
+1.83 (04.09.2001) (great thanks to Valery Kondakoff)
+    + Hourly, Daily, Monthly, Weekly flags
+    + WatchWinCreateDelay: ini-file parameter
+    + Editor: "editor.exe" ini-file parameter
+    + BackupPath: "path"  ini-file parameter
+    * Russian and english documentation are synchronized
+    + FILE-CREATE: "filename", FILE-WRITE: "filename" "text",
+      FILE-APPEND: "filename" "text"
+    + DIR-CREATE: "path", DIR-DELETE: "path"
+    + WIN-MINIMIZE:, WIN-MAXIMIZE:, WIN-RESTORE:
+    + 'Start task' and 'Edit' menu item improvement, 'Exit' menu item
+    * WatchClipborad: bug fixed (crash)
+    * RunOnce bug fixed
+    * ONLINE? and DIAL: bugs fixed (9x)
+    + The start of the registered applications is simplified
+        (.doc, .xls, .htm etc.)
+    * WatchFile: and WatchDir: bugs fixed
+    + FREE-SPACE: <drv-letter>
+1.82 (19.07.2001)
+    + 'AsService' option of START-APP:
+        Now nnCron can fulfil the duties of SRVANY.EXE
+    + Application don't steal focus, if its open mode is "Minimized"
+    + BEEP: works properly on Windows 9x
+    * Handles leakage on logoff bug fixed
+1.81 (20.06.2001)
+    + Regular expressions (RE-MATCH:, RE-ALL: ... ;RE-ALL, %$0%...%$15%)
+      see readme.txt and txt\regexp.txt
+    + </SCRIPT> (universal closing tag for <JScript> AND <VBScript>)
+    * <JScript>/<VBScript> bug fixed (stack garbage error)
+    + New examples (see example.tab)
+1.79 (31.05.2001)
+    * HANGUP: (interface) bug fixed (connection list box did not work)
+    * Crash bug fixed (win2k)
+1.78 (25.05.2001)
+    + New events - WatchDriveInsert:, WatchDriveRemove: (CD-ROM activity)
+    + YearField ini parameter (see nncron.ini file) - now nnCron's classic
+      crontab format is fully compatible with unix cron's crontab format
+1.77 (21.05.2001)
+    + Windows Scripting Host support.
+        see <VBScript> ... </VBScript> and  <JScript> ... </JScript> tags
+    + WatchConnect/WatchDisconnect example (see example.tab)
+    + LOGGEDON? (condition)
+    + POP3-CHECK: "host" "user" "password"
+    + %CONNECTION% - name of current opened internet connection
+    + %WIN-TITLE% - title of window (see WatchWindow: etc.)
+    * %MMM% bug fixed
+    * some cosmetic improvements
+1.76 (25.04.2001)
+    * Fixed bug of running double instance of NNCron on logoff/logon (9x)
+    + KILL: "proc-pattern" for Win 9x/NT/2000
+    + PROC-EXIST: "proc-pattern" for Win 9x/NT/2000
+    + MonitorResponseTime: parameter (see nncron.ini file)
+    * Bug of WatchDir: & WatchFile fixed (double handling of an event has
+      been eliminated)
+1.75 (11.04.2001)
+    + WatchWinCreate:, WatchWinDestroy:, WatchWindow:, WatchWinActivate:
+    * Some GUI improvements
+1.74 (26.03.2001)
+    + Testing  of an application path (GUI)
+    + Possibility of crontab choosing (GUI)
+    + 'Show log' and 'About' tray menu items
+    * Tray menu bug fixed
+    * Bug of BEEP: fixed
+    * Writing task bug fixed
+1.73 (22.03.2001)
+    + Immediate reloading crontabs after adding/editing/deleting of task
+    + Options form
+    + Reminders
+    * Bugs fixed
+1.72 (07.03.2001)
+    + Graphic User Interface
+1.71 (22.02.2001)
+    + %FOUND-FILENAME%, %FOUND-FULLPATH%, %FOUND-RELPATH%
+      CREATION-DATE, ACCESS-DATE, WRITE-DATE
+      DATE-,  CUR-DATE (FOR-FILES:)
+    + FILE-COPY:,  FILE-MOVE:,  FILE-RENAME:, FILE-DELETE:
+    + PURGE-OLD:, PURGE-OLDW:, PURGE-OLDA:, RECURSIVE
+    + FILE-DATE:, FILE-ACCESS-DATE:, FILE-WRITE-DATE:
+1.07 (08.01.2001)
+    + syntax of DIAL: "conn"  is changed to  DIAL: "conn" attempts pause_s
+    + RUN, using: task-name RUN
+    * fixed bug of WatchFile:
+    * fixed bug of StartIn:
+    + QUERY: "question" ( -- ?)
+    + ERR-MSG: "error message"
+    + WatchClipboard:, %CLIPBOARD%, CLIPBOARD: "text"
+    + variables %FOLDER-DESKTOP%, %FOLDER-PROGRAMS% and so on
+    + variables %QUOTE%, %PERCENT%
+    + Message box on crontab error (see nncron.ini)
+    + PLAY-SOUND: "wav-file path", PLAY-SOUNDW: "wav-file path"
+    + Tray icon
+    + Exact matching (you can use EXACT before WIN-EXIST: "title" and so on)
+    + Environment variables (SET env_var=value)
+    + Step values can be used in conjunction with ranges of the time/date
+      specification
+    + Names can be used for the 'month' and 'day of week' fields
+
+1.06 (14.12.2000)
+    + Priority of applications (Normal,High,Idle,Realtime)
+    + Start mode (Normal,Miniminzed,Maximized,Hide), position and size of
+      applications
+
+1.05 (20.10.2000)
+    + Security password and -ep command line switch
+    + StartIn: "start-in-directory"
+    * fixed bugs of WatchDir:, WatchFile:, HOST-EXIST:
+    + FOR-FILES: "mask" ... ;FOR-FILES
+
+1.04 (16.08.2000)
+    + INTERVAL:, DATE-INTERVAL:
+    + WatchFile:, WatchDir:, WatchConnect, WatchDisconnect
+
+1.03 (20.07.2000)
+    + Two switches 'RunOnce' and 'NoDel'
+    * fixed bug of "Command:" (one space only)
+    + FILE-SIZE: and FILE-EMPTY:
+
+1.02 (05.05.2000)
+    + Time: START-TIME  - starting of an applications
+                          at start time of NNCron
+    + QCommand:, QSTART-APP:, TMSG:, LOG:
+    + Several crontabs
+    + Starting as user of applications
+
+1.01 (18.04.2000)
+    * Now NNCron works on Windows 95/98/NT/2000

@@ -1,0 +1,115 @@
+\ cron
+
+\ S" ~nemnick\lib\lh.f" INCLUDED
+UseDLL ADVAPI32.DLL
+
+S" LIB\EXT\CORE-EXT1.F" INCLUDED
+S" LIB\EXT\JMP.F" LH-INCLUDED
+S" LIB\EXT\EOF.F" LH-INCLUDED
+\ S" LIB\ext\tools.f" INCLUDED
+WARNING @ WARNING 0!
+: WINAPI: >IN @ >R
+    BL WORD FIND NIP 
+    0= IF R> >IN ! WINAPI: 
+       ELSE RDROP BL WORD DROP THEN
+;
+WARNING !
+
+\ : INCLUDED 2DUP TYPE ." ..." INCLUDED ." ok" CR ;
+
+S" ~nemnick\lib\qdebug.f" INCLUDED
+DEBUG?
+[IF]
+    CREATE SVC-NAME C" TM" ", 0 C, 
+[ELSE]
+    CREATE SVC-NAME C" TM" ", 0 C, 
+[THEN]
+
+: ServiceName SVC-NAME COUNT ;
+
+ServiceName TYPE CR
+
+S" LIB\EXT\STRING.F" INCLUDED
+
+0 VALUE CUR-TAB-FILENAME
+0 VALUE PrevMin
+0 VALUE SAVE-LATEST
+0 VALUE SAVE-DP
+
+0 VALUE CRONLOG-FILENAME  HERE C" nncron.log" ", 0 C, TO CRONLOG-FILENAME
+0 VALUE CRONLOG-TIME-FORMAT HERE C" %WW% %DD%-%MM%-%YYYY% %hh%:%mm% %ThreadId%" ", 0 C,
+            TO CRONLOG-TIME-FORMAT
+
+CREATE CRONOUT-FILENAME C" nncron.out" ", 0 C,
+
+CREATE CRONINI-FILENAME C" nncron.ini" ", 0 C, 
+
+0x00200000 CONSTANT MB_SERVICE_NOTIFICATION
+
+\ S" ~nn/lib/win/wfunc.f" INCLUDED
+\ S" ~nn/lib/wincon.f"  LH-INCLUDED
+S" agents/pop3rules/wcmatch.f" INCLUDED
+USER-VALUE EXACT-MATCH?
+: WC-MATCH1 EXACT-MATCH? IF WC-COMPARE ELSE WC-MATCH THEN ;
+
+S" ~nn/lib/find.f" INCLUDED
+S" ~nn/lib/list.f" INCLUDED
+S" ../winver.f" INCLUDED
+S" ../win32.f" INCLUDED
+S" LIB/EXT/MUTEX.F" INCLUDED
+S" ~nn/lib/time.f" INCLUDED
+S" ~nn/lib/getstr.f" INCLUDED 
+S" ../subst.f" INCLUDED
+S" ../winsta.f" INCLUDED
+S" ../add.f" INCLUDED
+S" ~nn/lib/log.f" INCLUDED
+
+: CRON-LOG  ( a u --)
+    EVAL-SUBST
+    CRONLOG-FILENAME COUNT EVAL-SUBST
+    LOG ;
+
+S" ../csp.f" INCLUDED
+S" ~nn/lib/process.f" INCLUDED
+S" ~nn/lib/ras.f" INCLUDED
+S" ../tl.f" INCLUDED
+S" ../sec.f" INCLUDED
+S" ~nn/lib/bak.f" INCLUDED
+S" ../crontab.f" INCLUDED
+S" ~nn/lib/regkey.f"  INCLUDED
+S" ../reg.f" INCLUDED
+S" ~nn/lib/priv.f" INCLUDED
+S" ~nn/lib/build.f" INCLUDED
+
+
+S" sched.f" INCLUDED
+S" addtask.f" INCLUDED
+
+: MAIN
+    ['] THROW TO ERROR
+    AddTask
+    BYE
+;
+
+S" ..\ico\nncron32x32.ico" R/O OPEN-FILE THROW 
+DUP I32 22   ROT READ-FILE THROW DROP
+DUP I32 744  ROT READ-FILE THROW DROP CLOSE-FILE DROP
+
+S" ..\ico\nncron16x16.ico" R/O OPEN-FILE THROW 
+DUP I16 22  ROT READ-FILE THROW DROP
+DUP I16 296 ROT READ-FILE THROW DROP CLOSE-FILE DROP
+
+CR .( End of building.) CR 
+DEBUG? 0= [IF] SET-BUILD [THEN]
+150 1024 * TO IMAGE-SIZE 
+
+
+' MAIN TO <MAIN>
+\ TRUE TO ?GUI
+0 MAINX !
+' BYE ' QUIT JMP
+
+
+S" tm.exe" SAVE
+BYE
+

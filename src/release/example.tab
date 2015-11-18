@@ -1,0 +1,503 @@
+# This file contains useful nnCron examples.
+
+# setting environment variables:
+
+SET CurTime=%hh%-%mm%
+SET FIDOCONFIG=d:\fido\hpt\fido.cfg
+SET SCITE_HOME=d:\tools\scite
+SET WGETRC=d:\tools\wget\wget.rc
+
+# classic format examples: 
+# Minutes Hours Days Months WeekDays Years Command)
+
+30 1 * * * * your_app.exe
+0 12,17 * * * * cmd /c "E:\home\nick\Books\knut\knut\KNUT-ALL.PDF"
+15,20,30 * * 1,2,3,4 1-5 2000 test.cmd XXX-%TempFile%-YYY-%COMPUTERNAME%-ZZ && TIME /T >>xxx
+START-TIME cmd /c E:\home\nick\Books\progs\pietrekbook.pdf 
+
+# extended format examples:
+
+##############################################################################
+
+#( Chime-new 
+Time: */15
+Action: 
+    Min@ 0 =
+    IF
+        \ every hour
+        50 7000 BEEP
+    ELSE
+        Min@ 30 =
+        IF
+            \ every 30 minutes
+            50 7000 BEEP 
+            50 7000 BEEP
+            50 7000 BEEP 
+        ELSE
+            \ on 15 and 45 minutes
+            50 7000 BEEP 
+            50 7000 BEEP
+        THEN
+    THEN
+)#
+
+##############################################################################
+# Use this task to lock your workstation at specified time
+
+#( lock-task
+WINAPI: LockWorkStation USER32.DLL
+Action:
+    LockWorkStation DROP
+)#
+
+##############################################################################
+# This task dials five different phone numbers, trying to establish internet
+# connection. When the connection is established 'get-mail.cmd' is started.
+
+#( dial-task
+Time: 0 * * * * *    \ every hour
+Action:
+    ONLINE: "e96" 0= \  if _not_ online
+    IF
+        5 0 DO       \ loop 5 times
+            RASUser: "xxxx"
+            RASPassword: "yyyyy"
+            I        \ loop counter
+            CASE     \ choice
+                0 OF RASPhone: "P2128506" ENDOF
+                1 OF RASPhone: "P2128507" ENDOF
+                2 OF RASPhone: "P2128508" ENDOF
+                3 OF RASPhone: "P2128509" ENDOF
+                4 OF RASPhone: "P2128510" ENDOF
+            ENDCASE
+            DIAL: "e96"
+            ONLINE: "e96"   \ online?
+            IF              \ Yes
+                LEAVE       \ leave the loop
+            THEN           
+            10000 PAUSE     \ wait for 10 seconds
+        LOOP         \ end of the loop
+    THEN
+    START-APP: get-mail.cmd
+)#
+
+##############################################################################
+# This task monitors Windows clipboard contents for URLs that can be 
+# downloaded and starts 'wget.exe', passing the URL as command line 
+# parameter. Regular Expressions are used to parse the URL.
+
+#( WGET_task
+: WGET-PAT S" /(http)|(ftp):\/\/[^ ]+?\.(zip)|(gz)|(rar)|(jpeg)|(jpg)|(exe)/i" ;
+WatchClipboard: *
+Rule: RE-MATCH: %CLIPBOARD% %WGET-PAT%
+Action:
+    RE-ALL: %CLIPBOARD% %WGET-PAT%
+        QUERY: "Download %$0%?"
+        IF
+            ShowNormal
+            StartIn: e:\home\download
+            START-APP: e:\bin\wget.exe %$0%
+        THEN
+   ;RE-ALL
+)#
+
+##############################################################################
+# The two following tasks are logging dialup activity on your PC (internet
+# connect/disconnect). Log files are stored in 'log\ras' folder.
+
+<%
+    VARIABLE ConnectTime
+    VARIABLE DisconnTime
+    : raslogname S" log\ras\%YYYY%%MM%.log" EVAL-SUBST ;
+    : ConnTimeInSec DisconnTime @ ConnectTime @ - 1000 / ;
+    : ConnTimeInMin ConnTimeInSec 60 /MOD SWAP IF 1+ THEN ;
+%>
+
+#( CONNECT
+    WatchConnect
+    Action:
+        GetTickCount ConnectTime !
+        GET-CUR-TIME
+        LOG: %raslogname% "%WW% %DD% %hh%:%mm%:%ss% connect %CONNECTION%"
+)#
+
+#( DISCONNECT
+    WatchDisconnect
+    Action:
+        GetTickCount DisconnTime !
+        GET-CUR-TIME
+        LOG: %raslogname% "%WW% %DD% %hh%:%mm%:%ss% disconnect %LAST-CONNECTION% %ConnTimeInSec% %ConnTimeInMin%"
+)#
+
+##############################################################################
+# This task loggs internet activity for Win'9x/ME
+
+#( CONNECT-ACTIVITY
+VARIABLE CONN-BUSY
+VARIABLE CONN?
+0 VALUE BEGIN-CONN-TIME
+0 VALUE CONN-TIME
+CREATE (LAST-CONNECTION) 256 ALLOT
+: LAST-CONNECTION (LAST-CONNECTION) COUNT ;
+Rule: CONN-BUSY @ 0=
+Action:
+    CONN-BUSY ON
+    BEGIN
+        ONLINE? 
+        IF 
+            CONN? @ 0=
+            IF CONN? ON
+                CONNECTION (LAST-CONNECTION) PLACE
+                GET-CUR-TIME
+                TimeSec@ TO BEGIN-CONN-TIME
+                LOG: "ras.log" "%WW% %DD%/%MM%/%YYYY% %hh%:%mm%:%ss% connect %LAST-CONNECTION%"
+            THEN
+        ELSE
+            CONN? @
+            IF CONN? OFF
+                GET-CUR-TIME
+                TimeSec@ BEGIN-CONN-TIME - TO CONN-TIME
+                LOG: "ras.log" "%WW% %DD%/%MM%/%YYYY% %hh%:%mm%:%ss% disconnect %LAST-CONNECTION% %CONN-TIME%"
+            THEN
+        THEN
+        2000 PAUSE
+    AGAIN
+)#
+
+
+##############################################################################
+# Windows Script Host examples
+
+#( the-bat-start
+Time: 0 8,12 * * * *
+Action:
+    <JScript>
+        var WshShell = WScript.CreateObject("WScript.Shell");
+        WshShell.Run("\"e:\\win\\the bat!\\thebat.exe\" /NOLOGO");
+        WScript.Sleep(1000);          // wait one second
+        WshShell.AppActivate("The Bat!");
+        WScript.Sleep(1000);
+        WshShell.SendKeys("{F2}");    // check new messages
+    </JScript>    
+)#
+
+#( find-RunOnce-parameter
+    Time: 0 12 * * 5 *
+    Action:
+      <JScript>
+        var WshShell = WScript.CreateObject("WScript.Shell");
+        WshShell.Run("regedit.exe");
+        WScript.Sleep(1000);
+        WshShell.AppActivate("Registry Editor");
+        WScript.Sleep(1000);
+        WshShell.SendKeys("^fRunOnce{ENTER}");
+      </JScript>
+)#
+    
+##############################################################################
+# CD-ROM Insert/Remove events
+# cdslow.exe is a program for slowing down the speed of CD-ROM drives
+# 'F' is the letter of my CD-ROM drive
+
+#( CDinsert
+    WatchDriveInsert: F
+    Rule: PROC-EXIST: cdslow.exe NOT
+    Action:
+        START-APP: E:\win\progs\CDSlow\cdslow.exe
+)#
+
+#( CDremove
+    WatchDriveRemove: F
+    Rule: PROC-EXIST: cdslow.exe
+    Action:
+       WIN-CLOSE: "CDSlow 1.5" 
+)#
+
+##############################################################################
+# Check internet mail example. This task reports, if there is new mail is 
+# in your mailbox
+
+#( check-new-mail
+VARIABLE prev-pop3-cnt
+Rule:
+    \ read old counter from file  
+    PAD 10 S" pop3cnt.txt" FREAD S>NUM prev-pop3-cnt !
+    \ check mail
+    POP3-CHECK: serv name pass
+    DUP DUP 0> prev-pop3-cnt @ <> AND
+    IF prev-pop3-cnt ! 
+        \ write new counter to file
+        FILE-WRITE: pop3cnt.txt "%prev-pop3-cnt @%"
+        TRUE ELSE DROP FALSE 
+    THEN
+   Action:
+        MSG: "You have new mail."
+)#
+
+##############################################################################
+# SEND-KEYS: example
+
+#( test-send-keys 
+NoActive 
+Action: 
+    ShowNormal 
+    START-APP: notepad.exe 
+    HINT: "%crlf%Please, don't touch keybord and mouse during test.%crlf% " 
+    1000 PAUSE 
+    SEND-KEYS-DELAY: 50 1000 
+    SEND-KEYS: "Well, show me the way{ENTER}To the next whiskey bar{ENTER}Oh, don't ask why{ENTER}Oh, don't ask why{ENTER}{ENTER}" 
+    SEND-KEYS: "Show me the way{ENTER}To the next whiskey bar{ENTER}Oh, don't ask why{ENTER}Oh, don't ask why{ENTER}{ENTER}" 
+    SEND-KEYS: "For if we don't find{ENTER}The next whiskey bar{ENTER}I tell you we must die{ENTER}I tell you we must die{ENTER}I tell you, I tell you{ENTER}I tell you we must die{ENTER}{ENTER}" 
+    SEND-KEYS: "This is the END." 
+    SEND-KEYS: "{LEFT}+({HOME})" 
+    SEND-KEYS: "^({INSERT})" 
+    SEND-KEYS: "{END}{ENTER}{ENTER}" 
+    SEND-KEYS: "+({INSERT})"
+    SEND-KEYS: "!!!{ENTER}{ENTER}2 seconds..." 
+    2000 PAUSE 
+    SEND-KEYS: "@{F4}{DELAY 500}{RIGHT}{ENTER}" 
+    HINT-OFF 
+)#
+
+##############################################################################
+# WatchHotKey & WIN-TO-TRAY
+# This task minimizes active window into system tray on 'Alt+Ctrl+t' 
+# keystroke. Make sure that plug-in 'win2tray.spf' is loaded.
+
+#( Minimize2Tray
+WatchHotKey: "@^t"
+Action:
+    WIN-TO-TRAY: %GetForegroundWindow%
+)#
+
+##############################################################################
+# Turning off the monitor.
+
+#( Power_saving
+600 CONSTANT IdleTime       \ idle time constant in seconds
+VARIABLE SaveMonFlg         \ activity flag
+Rule: 
+    IdleTime IDLE DUP 0= IF SaveMonFlg OFF THEN
+    PROC-EXIST: DivX_Player.exe 0= AND    \ don't turn off the monitor, 
+    PROC-EXIST: FlyVCD.exe 0= AND         \ if a video player is active 
+    PROC-EXIST: microdvd.exe 0= AND
+    SaveMonFlg @ 0= AND
+Action:
+    SaveMonFlg ON           \ sets the activity flag
+    MONITOR-LOW             \ turns the monitor to low power state
+    IdleTime 1000 * PAUSE   \ waits for 2nd interval 
+    IdleTime 3 * 2 / IDLE IF MONITOR-OFF THEN  \ turns the monitor off
+)#
+
+##############################################################################
+# This task plays a little melody through internal PC speaker, showing
+# the lyrics of the song (in Russian)
+
+#( music_through_speaker
+Action:
+    BEEP: 30 247
+    HINT-POS: 100 100
+    THINTW: "nnCron karaoke:" 3
+    THINTW: "Are you ready?.." 2
+
+    HINT-POS: 100 100
+    HINT: "...Если кто-то..."
+
+    PAUSE: 200
+
+    BEEP: 280 330    \ E
+    PAUSE: 5
+    BEEP: 105 330    \ E
+    PAUSE: 100
+
+    BEEP: 280 330    \ E
+    PAUSE: 5
+    BEEP: 105 330    \ E
+
+    HINT-OFF
+    HINT-POS: 100 100
+    HINT: "...где-то, как-то..."
+
+    PAUSE: 70
+
+    BEEP: 20 294     \ D
+    PAUSE: 10
+    BEEP: 290 349    \ F
+    BEEP: 200 392    \ G
+    PAUSE: 10
+    BEEP: 280 440    \ A
+    BEEP: 120 262    \ C
+
+    HINT-OFF
+    HINT-POS: 100 100
+    HINT: "...вдруг, порой..."
+
+    PAUSE: 80
+
+    BEEP: 320 349    \ F
+    BEEP: 180 440    \ A
+    BEEP: 500 392    \ G
+    PAUSE: 1000
+
+    HINT-OFF
+    HINT-POS: 100 100
+    HINT: "...честно..."
+
+    PAUSE: 450
+
+    BEEP: 280 330    \ E
+    BEEP: 110 294    \ D
+    PAUSE: 400
+
+    HINT-OFF
+    HINT-POS: 100 100
+    HINT: "...жить не хочет..."
+
+    PAUSE: 670
+
+    BEEP: 20 247     \ B
+    PAUSE: 10
+    BEEP: 280 262    \ C
+    BEEP: 110 247    \ B
+    PAUSE: 80
+    HINT-OFF
+    BEEP: 280 220    \ A
+    BEEP: 110 330    \ E
+
+    PAUSE: 1000
+
+    BEEP: 30 247
+    HINT-POS: 100 100
+    THINT: "Thank you!" 3
+)#
+
+##############################################################################
+# This task counts how many minutes specified user works on your PC.
+# The minutes are logged in special log-file. If the user worked longer than
+# 60 minutes in a day the warning message is displayed.
+
+#( log_minutes
+VARIABLE minutes_count
+Action:
+    USERNAME S" user_logon_name" COMPARE 0=
+    IF
+        PAD 10 S" f:\user_log\%DD%-%MM%-%YY%.cnt"
+        EVAL-SUBST FREAD S>NUM minutes_count !
+        minutes_count @ 61 <
+        IF
+            minutes_count 1+!
+            FILE-WRITE: "f:\user_log\%DD%-%MM%-%YY%.cnt" "%minutes_count @%"
+        ELSE
+            MSG: "That's enough! Shut down the PC"
+        THEN
+    THEN
+)#
+
+##############################################################################
+# This task will reminds you about birthdays of your friends.
+# Just create a text file 'birthdays.txt' with the following info on each 
+# line (without '#' line comment):
+#
+# 1968 02 08 Nemtsev Nicholas
+# 1968 06 28 Kondakoff Valery
+# 1955 10 28 Gates Bill
+#
+
+#( birthdays
+OnceADay
+<(
+: birthdays.txt S" birthdays.txt" ;
+VARIABLE fb
+CREATE bline 256 ALLOT
+CREATE bname 64 ALLOT
+VARIABLE bdate
+VARIABLE byears
+VARIABLE bdays
+\ start reminding <pre-period> days before the birthday
+5 CONSTANT pre-period
+)>
+Action:
+  birthdays.txt R/O OPEN-FILE-SHARED IF DROP ERR-MSG: "Can't open %birthdays.txt% file" EXIT THEN fb !
+  BEGIN bline 250 fb @ READ-LINE THROW WHILE
+    bline SWAP
+    <TIB
+       get-number Year@ get-number get-number YMD>DATE bdate !
+       Year@ SWAP - byears !
+       1 WORD COUNT 63 MIN bname PLACE
+       CUR-DATE bdate @ DATE- NEGATE DUP 0 > OVER pre-period < AND
+       IF bdays !
+          MSG: "Birthday reminder!!!%crlf%%bname COUNT%%crlf%Remining days: %bdays @%.%crlf%Aged: %byears @%.%crlf%Don't forget to send greeting card!"
+          \ do smth useful here - play a little melody, for example
+       ELSE DROP THEN
+    TIB>
+  REPEAT
+  DROP
+  fb @ CLOSE-FILE DROP
+)#
+
+##############################################################################
+# This task allows you to create your own custom pop-up menu, which will
+# be shown when you left-click on nnCron tray icon. You can set specifyed 
+# actions to the menu items.
+
+#( lelftclick_popup_menu
+NoActive
+\ 1. Assigning menu items constants (you can use dynamic values there)
+101 CONSTANT MI_1
+102 CONSTANT MI_2
+103 CONSTANT MI_3
+104 CONSTANT MI_4
+105 CONSTANT MI_5
+106 CONSTANT MI_6
+\ 2. Creating the menu
+: MyMenu ( -- h)
+    POPUPMENU
+        S" Action 1"  MI_1 MENUITEM
+        S" Action 2"  MI_2 MENUITEM
+        MENUSEPARATOR
+        POPUP
+        S" Action 3"  MI_3 MENUITEM
+        S" Action 4"  MI_4 MENUITEM
+        S" More actions" END-POPUP
+    END-MENU
+;
+VARIABLE lc_win
+VARIABLE lc_menu
+\ 3. This word will run the pop-up menu
+: run_menu
+    WITH TrayIcon
+    Z" static" 0 0 Window lc_win !
+    ENDWITH
+    MyMenu lc_menu !
+    lc_win @ SetForegroundWindow DROP
+    0 lc_win @
+    \ setting the position of the pop-up menu (y x)
+    MOUSE-POS SWAP
+    [ DECIMAL ] 256 lc_menu @ TrackPopupMenuEx
+    \ setting the actions for every menu item
+    CASE
+        MI_1 OF
+            \ MI_1 Action:
+            MSG: "Action 1" 
+        ENDOF
+        MI_2 OF 
+            \ MI_2 Action:
+            MSG: "Action 2" 
+        ENDOF
+        MI_3 OF 
+            \ MI_3 Action:
+            MSG: "Action 3" 
+        ENDOF
+        MI_4 OF 
+            \ MI_4 Action:
+            MSG: "Action 4" 
+        ENDOF
+    ENDCASE
+    lc_menu @ DestroyMenu DROP
+;
+: run_menu_task lelftclick_popup_menu LAUNCH ;
+' run_menu_task CronIcon OnLB ! 
+Action:
+    \ running menu when left-clicking on nnCron tray icon:
+    run_menu
+)#

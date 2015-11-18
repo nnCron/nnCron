@@ -1,0 +1,7 @@
+VARIABLE cmdl
+: main
+    1 PARSE S>ZALLOC cmdl !
+    StartPos: -4 -4
+    StartSize: 800 600
+    START-APP: C:\win\XEmacs\XEmacs-21.4.3\i586-pc-win32\xemacs.exe %cmdl @ ASCIIZ>%
+;

@@ -1,0 +1,9 @@
+INCLUDE plugins/process.spf
+
+: main 
+    ShowNormal
+    StartIn: e:\win\winamp
+    START-APP: e:\win\winamp\winamp.exe
+    10000 PAUSE
+    S" winamp.exe" 0x80 PRIORITY
+;

@@ -1,0 +1,67 @@
+\ File:         recent_files.spf
+\ Date:         30.04.2003
+\ Author:       Valery Kondakoff.
+\ Description:  Finds and returns a string with a full path to a file with
+\               most recent creation-, modification- or access time.
+
+\ New words:    RECENT-FILE-TIME: "filename_mask"
+\               RECENT-FILE-WTIME: "filename_mask"
+\               RECENT-FILE-ATIME: "filename_mask"
+
+
+\ * 0 [IF]   \ this is a comment string
+\ * Examples:
+\ * #( test_recent
+\ * NoActive
+\ * \ finding most recent *.txt files in c:\temp directory
+\ * \ and printing their full path to console
+\ * Action:
+\ *     RECENT-FILE-TIME: "c:\temp\*.txt"
+\ *     TYPE CR
+\ *     RECENT-FILE-ATIME: "c:\temp\*.txt"
+\ *     TYPE CR
+\ *     RECENT-FILE-WTIME: "c:\temp\*.txt"
+\ *     TYPE CR
+\ * )#
+\ * [THEN]   \ this is a comment string
+
+\ : recent_file_mask S" C:\TEMP\DEUTSCH\NNCRON\*.txt" ;
+USER-CREATE recent_file_time 2 CELLS USER-ALLOT
+\ CREATE recent_file_name 256 ALLOT
+
+USER recent_file_name
+USER-VECT recent_word
+
+: RECENT-FILE ( a u -- a1 u1)
+    0 0 recent_file_time 2!
+    FILESONLY
+    FOR-FILES
+    \ ." 1" recent_file_mask @ ASCIIZ> TYPE CR
+        recent_file_time 2@ recent_word D<
+        IF
+            recent_word recent_file_time 2!
+            recent_file_name @ ?DUP IF FREE DROP THEN
+            FOUND-FULLPATH S>ZALLOC recent_file_name !
+        THEN
+    ;FOR-FILES
+    recent_file_name @ ASCIIZ>
+;
+
+: RECENT-FILE-TIME ( a u -- a u )
+    ['] FF-CREATION-TIME TO recent_word
+    RECENT-FILE
+;
+
+: RECENT-FILE-ATIME ( a u -- a u )
+    ['] FF-ACCESS-TIME TO recent_word
+    RECENT-FILE
+;
+
+: RECENT-FILE-WTIME ( a u -- a u )
+    ['] FF-WRITE-TIME TO recent_word
+    RECENT-FILE
+;
+
+: RECENT-FILE-TIME: eval-string, POSTPONE RECENT-FILE-TIME ; IMMEDIATE
+: RECENT-FILE-ATIME: eval-string, POSTPONE RECENT-FILE-ATIME ; IMMEDIATE
+: RECENT-FILE-WTIME: eval-string, POSTPONE RECENT-FILE-WTIME ; IMMEDIATE

@@ -1,0 +1,286 @@
+\ File:         win2tray.spf
+\ Author:       Nicholas Nemtsev
+\ Date:         22.03.2003
+\ Modified:     08.11.2003 (crash bug fixed)
+\ Modified:     18.11.2003 (ADD-HOST bug fixed)
+\ Modified:     28.03.2004 (Crash fixed (Win NT))
+\ Description:  Place windows to system tray
+
+\ Usage: [ALL] WIN-TO-TRAY: "pattern"
+
+
+WINAPI: GetClassLongA USER32.DLL
+WINAPI: LoadImageA USER32.DLL
+
+\ : LoadIcon ( addr u -- h )
+\  DROP >R
+\  ( LR_LOADFROMFILE) 16 16 16 IMAGE_ICON R> 0 LoadImageA
+\ ;
+
+5 CONSTANT SW_SHOW
+6 CONSTANT SW_MINIMIZE
+9 CONSTANT SW_RESTORE
+0 CONSTANT SW_HIDE
+
+1000 VALUE W2T-DELAY
+
+127 CONSTANT WM_GETICON
+-34 CONSTANT GCLP_HICONSM
+
+: (WIN-ICON) ( hwnd -- hicon )
+    >R
+    0 0 WM_GETICON R@ SendMessageA ?DUP 0=
+    IF
+        -34 R@ GetClassLongA ?DUP 0=
+        IF  0x7F00 0 LoadIconA THEN
+    THEN
+    RDROP
+;
+
+USER AppIconHwnd    \ handle of app window
+USER AppIconHandle  \ handle of app icon
+USER AppIcon        \ tray icon id
+VARIABLE TRAY-LIST
+VARIABLE TRAY-ICON-LIST
+
+: AppRest  0 PostQuitMessage DROP ;
+
+: ADD-TI ( a u hicon  -- id )
+    GLOBAL TrayIcon NEW LOCAL >R
+    R@ ->CLASS TrayIcon Create
+    R@ TRAY-ICON-LIST GLOBAL AddNode LOCAL
+    R>
+;
+
+: DEL-TI ( id -- )
+  DUP TRAY-ICON-LIST GLOBAL DelNode LOCAL
+  ->CLASS TrayIcon Delete
+;
+
+: MODIFY-TI ( a u hicon id -- )
+  >R
+  R@ ->CLASS TrayIcon ModifyIcon
+  R> ->CLASS TrayIcon ModifyText
+;
+
+: W2T-TITLE 256 PAD AppIconHwnd @ GetWindowTextA PAD SWAP ;
+
+:NONAME { time event msg hwnd -- }
+    0 SP@ event CELL+ @ GetWindowThreadProcessId NIP
+    IF
+        256 PAD event CELL+ @ GetWindowTextA PAD SWAP
+        event 2 CELLS + @ event @ MODIFY-TI
+    ELSE
+    \ delete tray icon
+        AppRest
+    THEN
+    WinNT? Win2k? 0= AND IF 0 THEN
+; WNDPROC: W2T-TIMER
+
+:NONAME ( buf -- )
+    >R R@ @ AppIconHwnd !
+    R@ CELL+ @ AppIconHandle ! \ AppIcon @ ->CLASS TrayIcon Create
+\    TrayIcon NEW AppIcon !
+    W2T-TITLE AppIconHandle @ ADD-TI AppIcon !
+    R> GLOBAL FREE LOCAL THROW
+
+    ['] AppRest AppIcon @ ->CLASS TrayIcon OnLB !
+    ['] AppRest AppIcon @ ->CLASS TrayIcon OnRB !
+
+    SW_MINIMIZE AppIconHwnd @ ShowWindow DROP
+    SW_HIDE AppIconHwnd @ ShowWindow DROP
+    AppIconHwnd @ TRAY-LIST AddNode
+\    AppIcon @ TRAY-ICON-LIST AddNode
+    3 CELLS ALLOCATE THROW >R
+    AppIcon @       R@ !
+    AppIconHwnd @   R@ CELL+ !
+    AppIconHandle @ R@ 2 CELLS + !
+
+    ['] W2T-TIMER W2T-DELAY R> AppIcon @ ->CLASS TrayIcon hWnd @ SetTimer DROP
+    MessageLoop
+    SW_SHOW AppIconHwnd @ ShowWindow DROP
+    SW_RESTORE AppIconHwnd @ ShowWindow DROP
+    AppIconHwnd @ PUSH-WINDOW DROP
+    100 PAUSE
+    AppIconHwnd @ TRAY-LIST DelNode
+\    AppIcon @ TRAY-ICON-LIST DelNode
+\    AppIcon @ ->CLASS TrayIcon Delete
+    AppIcon @ DEL-TI
+; TASK: win-to-tray-task
+
+: IN-TRAY? ( hwnd -- ? ) TRAY-LIST InList? 0<> ;
+
+: WIN-TO-TRAY ( a u -- )
+    [NONAME
+        WIN-HWND IN-TRAY? 0=
+        IF
+            WIN-HWND (WIN-ICON) ?DUP
+            IF
+                2 CELLS GLOBAL ALLOCATE LOCAL THROW >R
+                R@ CELL+ !
+                WIN-HWND R@ !
+                R> win-to-tray-task START CLOSE-FILE DROP
+            THEN
+        THEN
+    NONAME] WIN-PASS
+;
+
+C" BeforeStop" FIND NIP
+[IF]
+WARNING @ WARNING 0!
+:NONAME NodeValue >R 0 0 0x3B R> ->CLASS TrayIcon hWnd @ PostMessageA DROP ;
+\ restore all windows before nnCron stopping
+: BeforeStop
+    LITERAL
+    TRAY-ICON-LIST @
+    IF
+        TRAY-ICON-LIST DoList
+        500 PAUSE
+    ELSE DROP THEN
+    BeforeStop
+;
+WARNING !
+[THEN]
+
+C" eval-string," FIND NIP
+[IF]
+: WIN-TO-TRAY: eval-string, POSTPONE WIN-TO-TRAY ; IMMEDIATE
+
+[THEN]
+
+\ ======================= HOST STATE =============================
+\ Usage: HOST-STATE: "host-name" (in nncron.ini)
+
+
+VARIABLE on-icon
+VARIABLE off-icon
+VARIABLE HOST-LIST
+VARIABLE <HOST-TASK>
+0
+CELL -- .host-icon
+CELL -- .host-name
+CONSTANT /host-state
+\ USER host-icon
+\ USER host-name
+
+WINAPI: LoadIconA USER32.DLL
+
+VARIABLE HOST-STATE-DELAY 60 HOST-STATE-DELAY !
+
+VARIABLE HTI-RES
+: set-host-ti
+    NodeValue >R 
+    R@ .host-icon @ 
+    IF
+        R@ .host-name @ ASCIIZ> 2DUP 
+    \    ." set-host-ti: " 2DUP TYPE CR
+        3 ['] PING CATCH
+        ?DUP IF ." Ping error # " . CR DROP 2DROP FALSE THEN
+        IF on-icon @ ELSE off-icon @ THEN
+        R@ .host-icon @ MODIFY-TI
+    THEN
+    RDROP
+;
+
+: DEL-HOST-ICONS
+    HTI-RES GET
+    [NONAME
+       NodeValue .host-icon @ DEL-TI
+    NONAME] HOST-LIST DoList
+    HOST-LIST 0!
+   
+    HTI-RES RELEASE
+;
+
+
+: add-new-ti ( node -- )
+    NodeValue >R
+    R@ .host-icon @ 0=
+    IF
+       R@ .host-name @ ASCIIZ> off-icon @ ADD-TI
+       R@ .host-icon !
+    THEN
+    RDROP
+;
+
+:NONAME { dwTime idEvent uMsg hwnd -- }
+    HOST-LIST @ 
+    IF 
+      HTI-RES GET
+      ['] add-new-ti  HOST-LIST DoList
+      ['] set-host-ti HOST-LIST DoList
+      HTI-RES RELEASE
+    ELSE
+        0 PostQuitMessage DROP
+    THEN
+    0
+; WNDPROC: host-state-icons-test
+
+:NONAME ( 0 -- )
+    GetCurrentThreadId <HOST-TASK> !
+    BEGIN LOGGEDON? 0= WHILE 5000 PAUSE REPEAT
+    5000 PAUSE
+    
+    
+    ['] host-state-icons-test HOST-STATE-DELAY @ 1000 * 0 0 SetTimer >R
+    0 0 0 0 ['] host-state-icons-test API-CALL DROP
+    
+    MessageLoop
+    
+    R> 0 KillTimer DROP
+    
+    DEL-HOST-ICONS
+    <HOST-TASK> 0!
+; TASK: host-state-task
+
+
+: host-in-list? { a u -- ?)
+    HOST-LIST
+    BEGIN @ ?DUP WHILE
+        DUP NodeValue .host-name @ ASCIIZ>
+        a u ICOMPARE 0= IF DROP TRUE EXIT THEN
+    REPEAT
+    FALSE
+;
+
+: ADD-HOST { a u  -- }
+    HTI-RES GET
+    on-icon @ 0=
+    IF
+\      S" ico\on.ico" LoadIcon on-icon !
+\      S" ico\off.ico" LoadIcon off-icon !
+        S" iconon" DROP HINST LoadIconA ?DUP 0=
+        IF
+           ( 0x7F05) 0x7F00 ( IDI_WINLOGO) 0 LoadIconA
+        THEN
+        on-icon !
+        
+        S" iconoff" DROP HINST LoadIconA ?DUP 0=
+        IF       
+            0x7F01 ( IDI_ERROR) 0 LoadIconA
+        THEN
+        off-icon !
+    THEN
+    a u host-in-list? 0=
+    IF
+        GLOBAL
+        /host-state ALLOCATE THROW >R
+        a u S>ZALLOC R@ .host-name !
+        R@ .host-icon 0!
+        R> HOST-LIST AddNode
+        LOCAL
+        <HOST-TASK> @ 0= IF 0 host-state-task START CLOSE-FILE DROP <HOST-TASK> ON THEN
+    THEN
+    HTI-RES RELEASE
+;
+
+WARNING @ WARNING 0!
+: BeforeStop
+    DEL-HOST-ICONS
+    BeforeStop
+;
+WARNING !
+
+: HOST-STATE ( a u -- ) RUN-FILE 0= IF ADD-HOST ELSE 2DROP THEN ;
+
+: HOST-STATE: get-string EVAL-SUBST HOST-STATE ; IMMEDIATE

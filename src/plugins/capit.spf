@@ -1,0 +1,27 @@
+\ File:         Capit.spf
+\ Author:       Nicholas Nemtsev
+\ Description:  Capitalizes filenames by mask
+\ Date: 03.Jun.2003
+\ Usage: nncron.exe -runfile plugins\Capit.spf path\mask
+\ Example: start/wait nncron.exe -runfile plugins\Capit.spf release\res\*.txt
+
+WINAPI: CharLowerBuffA USER32.DLL
+WINAPI: CharLowerA USER32.DLL
+: LOWER-CHAR ( c1 -- c2 ) CharLowerA ;
+: LOWER ( a u --) SWAP CharLowerBuffA DROP ;
+
+CREATE buf 1024 ALLOT
+: main
+    get-string
+    FOR-FILES
+        IS-DIR? 0=
+        IF
+            FOUND-FULLPATH buf ZPLACE
+            buf ASCIIZ> FOUND-FILENAME NIP >R R@ - + R>
+            2DUP LOWER OVER DUP C@ UPPER-CHAR SWAP C!
+            2DROP 
+            buf ASCIIZ> 2DUP FRENAME
+            buf ASCIIZ> TYPE CR
+        THEN
+    ;FOR-FILES
+;

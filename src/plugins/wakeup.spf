@@ -1,0 +1,63 @@
+\ File:         wakeup.spf
+\ Author:       Nicholas Nemtsev
+\ Date:         11.10.2002
+\ Description:  Waking up from suspend or hibernate mode (if your hardware support it)
+\ Usage:   WakeAfter: hh:mm      (hh:mm - relative time)
+\          WakeAt: hh:mm         (hh:mm - absolute time)
+\ 2k/XP only
+
+Win2k?
+[IF]
+WINAPI: CreateWaitableTimerA KERNEL32.DLL
+WINAPI: SetWaitableTimer KERNEL32.DLL
+WINAPI: SleepEx KERNEL32.DLL
+
+: WaitableTimer ( -- h ior ) 0 0 0 CreateWaitableTimerA DUP ERR ;
+
+:NONAME { arg low hi -- }
+0
+; WNDPROC: APCWTimer
+
+: SetWTimer ( pd h -- ior )
+    >R
+    >R
+    TRUE 0 ['] APCWTimer 0
+    R> 
+    R> SetWaitableTimer ERR
+;
+
+: WakeAfter { ms \ ht -- }
+    WaitableTimer THROW TO ht
+    ms 10000 UM* DNEGATE SWAP SP@ ht SetWTimer THROW 2DROP
+    TRUE ms 10000 + SleepEx DROP
+    ht CloseHandle DROP
+;
+
+C" S>MS" FIND NIP 0=
+[IF]
+: S>MS ( a u -- u)
+    2DUP S" :" SEARCH NIP NIP
+    IF SH:M>Min 60000 * ELSE S>NUM THEN ;
+[THEN]
+
+:NONAME S>MS WakeAfter ;
+
+: WakeAfter: 
+    eval-string,
+    LITERAL COMPILE,
+; IMMEDIATE
+
+
+:NONAME ( a u -- )
+    SH:M>Min TimeMin@ -
+    DUP 0< IF 1440 + THEN
+    60000 *
+    WakeAfter
+;
+
+: WakeAt:
+    eval-string,
+    LITERAL COMPILE,
+; IMMEDIATE
+
+[THEN]

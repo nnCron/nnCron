@@ -1,0 +1,24 @@
+8 VALUE teaMinutes
+0 VALUE teaRest
+
+: main { \ id -- }
+    S" Чайник" S" ico\nncron16x16.ico" LoadIcon ADD-TI TO id
+    teaMinutes 0
+    DO 
+        I 2+ 1 DO 50 I * 5500 BEEP LOOP  
+        teaMinutes I - TO teaRest
+        S" Чайник. Осталось %teaRest% минут." EVAL-SUBST id ->CLASS TrayIcon ModifyText
+        PAUSE: 0:01 
+    LOOP
+
+    PLAY-SOUND: E:\home\apps\sounds\Speak\NUKEXPLO.WAV 
+    S" Чайник" S" Пора попить чайку." 16 30000 id ->CLASS TrayIcon Balloon
+
+    1000
+    2 0 DO  10 1 DO 10 11 I - * + 100 OVER BEEP LOOP
+            10 1 DO 10 I * - 100 OVER BEEP LOOP LOOP DROP
+
+    MSG: "Чайник, однако, пора с огня снимать"
+
+    id DEL-TI
+;

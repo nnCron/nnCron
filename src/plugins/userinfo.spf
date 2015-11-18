@@ -1,0 +1,25 @@
+  LPWSTR    usri2_name;
+  LPWSTR    usri2_password;
+  DWORD     usri2_password_age;
+  DWORD     usri2_priv;
+  LPWSTR    usri2_home_dir;
+  LPWSTR    usri2_comment;
+  DWORD     usri2_flags;
+  LPWSTR    usri2_script_path;
+  DWORD     usri2_auth_flags;
+  LPWSTR    usri2_full_name;
+  LPWSTR    usri2_usr_comment;
+  LPWSTR    usri2_parms;
+  LPWSTR    usri2_workstations;
+  DWORD     usri2_last_logon;
+  DWORD     usri2_last_logoff;
+  DWORD     usri2_acct_expires;
+  DWORD     usri2_max_storage;
+  DWORD     usri2_units_per_week;
+  PBYTE     usri2_logon_hours;
+  DWORD     usri2_bad_pw_count;
+  DWORD     usri2_num_logons;
+  LPWSTR    usri2_logon_server;
+  DWORD     usri2_country_code;
+  DWORD     usri2_code_page;
+

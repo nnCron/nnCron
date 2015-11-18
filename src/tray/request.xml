@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<request>
+    <sessionid>%SESSIONID @%</sessionid>
+    <action name="%3 esPICKS%" option="%1 esPICKS%" />
+</request>

@@ -1,0 +1,51 @@
+\ File:         net.spf
+\ Author:       Nicholas Nemtsev
+\ Date:         22.01.2002
+\ Description:  Useful network words
+
+\ For Win NT/2k/XP only
+
+\ %SESSIONSCOUNT%       - number of sessions
+\ %LOGGEDUSERCOUNT%     - number of logged on users
+\ %SESSIONSERVERS%      - list of servers separated by space
+\ %SESSIONSUSERS%       - list of users separated by space
+
+WINAPI: NetWkstaUserEnum NETAPI32.DLL
+WINAPI: NetSessionEnum NETAPI32.DLL
+WINAPI: NetApiBufferFree NETAPI32.DLL
+
+: SessionEnum { \ buf entriesread totalentries resume_handle -- adr cnt }
+    AT resume_handle AT totalentries AT entriesread
+    10240 AT buf 1 0 0 0 NetSessionEnum DROP 
+    buf entriesread ;
+
+: SESSIONSCOUNT 
+    SessionEnum 0 ROT ROT 
+    0 ?DO DUP I 6 CELLS * + CELL+ @ C@ IF SWAP 1+ SWAP THEN LOOP 
+    NetApiBufferFree DROP ;
+
+: LOGGEDUSERCOUNT { \ entriesread totalentries resumehandle -- count }
+    0 TO resumehandle
+    AT resumehandle  AT totalentries  AT entriesread 
+    16 PAD 0 0 NetWkstaUserEnum DROP
+    totalentries
+;
+
+: SessionsAll { offs -- a u }
+    PAD 0!
+    SessionEnum 
+    0 ?DO DUP I 6 CELLS * + offs + @ DUP C@
+          IF
+              BEGIN DUP C@ ?DUP WHILE 
+                SP@ 1 PAD +ZPLACE DROP 2+
+              REPEAT DROP
+              S"  "  PAD +ZPLACE
+          ELSE DROP THEN
+    LOOP
+    NetApiBufferFree DROP
+    PAD ASCIIZ>
+;
+
+: SESSIONSERVERS ( -- a u)  0 SessionsAll ;
+
+: SESSIONSUSERS ( -- a u)  1 CELLS SessionsAll ;

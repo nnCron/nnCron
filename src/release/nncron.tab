@@ -1,0 +1,28 @@
+#CRONTAB FILE 
+# Classic crontab format:
+# Minutes Hours Days Months WeekDays Years Command
+# see 'example.tab'
+
+#( 1st-hello
+\ This task will run once on first startup of NNCron 
+<( VARIABLE 1s-cnt )>
+RunOnce
+Rule:  1s-cnt 1+!   1s-cnt @ 1 > ; 
+: welcome-text S" Thank you for installing nnCron!%crlf%\
+Click nnCron icon in system tray to start using it immediately.%crlf%\
+Please consult program documentation for help how to%crlf%\
+configure and use nnCron - it's rather easy! :) Enjoy!%crlf%%crlf%\
+nnSoft Team" EVAL-SUBST ;
+Action:
+    Win2k?
+    IF
+        BALLOON: "Welcome!" "%welcome-text%"
+    ELSE
+        MSG: "%welcome-text%"
+    THEN
+)#
+
+#( purge-cron-log
+    Time: 0 12 * * 5 *
+    Action: PURGE-OLD: "log\*.log" 7
+)#

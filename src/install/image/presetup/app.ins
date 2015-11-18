@@ -1,0 +1,51 @@
+[CopyFiles]
+CopyAppFiles=%InstallPath%
+
+[CopyAppFiles]
+*.*=*.*
+
+[AddReg]
+AddAppReg0=HKLM\Software\nnSoft\nnCron
+ 
+[AddAppReg0]
+path=%InstallPath%
+
+[DelReg]
+DelAppReg0=HKLM\Software\NNemtsev\nnCron
+
+;[DelAppReg0]
+;path
+
+[Shortcuts]
+
+AddIcoAPP=%AppFolder%
+
+[AddIcoAPP]
+Start service=%InstallPath%\startnncron.bat,,%InstallPath%,,,,3
+Stop service=%InstallPath%\stopnncron.bat,,%InstallPath%,,,,3
+Readme=%InstallPath%\doc\readme.txt
+History=%InstallPath%\doc\history.txt
+Help=%InstallPath%\doc\help.chm
+
+[Shortcuts.RUS]
+AddIcoAPPRUS=%AppFolder%
+
+[AddIcoAPPRUS]
+Readme RUS=%InstallPath%\doc\readme.rus.txt
+
+[Shortcuts.DEU]
+AddIcoAPPDEU=%AppFolder%
+
+[AddIcoAPPDEU]
+Readme DE=%InstallPath%\doc\readme.de.txt
+
+[Shortcuts.ESP]
+AddIcoAPPESP=%AppFolder%
+
+[AddIcoAPPESP]
+Readme ES=%InstallPath%\doc\readme.es.txt
+
+
+
+[RunApp]
+InstalService=%InstallPath%\install_svc.bat,,%InstallPath%,3,"nnCron Service is starting...",1

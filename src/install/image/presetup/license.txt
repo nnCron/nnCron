@@ -1,0 +1,24 @@
+The nnCron. License for use and distribution.
+
+The nnCron program is distributed as try-before-you-buy. This means:
+
+All copyrights to nnCron are exclusively owned by the author - Nicholas Nemtsev.
+
+Anyone may use this software during a test period of 30 days. Following this test period of 30 days or less, if you wish to continue to use nnCron, you MUST register.
+
+Once registered, the user is granted a non-exclusive license to use nnCron on one computer (i.e. a single CPU), for any legal purpose, at a time.  The registered nnCron software may not be rented or leased, but may be permanently transferred, if the person receiving it agrees to terms of this license. If the software is an update, the transfer must include the update and all the previous versions. 
+
+The nnCron unregistered trial version, may be freely distributed, with exceptions noted below, provided the distribution package is not modified. No person or company may charge a fee for the distribution of nnCron without written permission from the copyright holder. The nnCron unregistered trial version may not be bundled or distributed with any other package without written permission of the copyright holder.
+
+nnCron PROGRAM IS DISTRIBUTED "AS IS". NO WARRANTY OF ANY KIND IS EXPRESSED OR IMPLIED. YOU USE THE PROGRAM AT YOUR OWN RISK. THE AUTHOR WILL NOT BE LIABLE FOR DATA LOSS, DAMAGES, LOSS OF PROFITS OR ANY OTHER KIND OF LOSS WHILE USING OR MISUSING THIS SOFTWARE.
+
+You may not use, copy, emulate, clone, rent, lease, sell, modify, decompile, disassemble, otherwise reverse engineer, or transfer the licensed program, or any subset of the licensed program, except as provided for in this agreement.  Any such unauthorized use shall result in immediate and automatic termination of this license and may result in criminal and/or civil prosecution.
+
+All rights not expressly granted here are reserved by Nicholas Nemtsev.
+
+Installing and using nnCron signifies acceptance of the terms and conditions of the license.
+
+If you do not agree with the terms of this license you must remove nnCron files from your storage devices and cease to use the product.
+
+Thank you for using nnCron.
+                                      Nicholas Nemtsev
