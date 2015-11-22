@@ -1,13 +1,14 @@
-# nnCron / [English](#nncron-en) / [Russian](#nncron-ru)
+# nnCron / [English](#nncron-en) / [Русский](#nncron-ru)
 
 [![Join the chat at https://gitter.im/nnCron/nnCron](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nnCron/nnCron?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-* [nnCron Plugins](https://github.com/nnCron/plugins)
-* [nnCron Official website](http://nncron.ru)
-* [nnCron Forums](http://www.nncron.ru/forums/) / [english](http://www.nncron.ru/forums/viewforum.php?f=2) / [russian](http://www.nncron.ru/forums/viewforum.php?f=5)
 * [Download nnCron 1.93b13 Build 1172](http://www.nncron.ru/download/nncron193b13.exe)
-* nnCron online manual: [english](http://www.nncron.ru/help/help.htm) / [russian](http://www.nncron.ru/help/help_ru.htm)
-* nnCron offline manual: [english](http://www.nncron.ru/download/help.zip) / [russian](http://www.nncron.ru/download/help_ru.zip)
+* [Plugins / Плагины](https://github.com/nnCron/plugins)
+* [Official website / Официальный сайт](http://nncron.ru)
+* [nnCron Forums](http://www.nncron.ru/forums/) / [English forum](http://www.nncron.ru/forums/viewforum.php?f=2) / [Русский форум](http://www.nncron.ru/forums/viewforum.php?f=5)
+* [Online Manual](http://www.nncron.ru/help/help.htm) / [Онлайн Руководство Пользователя](http://www.nncron.ru/help/help_ru.htm)
+* [Offline manual](http://www.nncron.ru/download/help.zip) / [Скачать Руководство Пользователя](http://www.nncron.ru/download/help_ru.zip)
+* [FAQ](https://github.com/nnCron/nnCron/wiki/FAQ) / [Часто Задаваемые Вопросы](https://github.com/nnCron/nnCron/wiki/Часто-Задаваемые-Вопросы)
 
 ---
 
