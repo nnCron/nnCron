@@ -81,6 +81,6 @@ nnCron бесплатен для граждан стран бывшего ССС
 
 ## Поддерживаемые ОС
 
-* Windows desktop: 2000, XP, Vista, 7, 8, 8.1, 10
-* Windows server: 2003, Home, 2008, 2012, 2012 R2
+* Windows desktop: 2000, XP, Vista, 7, 8, 8.1, 10, 11
+* Windows server: 2003, Home, 2008, 2012, 2012 R2, 2019
 
